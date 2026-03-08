@@ -73,7 +73,7 @@ export default function CoverLettersDashboard() {
           <button onClick={() => toast("Settings coming soon")} className="hover:text-white transition-colors cursor-pointer">Settings</button>
         </nav>
         <div className="flex items-center gap-4">
-          <Button variant="outline" className="hidden sm:flex border-neutral-800 hover:bg-neutral-800 text-white" onClick={() => toast("Pro features unlock soon!")}>Upgrade to Pro</Button>
+          <Button className="hidden sm:flex bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-md shadow-amber-500/20 border-0" onClick={() => toast("Pro features unlock soon!")}>⚡ Upgrade to Pro</Button>
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none rounded-full">
               <Avatar className="h-9 w-9 border border-neutral-700 hover:ring-2 ring-indigo-500 ring-offset-2 ring-offset-neutral-950 transition-all cursor-pointer">
