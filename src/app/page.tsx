@@ -41,15 +41,15 @@ function BuilderSlide() {
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <div className="w-48 border-r border-white/[0.05] bg-neutral-950/60 p-4 flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">AJ</div>
+      <div className="w-64 border-r border-white/[0.05] bg-neutral-950/60 p-6 flex flex-col gap-5">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">AJ</div>
           <div>
-            <div className="text-[11px] text-white font-semibold">Alex Johnson</div>
-            <div className="text-[9px] text-neutral-500">Senior Engineer</div>
+            <div className="text-sm text-white font-semibold">Alex Johnson</div>
+            <div className="text-[11px] text-neutral-500 mt-0.5">Senior Engineer</div>
           </div>
         </div>
-        <div className="space-y-0.5">
+        <div className="space-y-1 mt-2">
           {[
             { label: "Personal Info", icon: "👤" },
             { label: "Summary", icon: "📝" },
@@ -57,53 +57,53 @@ function BuilderSlide() {
             { label: "Education", icon: "🎓" },
             { label: "Skills", icon: "⚡" },
           ].map(({ label, icon, active }) => (
-            <div key={label} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[10px] font-medium ${active ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/20" : "text-neutral-600"}`}>
-              <span>{icon}</span>{label}
-              {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-400" />}
+            <div key={label} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium ${active ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/20" : "text-neutral-600"}`}>
+              <span className="text-sm">{icon}</span>{label}
+              {active && <div className="ml-auto w-2 h-2 rounded-full bg-indigo-400" />}
             </div>
           ))}
         </div>
-        <div className="mt-auto pt-3 border-t border-white/[0.05]">
-          <div className="flex items-center gap-1.5 px-1">
-            <div className="w-4 h-4 rounded bg-amber-500/20 flex items-center justify-center text-[8px]">⚡</div>
-            <span className="text-[9px] text-amber-400 font-medium">Upgrade to Pro</span>
+        <div className="mt-auto pt-4 border-t border-white/[0.05]">
+          <div className="flex items-center gap-2 px-2">
+            <div className="w-5 h-5 rounded bg-amber-500/20 flex items-center justify-center text-[10px]">⚡</div>
+            <span className="text-[11px] text-amber-400 font-semibold">Upgrade to Pro</span>
           </div>
         </div>
       </div>
 
       {/* Main area */}
-      <div className="flex-1 p-5 flex items-start gap-3 bg-neutral-950/20">
+      <div className="flex-1 p-8 flex items-start gap-6 bg-neutral-950/20">
         {/* Resume card */}
-        <div className="flex-1 bg-[#13131f] border border-white/10 rounded-xl overflow-hidden shadow-xl">
-          <div className="bg-gradient-to-r from-indigo-700/40 to-violet-700/30 border-b border-white/[0.06] px-4 py-3">
+        <div className="flex-1 bg-[#13131f] border border-white/10 rounded-2xl overflow-hidden shadow-2xl h-full">
+          <div className="bg-gradient-to-r from-indigo-700/40 to-violet-700/30 border-b border-white/[0.06] px-6 py-5">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-xs font-bold text-white">Alex Johnson</div>
-                <div className="text-[9px] text-indigo-300">Senior Software Engineer</div>
-                <div className="text-[8px] text-neutral-400 mt-0.5">alex@email.com · San Francisco, CA</div>
+                <div className="text-base font-bold text-white mb-1">Alex Johnson</div>
+                <div className="text-xs text-indigo-300 font-medium">Senior Software Engineer</div>
+                <div className="text-[10px] text-neutral-400 mt-1">alex@email.com · San Francisco, CA</div>
               </div>
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-400/20 flex items-center justify-center text-xs font-bold text-indigo-300">AJ</div>
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/20 flex items-center justify-center text-sm font-bold text-indigo-300">AJ</div>
             </div>
           </div>
-          <div className="px-4 py-3 space-y-2.5">
+          <div className="px-6 py-5 space-y-5">
             <div>
-              <div className="text-[8px] font-bold text-indigo-400 uppercase tracking-wider mb-1 flex items-center gap-1">
-                <div className="w-2 h-px bg-indigo-500" /> EXPERIENCE
+              <div className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <div className="w-3 h-px bg-indigo-500" /> EXPERIENCE
               </div>
-              <div className="text-[9px] font-semibold text-neutral-200">Lead Engineer · TechCorp</div>
-              <div className="text-[8px] text-neutral-500 mb-1">2021 – Present</div>
-              <div className="space-y-0.5">
-                <div className="text-[8px] text-neutral-400 flex gap-1"><span className="text-indigo-400">·</span> Led React migration, improved perf by 40%</div>
-                <div className="text-[8px] text-neutral-400 flex gap-1"><span className="text-indigo-400">·</span> Mentored 6 engineers, reduced bugs by 35%</div>
+              <div className="text-xs font-semibold text-neutral-200 mb-0.5">Lead Engineer · TechCorp</div>
+              <div className="text-[10px] text-neutral-500 mb-2.5">2021 – Present</div>
+              <div className="space-y-1.5">
+                <div className="text-[11px] text-neutral-400 flex gap-1.5 leading-relaxed"><span className="text-indigo-400">·</span> Led React migration across 4 major products, improving core performance by 40%</div>
+                <div className="text-[11px] text-neutral-400 flex gap-1.5 leading-relaxed"><span className="text-indigo-400">·</span> Mentored a team of 6 engineers, reducing production bugs by 35% through TDD</div>
               </div>
             </div>
-            <div className="border-t border-white/[0.04] pt-2">
-              <div className="text-[8px] font-bold text-indigo-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                <div className="w-2 h-px bg-indigo-500" /> SKILLS
+            <div className="border-t border-white/[0.04] pt-4">
+              <div className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <div className="w-3 h-px bg-indigo-500" /> SKILLS
               </div>
-              <div className="flex flex-wrap gap-1">
-                {["React", "TypeScript", "Node.js", "AWS", "Docker"].map(s => (
-                  <span key={s} className="text-[8px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">{s}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {["React", "TypeScript", "Node.js", "AWS", "Docker", "GraphQL", "Next.js"].map(s => (
+                  <span key={s} className="text-[10px] px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">{s}</span>
                 ))}
               </div>
             </div>
@@ -111,22 +111,22 @@ function BuilderSlide() {
         </div>
 
         {/* Side panel */}
-        <div className="w-[160px] flex flex-col gap-2.5">
-          <div className="bg-neutral-900 border border-white/[0.07] rounded-xl p-3">
-            <div className="flex items-center gap-1.5 mb-1.5">
-              <div className="w-4 h-4 rounded bg-violet-500/20 flex items-center justify-center"><Sparkles className="w-2.5 h-2.5 text-violet-400" /></div>
-              <span className="text-[9px] font-bold text-violet-300">AI Suggestion</span>
+        <div className="w-[240px] flex flex-col gap-4">
+          <div className="bg-neutral-900 border border-white/[0.07] rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded bg-violet-500/20 flex items-center justify-center"><Sparkles className="w-3.5 h-3.5 text-violet-400" /></div>
+              <span className="text-xs font-bold text-violet-300">AI Suggestion</span>
             </div>
-            <div className="text-[8px] text-neutral-400 leading-relaxed">Add a quantified result to your 2nd bullet to boost ATS score.</div>
-            <button className="mt-1.5 text-[8px] font-semibold text-violet-400">Apply fix →</button>
+            <div className="text-[11px] text-neutral-400 leading-relaxed">Add a quantified business outcome to your 2nd bullet to boost ATS match score by 5%.</div>
+            <button className="mt-3 text-[11px] font-semibold text-violet-400 hover:text-violet-300 transition-colors">Apply fix →</button>
           </div>
-          <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/30 border border-indigo-500/25 rounded-xl p-3">
-            <div className="text-[8px] text-neutral-400 mb-0.5">ATS Match Score</div>
-            <div className="text-xl font-black text-white">98<span className="text-xs text-indigo-400">%</span></div>
-            <div className="w-full h-1 rounded-full bg-neutral-800 overflow-hidden mt-1">
+          <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/30 border border-indigo-500/25 rounded-xl p-5">
+            <div className="text-[10px] font-medium text-indigo-200/70 mb-1 tracking-wide uppercase">ATS Match Score</div>
+            <div className="text-4xl font-black text-white mb-1">98<span className="text-lg text-indigo-400">%</span></div>
+            <div className="w-full h-1.5 rounded-full bg-neutral-800/80 overflow-hidden mt-3 shadow-inner">
               <div className="h-full w-[98%] bg-gradient-to-r from-indigo-500 to-emerald-400 rounded-full" />
             </div>
-            <div className="text-[8px] text-emerald-400 mt-1 font-medium">✓ Excellent match</div>
+            <div className="text-[10px] text-emerald-400 mt-2 font-semibold">✓ Excellent match</div>
           </div>
         </div>
       </div>
@@ -138,66 +138,72 @@ function AtsSlide() {
   return (
     <div className="flex h-full items-stretch">
       {/* Left: JD input */}
-      <div className="w-1/2 border-r border-white/[0.05] p-5 bg-neutral-950/40 flex flex-col gap-3">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-6 h-6 rounded-lg bg-violet-500/20 flex items-center justify-center"><Target className="w-3.5 h-3.5 text-violet-400" /></div>
-          <span className="text-xs font-bold text-white">Job Description</span>
-          <span className="ml-auto text-[9px] text-neutral-500 bg-neutral-800 px-2 py-0.5 rounded-full">Optional</span>
+      <div className="w-1/2 border-r border-white/[0.05] p-8 bg-neutral-950/40 flex flex-col gap-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-8 h-8 rounded-xl bg-violet-500/20 flex items-center justify-center border border-violet-500/30"><Target className="w-4 h-4 text-violet-400" /></div>
+          <span className="text-sm font-bold text-white tracking-wide">Job Description</span>
+          <span className="ml-auto text-[10px] font-medium text-neutral-500 bg-neutral-800 px-2.5 py-1 rounded-full border border-white/5">Optional</span>
         </div>
-        <div className="flex-1 rounded-xl border border-white/[0.07] bg-neutral-900/60 p-3 space-y-1.5">
-          {["We're looking for a Senior Frontend Engineer...", "Strong experience with React, TypeScript...", "3+ years of production experience...", "Experience with CI/CD pipelines, Docker...", "Excellent communication skills..."].map((line, i) => (
-            <div key={i} className="text-[8px] text-neutral-500 leading-relaxed">{line}</div>
+        <div className="flex-1 rounded-2xl border border-white/[0.05] bg-neutral-900/60 p-5 space-y-2.5 overflow-hidden">
+          {[
+            "We're looking for a Senior Frontend Engineer to lead UI architecture...",
+            "Strong experience building robust applications with React and TypeScript...",
+            "3+ years of production experience in high-traffic environments...",
+            "Experience with modern CI/CD pipelines, Docker containerization...",
+            "Excellent communication skills and mentoring experience required..."
+          ].map((line, i) => (
+            <div key={i} className="text-[11px] text-neutral-400 leading-relaxed font-mono">{line}</div>
           ))}
         </div>
-        <button className="self-start text-[9px] font-semibold text-violet-400 bg-violet-500/10 border border-violet-500/20 px-3 py-1.5 rounded-lg hover:bg-violet-500/20 transition-colors">
-          ⚡ Analyze Match →
+        <button className="self-start text-[11px] font-bold text-violet-300 bg-violet-500/15 border border-violet-500/30 px-5 py-2.5 rounded-xl hover:bg-violet-500/25 transition-colors shadow-lg shadow-violet-500/10">
+          ⚡ Analyze Match against Resume →
         </button>
       </div>
 
       {/* Right: Results */}
-      <div className="flex-1 p-5 flex flex-col gap-3">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-6 h-6 rounded-lg bg-emerald-500/20 flex items-center justify-center"><BarChart3 className="w-3.5 h-3.5 text-emerald-400" /></div>
-          <span className="text-xs font-bold text-white">Analysis Results</span>
+      <div className="flex-1 p-8 flex flex-col gap-6">
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30"><BarChart3 className="w-4 h-4 text-emerald-400" /></div>
+          <span className="text-sm font-bold text-white tracking-wide">Analysis Results</span>
         </div>
 
         {/* Score ring visual */}
-        <div className="flex items-center gap-4 p-3 bg-neutral-900/50 rounded-xl border border-white/[0.06]">
-          <div className="relative w-14 h-14 flex-shrink-0">
+        <div className="flex items-center gap-6 p-5 bg-neutral-900/50 rounded-2xl border border-white/[0.06] shadow-xl">
+          <div className="relative w-24 h-24 flex-shrink-0 drop-shadow-lg">
             <svg viewBox="0 0 40 40" className="w-full h-full -rotate-90">
-              <circle cx="20" cy="20" r="16" fill="none" stroke="#1f2937" strokeWidth="4" />
-              <circle cx="20" cy="20" r="16" fill="none" stroke="url(#scoreGrad)" strokeWidth="4" strokeLinecap="round"
+              <circle cx="20" cy="20" r="16" fill="none" stroke="#1f2937" strokeWidth="3" />
+              <circle cx="20" cy="20" r="16" fill="none" stroke="url(#scoreGradLg)" strokeWidth="3" strokeLinecap="round"
                 strokeDasharray={`${0.94 * 100.5} 100.5`} />
               <defs>
-                <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#6366f1" />
+                <linearGradient id="scoreGradLg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#8b5cf6" />
                   <stop offset="100%" stopColor="#10b981" />
                 </linearGradient>
               </defs>
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-black text-white">94%</span>
+            <div className="absolute inset-0 flex items-center justify-center flex-col">
+              <span className="text-2xl font-black text-white drop-shadow-md">94%</span>
             </div>
           </div>
           <div>
-            <div className="text-xs font-bold text-white mb-0.5">Strong Match</div>
-            <div className="text-[9px] text-neutral-400">Your resume matches 12 of 13 required keywords.</div>
+            <div className="text-base font-bold text-white mb-1">Strong Match</div>
+            <div className="text-xs text-neutral-400 leading-relaxed">Your resume incorporates 12 out of 13 critical keywords from the job description.</div>
           </div>
         </div>
 
         {/* Keyword breakdown */}
-        <div className="space-y-1.5">
+        <div className="space-y-2 mt-2">
           {[
             { kw: "React", hit: true }, { kw: "TypeScript", hit: true },
             { kw: "Docker", hit: true }, { kw: "Kubernetes", hit: false },
-            { kw: "CI/CD", hit: true },
+            { kw: "CI/CD", hit: true }, { kw: "Mentoring", hit: true },
           ].map(({ kw, hit }) => (
-            <div key={kw} className="flex items-center gap-2">
-              <div className={`w-3 h-3 rounded-full flex items-center justify-center text-[7px] ${hit ? "bg-emerald-500/20 text-emerald-400" : "bg-rose-500/20 text-rose-400"}`}>
+            <div key={kw} className="flex items-center gap-3 p-1">
+              <div className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] ${hit ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/20" : "bg-rose-500/20 text-rose-400 border border-rose-500/20"}`}>
                 {hit ? "✓" : "✗"}
               </div>
-              <span className={`text-[9px] font-medium ${hit ? "text-neutral-300" : "text-rose-400"}`}>{kw}</span>
-              {!hit && <span className="text-[8px] text-neutral-600 ml-auto">Missing — add to resume</span>}
+              <span className={`text-xs font-semibold ${hit ? "text-neutral-300" : "text-rose-400"}`}>{kw}</span>
+              {!hit && <span className="text-[10px] text-neutral-500 ml-auto border border-neutral-700/50 bg-neutral-800/50 px-2 py-0.5 rounded-md">Missing — add to resume</span>}
             </div>
           ))}
         </div>
@@ -210,44 +216,49 @@ function CoverLetterSlide() {
   return (
     <div className="flex h-full items-stretch">
       {/* Left: inputs */}
-      <div className="w-[200px] border-r border-white/[0.05] p-4 bg-neutral-950/40 flex flex-col gap-3">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="w-5 h-5 rounded bg-cyan-500/20 flex items-center justify-center"><Sparkles className="w-3 h-3 text-cyan-400" /></div>
-          <span className="text-[11px] font-bold text-white">Cover Letter AI</span>
+      <div className="w-[300px] border-r border-white/[0.05] p-8 bg-neutral-950/40 flex flex-col gap-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-8 h-8 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/30"><Sparkles className="w-4 h-4 text-cyan-400" /></div>
+          <span className="text-sm font-bold text-white tracking-wide">Cover Letter AI</span>
         </div>
-        <div className="space-y-2">
-          {[{ label: "Company", val: "Google" }, { label: "Role", val: "Sr. Frontend Eng." }, { label: "Tone", val: "Professional" }].map(({ label, val }) => (
+        <div className="space-y-4">
+          {[
+            { label: "Target Company", val: "Google" },
+            { label: "Job Role", val: "Senior Frontend Engineer" },
+            { label: "Tone of Voice", val: "Professional & Confident" }
+          ].map(({ label, val }) => (
             <div key={label}>
-              <div className="text-[8px] text-neutral-600 mb-0.5">{label}</div>
-              <div className="text-[9px] text-neutral-200 bg-neutral-900 border border-white/[0.07] rounded-lg px-2.5 py-1.5">{val}</div>
+              <div className="text-[11px] font-medium text-neutral-500 mb-1.5 uppercase tracking-wider">{label}</div>
+              <div className="text-xs text-neutral-200 bg-neutral-900 border border-white/[0.08] rounded-xl px-4 py-3 shadow-inner">{val}</div>
             </div>
           ))}
         </div>
-        <button className="mt-auto text-[9px] font-bold text-white bg-gradient-to-r from-cyan-600 to-indigo-600 px-3 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-          <Sparkles className="w-3 h-3" /> Generate
+        <button className="mt-auto text-sm font-bold text-white bg-gradient-to-r from-cyan-600 to-indigo-600 px-5 py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4" /> Generate Letter
         </button>
-        <div className="text-[8px] text-neutral-600 text-center">Generated in ~5 seconds</div>
+        <div className="text-[10px] text-neutral-500 text-center font-medium">Generation takes ~5 seconds</div>
       </div>
 
       {/* Right: generated letter */}
-      <div className="flex-1 p-4 bg-neutral-950/20">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[9px] text-emerald-400 font-semibold">Generated</span>
+      <div className="flex-1 p-8 bg-neutral-950/20">
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-2.5 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+            <span className="text-[11px] text-emerald-400 font-bold uppercase tracking-wider">Generated Successfully</span>
           </div>
-          <div className="flex gap-1.5">
-            <button className="text-[8px] text-neutral-500 bg-neutral-800 px-2 py-1 rounded-md hover:bg-neutral-700">Copy</button>
-            <button className="text-[8px] text-white bg-indigo-600 px-2 py-1 rounded-md hover:bg-indigo-500">Download</button>
+          <div className="flex gap-2">
+            <button className="text-xs font-semibold text-neutral-400 bg-neutral-800 border border-neutral-700 px-4 py-2 rounded-lg hover:bg-neutral-700 hover:text-white transition-colors">Copy to Clipboard</button>
+            <button className="text-xs font-semibold text-white bg-indigo-600 border border-indigo-500 px-4 py-2 rounded-lg hover:bg-indigo-500 transition-colors shadow-md">Download PDF</button>
           </div>
         </div>
-        <div className="bg-[#13131f] border border-white/[0.07] rounded-xl p-4 h-[calc(100%-36px)] overflow-hidden">
-          <div className="text-[8px] text-neutral-300 leading-[1.7] space-y-2">
-            <p className="text-neutral-400">March 8, 2025</p>
-            <p className="font-semibold text-neutral-200">Dear Google Hiring Team,</p>
-            <p>I am excited to apply for the <span className="text-cyan-400 font-medium">Senior Frontend Engineer</span> role at Google. With over 6 years of experience building high-performance web applications using <span className="text-indigo-400">React</span> and <span className="text-indigo-400">TypeScript</span>, I am confident I can contribute meaningfully to your team.</p>
-            <p>At TechCorp, I led a full React migration that improved page load performance by <span className="text-emerald-400 font-semibold">40%</span> and mentored a team of 6 engineers, reducing bug count by 35%...</p>
-            <p className="text-neutral-500">Sincerely,<br />Alex Johnson</p>
+        <div className="bg-[#13131f] border border-white/[0.08] rounded-2xl p-8 h-[calc(100%-48px)] overflow-hidden shadow-2xl">
+          <div className="text-[13px] text-neutral-300 leading-[1.8] space-y-4">
+            <p className="text-neutral-500 font-mono text-[11px]">March 8, 2025</p>
+            <p className="font-bold text-white text-sm">Dear Google Hiring Team,</p>
+            <p>I am absolutely thrilled to submit my application for the <span className="text-cyan-400 font-semibold bg-cyan-400/10 px-1 rounded">Senior Frontend Engineer</span> position at Google. Having spent over 6 years crafting robust, scalable web architectures utilizing <span className="text-indigo-400 font-semibold">React</span> and <span className="text-indigo-400 font-semibold">TypeScript</span>, I am confident in my technical capability to drive exceptional user experiences within your ecosystem.</p>
+            <p>During my tenure at TechCorp, I spearheaded a comprehensive React migration strategy that resulted in a <span className="text-emerald-400 font-bold text-sm bg-emerald-400/10 px-1 rounded">40%</span> improvement in core web vital metrics. Additionally, I took immense pride in mentoring a cross-functional team of 6 engineers, successfully reducing our production bug rate by 35% through the implementation of rigorous TDD practices.</p>
+            <p>Google's commitment to pushing the boundaries of what is possible on the web deeply aligns with my passion for frontend innovation. I would welcome the opportunity to discuss how my background, skills, and drive can contribute to the continued excellence of your engineering team.</p>
+            <p className="text-neutral-500 pt-4">Sincerely,<br /><span className="text-white font-medium">Alex Johnson</span></p>
           </div>
         </div>
       </div>
@@ -659,7 +670,7 @@ export default function Home() {
 
         {/* Window frame */}
         <div className="relative rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur overflow-hidden shadow-2xl"
-          style={{ minHeight: 400 }}>
+          style={{ minHeight: 520 }}>
           {/* Window chrome */}
           <div className="flex items-center gap-1.5 px-5 py-3 border-b border-white/[0.05]">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
@@ -680,7 +691,7 @@ export default function Home() {
           {/* Slide content */}
           <div
             className="transition-all duration-300 ease-in-out"
-            style={{ height: 380, opacity: animating ? 0 : 1, transform: animating ? "translateY(6px)" : "translateY(0)" }}
+            style={{ height: 500, opacity: animating ? 0 : 1, transform: animating ? "translateY(6px)" : "translateY(0)" }}
           >
             <SlideScreen />
           </div>
