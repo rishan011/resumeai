@@ -153,23 +153,173 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Templates Section (Mock) */}
+      {/* Templates Section */}
       <section id="templates" className="container mx-auto px-6 py-20 border-t border-neutral-800">
          <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Stunning Templates</h2>
             <p className="text-neutral-400">Choose from professional layouts designed to pass ATS systems.</p>
          </div>
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-            <div className="aspect-[1/1.414] bg-neutral-900 rounded-xl border border-neutral-800 shadow-xl overflow-hidden pointer-events-none" />
-            <div className="aspect-[1/1.414] bg-neutral-900 rounded-xl border border-neutral-800 shadow-xl overflow-hidden pointer-events-none transform -translate-y-4" />
-            <div className="aspect-[1/1.414] bg-neutral-900 rounded-xl border border-neutral-800 shadow-xl overflow-hidden pointer-events-none" />
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            {/* Template 1 — Modern */}
+            <Link href="/dashboard" className="group block">
+              <div className="aspect-[1/1.414] rounded-xl border border-neutral-800 shadow-xl overflow-hidden relative transition-all duration-300 group-hover:border-indigo-500/60 group-hover:shadow-indigo-500/10 group-hover:shadow-2xl group-hover:-translate-y-1">
+                <div className="absolute inset-0 bg-white">
+                  {/* Header bar */}
+                  <div className="bg-indigo-600 px-4 pt-5 pb-4">
+                    <div className="text-white font-bold text-[10px]">ALEX JOHNSON</div>
+                    <div className="text-indigo-200 text-[7px] mt-0.5">Senior Software Engineer</div>
+                    <div className="flex gap-2 mt-1.5">
+                      <div className="text-indigo-200 text-[6px]">alex@email.com</div>
+                      <div className="text-indigo-200 text-[6px]">·</div>
+                      <div className="text-indigo-200 text-[6px]">San Francisco, CA</div>
+                    </div>
+                  </div>
+                  <div className="px-4 py-3 space-y-3">
+                    <div>
+                      <div className="text-indigo-600 text-[7px] font-bold uppercase tracking-wider border-b border-indigo-100 pb-0.5 mb-1.5">Experience</div>
+                      <div className="text-[7px] font-semibold text-neutral-800">Lead Frontend Engineer · TechCorp</div>
+                      <div className="text-[6px] text-neutral-400 mb-1">2021 – Present</div>
+                      <div className="space-y-0.5">
+                        <div className="flex gap-1 text-[6px] text-neutral-600"><span>·</span><span>Led React migration improving perf by 40%</span></div>
+                        <div className="flex gap-1 text-[6px] text-neutral-600"><span>·</span><span>Mentored team of 6 engineers</span></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-indigo-600 text-[7px] font-bold uppercase tracking-wider border-b border-indigo-100 pb-0.5 mb-1.5">Skills</div>
+                      <div className="flex flex-wrap gap-1">
+                        {["React","TypeScript","Node.js","AWS","Docker"].map(s => (
+                          <span key={s} className="px-1 py-0.5 bg-indigo-50 text-indigo-700 rounded text-[6px] font-medium">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-indigo-600 text-[7px] font-bold uppercase tracking-wider border-b border-indigo-100 pb-0.5 mb-1.5">Education</div>
+                      <div className="text-[7px] font-semibold text-neutral-800">B.S. Computer Science · Stanford</div>
+                      <div className="text-[6px] text-neutral-400">2015 – 2019</div>
+                    </div>
+                  </div>
+                </div>
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-indigo-600/0 group-hover:bg-indigo-600/5 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                  <span className="bg-indigo-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg">Use This Template →</span>
+                </div>
+              </div>
+              <div className="mt-3 text-center">
+                <div className="font-semibold text-white text-sm">Modern</div>
+                <div className="text-neutral-500 text-xs">Bold header · Color accents</div>
+              </div>
+            </Link>
+
+            {/* Template 2 — Classic (elevated) */}
+            <Link href="/dashboard" className="group block transform -translate-y-4">
+              <div className="aspect-[1/1.414] rounded-xl border border-amber-500/30 shadow-xl shadow-amber-500/5 overflow-hidden relative transition-all duration-300 group-hover:border-amber-500/60 group-hover:shadow-amber-500/10 group-hover:shadow-2xl group-hover:-translate-y-1">
+                <div className="absolute inset-0 bg-white">
+                  <div className="px-5 pt-5 pb-3 border-b-2 border-neutral-800">
+                    <div className="font-bold text-[11px] text-neutral-900 tracking-widest uppercase">Sarah Mitchell</div>
+                    <div className="text-neutral-500 text-[7px] mt-0.5">Product Manager · MBA</div>
+                    <div className="flex gap-3 mt-1.5">
+                      <div className="text-neutral-400 text-[6px]">sarah@email.com</div>
+                      <div className="text-neutral-400 text-[6px]">New York, NY</div>
+                    </div>
+                  </div>
+                  <div className="px-5 py-3 space-y-3">
+                    <div>
+                      <div className="text-[7px] font-bold uppercase tracking-widest text-neutral-800 mb-1.5">Professional Summary</div>
+                      <div className="text-[6px] text-neutral-600 leading-relaxed">Results-driven PM with 8+ years driving product growth at Fortune 500 companies. Proven track record of 30%+ revenue increases.</div>
+                    </div>
+                    <div>
+                      <div className="text-[7px] font-bold uppercase tracking-widest text-neutral-800 border-t border-neutral-200 pt-2 mb-1.5">Experience</div>
+                      <div className="text-[7px] font-semibold text-neutral-800">Senior Product Manager · Google</div>
+                      <div className="text-[6px] text-neutral-400 mb-1">2020 – Present</div>
+                      <div className="space-y-0.5">
+                        <div className="flex gap-1 text-[6px] text-neutral-600"><span>▪</span><span>Launched 3 products reaching 10M+ users</span></div>
+                        <div className="flex gap-1 text-[6px] text-neutral-600"><span>▪</span><span>Increased retention by 25% through A/B testing</span></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[7px] font-bold uppercase tracking-widest text-neutral-800 border-t border-neutral-200 pt-2 mb-1">Skills</div>
+                      <div className="text-[6px] text-neutral-600">Roadmapping · Agile · SQL · Figma · Stakeholder Management</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-amber-500/0 group-hover:bg-amber-500/5 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                  <span className="bg-neutral-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg">Use This Template →</span>
+                </div>
+              </div>
+              <div className="mt-3 text-center">
+                <div className="font-semibold text-white text-sm flex items-center justify-center gap-1.5">Classic <span className="bg-amber-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">POPULAR</span></div>
+                <div className="text-neutral-500 text-xs">Traditional · Clean layout</div>
+              </div>
+            </Link>
+
+            {/* Template 3 — Minimal */}
+            <Link href="/dashboard" className="group block">
+              <div className="aspect-[1/1.414] rounded-xl border border-neutral-800 shadow-xl overflow-hidden relative transition-all duration-300 group-hover:border-emerald-500/60 group-hover:shadow-emerald-500/10 group-hover:shadow-2xl group-hover:-translate-y-1">
+                <div className="absolute inset-0 bg-white">
+                  <div className="flex h-full">
+                    {/* Left sidebar */}
+                    <div className="w-[38%] bg-neutral-900 px-3 pt-5 pb-3 flex flex-col gap-3">
+                      <div>
+                        <div className="w-8 h-8 rounded-full bg-emerald-500 mb-2 flex items-center justify-center text-white font-bold text-[9px]">JL</div>
+                        <div className="text-white font-bold text-[8px]">James Liu</div>
+                        <div className="text-emerald-400 text-[6px]">UX Designer</div>
+                      </div>
+                      <div>
+                        <div className="text-emerald-400 text-[7px] font-bold uppercase mb-1">Contact</div>
+                        <div className="text-neutral-300 text-[6px]">james@email.com</div>
+                        <div className="text-neutral-300 text-[6px]">Seattle, WA</div>
+                      </div>
+                      <div>
+                        <div className="text-emerald-400 text-[7px] font-bold uppercase mb-1">Skills</div>
+                        <div className="space-y-0.5">
+                          {["Figma","Prototyping","User Research","CSS / HTML"].map(s => (
+                            <div key={s} className="text-neutral-300 text-[6px] flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-emerald-500 flex-shrink-0" />{s}</div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    {/* Right content */}
+                    <div className="flex-1 px-3 pt-5 pb-3 space-y-3">
+                      <div>
+                        <div className="text-emerald-600 text-[7px] font-bold uppercase tracking-wider mb-1">Summary</div>
+                        <div className="text-[6px] text-neutral-600 leading-relaxed">Award-winning UX Designer with 6 years creating intuitive digital experiences for 50M+ users.</div>
+                      </div>
+                      <div>
+                        <div className="text-emerald-600 text-[7px] font-bold uppercase tracking-wider mb-1.5">Experience</div>
+                        <div className="text-[7px] font-semibold text-neutral-800">Sr. UX Designer · Spotify</div>
+                        <div className="text-[6px] text-neutral-400 mb-1">2022 – Present</div>
+                        <div className="space-y-0.5">
+                          <div className="flex gap-1 text-[6px] text-neutral-600"><span>·</span><span>Redesigned onboarding, +22% conversions</span></div>
+                          <div className="flex gap-1 text-[6px] text-neutral-600"><span>·</span><span>Led design system used by 40 engineers</span></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-emerald-600 text-[7px] font-bold uppercase tracking-wider mb-1">Education</div>
+                        <div className="text-[7px] font-semibold text-neutral-800">BFA Interaction Design</div>
+                        <div className="text-[6px] text-neutral-400">Carnegie Mellon · 2018</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 transition-colors flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100">
+                  <span className="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg">Use This Template →</span>
+                </div>
+              </div>
+              <div className="mt-3 text-center">
+                <div className="font-semibold text-white text-sm">Minimal</div>
+                <div className="text-neutral-500 text-xs">Two-column · Sidebar layout</div>
+              </div>
+            </Link>
+
          </div>
          <div className="mt-12 text-center">
             <Link href="/dashboard">
-              <Button variant="outline" className="border-neutral-700 text-white hover:bg-neutral-800">Explore All Templates</Button>
+              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8">Start Building Your Resume →</Button>
             </Link>
          </div>
       </section>
+
 
       {/* Pricing Section (Mock) */}
       <section id="pricing" className="container mx-auto px-6 py-20 border-t border-neutral-800 mb-20">
