@@ -1,325 +1,350 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowRight, CheckCircle } from "lucide-react";
+import { Sparkles, ArrowRight, CheckCircle, Zap, FileText, Target, BarChart3, Shield, Palette } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-50 overflow-hidden font-sans">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-neutral-900 via-neutral-950 to-neutral-950 -z-10" />
-      
-      {/* Navigation */}
-      <nav className="container mx-auto px-6 py-6 flex items-center justify-between z-10 relative">
-        <div className="flex items-center gap-2 text-xl font-bold tracking-tighter">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-[#09090b] text-neutral-50 font-sans antialiased">
+
+      {/* === AMBIENT BACKGROUND === */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-violet-600/8 rounded-full blur-[100px]" />
+      </div>
+
+      {/* === NAV === */}
+      <nav className="sticky top-0 z-50 border-b border-white/5 bg-[#09090b]/80 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 font-bold text-lg">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+              <Sparkles className="w-4 h-4 text-white" />
+            </div>
+            Resume<span className="text-indigo-400">AI</span>
           </div>
-          Resume<span className="text-indigo-400">AI</span>
-        </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#templates" className="hover:text-white transition-colors">Templates</a>
-          <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link href="/login">
-            <Button variant="ghost" className="hidden md:flex hover:bg-white/10 hover:text-white">Log in</Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button className="bg-indigo-600 text-white hover:bg-indigo-700">Get Started</Button>
-          </Link>
+          <div className="hidden md:flex items-center gap-8 text-sm text-neutral-400">
+            <a href="#features" className="hover:text-white transition-colors">Features</a>
+            <a href="#templates" className="hover:text-white transition-colors">Templates</a>
+            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link href="/login">
+              <Button variant="ghost" size="sm" className="text-neutral-400 hover:text-white hover:bg-white/5">Sign in</Button>
+            </Link>
+            <Link href="/dashboard">
+              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4">Get Started</Button>
+            </Link>
+          </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <main className="container mx-auto px-6 pt-32 pb-20 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-sm font-medium mb-8 border border-indigo-500/20">
-              <Sparkles className="w-4 h-4" />
-              <span>AI-Powered Generation 2.0</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-              Bypass the ATS. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                Land the interview.
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-neutral-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Create a professional, modern resume in minutes. Let our AI optimize your bullet points, craft your summary, and match your profile to job descriptions effortlessly.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/dashboard">
-                <Button size="lg" className="w-full sm:w-auto h-14 px-8 bg-indigo-600 hover:bg-indigo-700 text-lg rounded-xl shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)]">
-                  Build Your Resume <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href="#templates">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 border-neutral-700 hover:bg-neutral-800 hover:text-white text-lg rounded-xl text-neutral-300">
-                  View Templates
-                </Button>
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Social Proof */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="mt-20 pt-10 border-t border-neutral-800 flex flex-wrap justify-center gap-12 opacity-60"
-          >
-            {['No Credit Card Required', 'ATS Optimized', 'Export to PDF/DOCX', 'AI-Powered Rewrite'].map(text => (
-              <div key={text} className="flex items-center gap-2 text-sm font-medium">
-                <CheckCircle className="w-4 h-4 text-emerald-500" />
-                {text}
-              </div>
-            ))}
-          </motion.div>
+      {/* === HERO === */}
+      <section className="max-w-6xl mx-auto px-6 pt-28 pb-24 text-center">
+        <div className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full mb-8">
+          <Zap className="w-3 h-3" /> AI-Powered · ATS-Optimized · Free to Start
         </div>
-      </main>
+        <h1 className="text-5xl md:text-[72px] font-black tracking-tight leading-[1.05] mb-6">
+          Your resume,<br />
+          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+            perfected by AI.
+          </span>
+        </h1>
+        <p className="text-lg text-neutral-500 max-w-xl mx-auto mb-10 leading-relaxed">
+          Build ATS-beating resumes in minutes. AI writes your bullets, scores your match, and crafts your cover letter — automatically.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link href="/dashboard">
+            <Button size="lg" className="h-12 px-8 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 text-base">
+              Build My Resume <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
+          <a href="#templates">
+            <Button size="lg" variant="outline" className="h-12 px-8 border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-white rounded-xl text-base">
+              See Templates
+            </Button>
+          </a>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-xs text-neutral-600">
+          {['No credit card', 'PDF export', 'ATS optimized', 'AI-powered'].map(t => (
+            <span key={t} className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-500" />{t}</span>
+          ))}
+        </div>
+      </section>
 
-      {/* Feature Visual Preview */}
-      <section id="features" className="container mx-auto px-6 pb-32">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          className="relative max-w-5xl mx-auto rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-xl aspect-video overflow-hidden shadow-2xl hidden md:block"
-        >
-          <div className="absolute inset-0 flex">
-            <div className="w-64 border-r border-neutral-800 bg-neutral-900/80 p-6 flex flex-col gap-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-neutral-800" />
-                <div className="space-y-2">
-                  <div className="h-3 w-20 bg-neutral-700 rounded" />
-                  <div className="h-2 w-12 bg-neutral-800 rounded" />
+      {/* === APP PREVIEW === */}
+      <section id="features" className="max-w-6xl mx-auto px-6 pb-28">
+        <div className="relative rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur overflow-hidden shadow-2xl">
+          {/* Window chrome */}
+          <div className="flex items-center gap-1.5 px-5 py-3.5 border-b border-white/[0.06]">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+            <div className="w-2.5 h-2.5 rounded-full bg-amber-400/70" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+            <div className="ml-4 h-5 w-48 bg-neutral-800 rounded-md" />
+          </div>
+          <div className="flex min-h-[420px]">
+            {/* Sidebar */}
+            <div className="w-52 border-r border-white/[0.05] bg-neutral-950/50 p-5 flex flex-col gap-5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600" />
+                <div className="flex flex-col gap-1">
+                  <div className="h-2 w-20 bg-neutral-700 rounded" />
+                  <div className="h-1.5 w-14 bg-neutral-800 rounded" />
                 </div>
               </div>
-              <div className="space-y-4">
-                {[1,2,3,4,5].map(i => (
-                  <div key={i} className="flex items-center gap-3 opacity-60">
-                    <div className="w-4 h-4 rounded bg-neutral-700" />
-                    <div className="h-2 flex-1 bg-neutral-800 rounded" />
+              <div className="space-y-1">
+                {['Personal Info', 'Summary', 'Experience', 'Education', 'Skills'].map((item, i) => (
+                  <div key={item} className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs ${i === 2 ? 'bg-indigo-600/20 text-indigo-400' : 'text-neutral-600'}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${i === 2 ? 'bg-indigo-400' : 'bg-neutral-700'}`} />
+                    {item}
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex-1 p-8 bg-neutral-950/50 relative overflow-hidden flex items-center justify-center">
-              <div className="w-full max-w-md bg-white rounded-lg shadow-2xl p-8 rotate-[-2deg] transform transition-transform hover:rotate-0 duration-500 border border-neutral-200">
-                <div className="h-6 bg-neutral-300 rounded w-1/3 mb-4" />
-                <div className="h-3 bg-neutral-200 rounded w-1/4 mb-10" />
-                <div className="space-y-4 mb-8">
-                  <div className="h-2 bg-neutral-200 rounded w-full" />
-                  <div className="h-2 bg-neutral-200 rounded w-full" />
-                  <div className="h-2 bg-neutral-200 rounded w-4/5" />
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="h-4 bg-neutral-300 rounded w-1/4" />
-                    <div className="h-3 bg-neutral-200 rounded w-16" />
+            {/* Main */}
+            <div className="flex-1 p-8 flex items-center justify-center relative bg-neutral-950/20">
+              {/* Resume card */}
+              <div className="w-[340px] bg-gradient-to-b from-neutral-800/80 to-neutral-900/80 border border-white/[0.08] rounded-xl p-7 shadow-2xl">
+                <div className="flex items-start justify-between mb-5">
+                  <div>
+                    <div className="h-3 w-32 bg-neutral-300/30 rounded mb-2" />
+                    <div className="h-2 w-24 bg-indigo-400/40 rounded" />
                   </div>
-                  <div className="h-2 bg-neutral-200 rounded w-full" />
-                  <div className="h-2 bg-neutral-200 rounded w-full" />
-                  <div className="h-2 bg-neutral-200 rounded w-3/4" />
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/20" />
+                </div>
+                <div className="space-y-1.5 mb-5">
+                  <div className="h-1.5 w-full bg-neutral-700/60 rounded" />
+                  <div className="h-1.5 w-5/6 bg-neutral-700/60 rounded" />
+                  <div className="h-1.5 w-4/5 bg-neutral-700/60 rounded" />
+                </div>
+                <div className="border-t border-white/[0.06] pt-4 mb-3">
+                  <div className="h-2 w-20 bg-indigo-400/30 rounded mb-2" />
+                  <div className="h-1.5 w-28 bg-neutral-600/60 rounded mb-1" />
+                  <div className="space-y-1">
+                    <div className="h-1.5 w-full bg-neutral-700/50 rounded" />
+                    <div className="h-1.5 w-full bg-neutral-700/50 rounded" />
+                    <div className="h-1.5 w-3/4 bg-neutral-700/50 rounded" />
+                  </div>
+                </div>
+                <div className="flex gap-1.5">
+                  {['React', 'TypeScript', 'Node.js'].map(s => (
+                    <span key={s} className="text-[10px] px-2 py-0.5 bg-indigo-500/15 text-indigo-400 border border-indigo-500/20 rounded-full">{s}</span>
+                  ))}
                 </div>
               </div>
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="absolute bottom-12 right-12 bg-indigo-600 text-white rounded-xl p-4 shadow-2xl flex items-center gap-3 backdrop-blur-md border border-indigo-500/50"
-              >
-                <Sparkles className="w-5 h-5 text-indigo-200" />
-                <div>
-                  <div className="text-sm font-bold tracking-wide">Optimized for &quot;Frontend Eng&quot;</div>
-                  <div className="text-xs text-indigo-200 mt-0.5">ATS Score increased to 98%</div>
+              {/* Floating ATS badge */}
+              <div className="absolute bottom-8 right-8 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl px-4 py-3 shadow-xl flex items-center gap-3 border border-indigo-500/30">
+                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <BarChart3 className="w-4 h-4" />
                 </div>
-              </motion.div>
+                <div>
+                  <div className="text-xs font-bold">ATS Score: 98%</div>
+                  <div className="text-[10px] text-indigo-200">Optimized for role</div>
+                </div>
+              </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Templates Section — Dark & Premium */}
-      <section id="templates" className="container mx-auto px-6 py-24 border-t border-neutral-800">
-        <div className="text-center mb-16">
-          <p className="text-indigo-400 text-sm font-semibold uppercase tracking-widest mb-3">Templates</p>
-          <h2 className="text-4xl font-bold mb-4">Pick your style.</h2>
-          <p className="text-neutral-500 max-w-md mx-auto">Every template is ATS-optimized and fully customizable — colors, fonts, and sections.</p>
+      {/* === FEATURES GRID === */}
+      <section className="max-w-6xl mx-auto px-6 pb-28">
+        <div className="text-center mb-14">
+          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">What you get</p>
+          <h2 className="text-3xl font-bold">Everything to land the job.</h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-
-          {/* Modern */}
-          <Link href="/dashboard" className="group block">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 group-hover:border-indigo-500/50 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-indigo-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-900 to-indigo-950/40" />
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 p-6 flex flex-col gap-3">
-                <div className="h-1.5 w-24 bg-indigo-500/60 rounded-full" />
-                <div className="h-1 w-16 bg-neutral-600 rounded-full" />
-                <div className="mt-2 h-px bg-neutral-800 w-full" />
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-5/6 bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-4/6 bg-neutral-800 rounded-full" />
-                </div>
-                <div className="mt-2 h-px bg-neutral-800 w-full" />
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="h-1 w-20 bg-indigo-500/40 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-3/4 bg-neutral-800 rounded-full" />
-                </div>
-                <div className="mt-2 flex gap-2">
-                  {[40, 32, 44, 36].map((w, i) => <div key={i} className="h-4 rounded bg-indigo-500/20" style={{width: w}} />)}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { icon: Zap, color: 'indigo', title: 'AI Bullet Writer', desc: 'Paste a rough idea, get polished, measurable achievement bullets instantly.' },
+            { icon: Target, color: 'violet', title: 'ATS Score Checker', desc: 'Upload any job description and see how well your resume matches — before you apply.' },
+            { icon: FileText, color: 'cyan', title: 'Cover Letter AI', desc: 'Generate personalized, job-specific cover letters in under 30 seconds.' },
+            { icon: Palette, color: 'rose', title: 'Theme Customizer', desc: 'Choose from 8 accent colors, 6 font styles, and drag-and-drop section reordering.' },
+            { icon: Shield, color: 'emerald', title: 'PDF Export', desc: 'Pixel-perfect PDF export that looks professional in every ATS and email client.' },
+            { icon: BarChart3, color: 'amber', title: 'Resume Analytics', desc: 'See match scores against multiple job descriptions and improve your hit rate.' },
+          ].map(({ icon: Icon, color, title, desc }) => (
+            <div key={title} className="group p-6 rounded-2xl border border-white/[0.05] bg-neutral-900/40 hover:bg-neutral-900/70 hover:border-white/10 transition-all duration-200">
+              <div className={`w-10 h-10 rounded-xl bg-${color}-500/10 border border-${color}-500/20 flex items-center justify-center mb-4`}>
+                <Icon className={`w-5 h-5 text-${color}-400`} />
               </div>
-              <div className="absolute inset-0 bg-indigo-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="bg-indigo-600 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg">Use Template →</span>
-              </div>
+              <h3 className="font-semibold text-white mb-2">{title}</h3>
+              <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
             </div>
-            <div className="mt-4 px-1">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-white">Modern</span>
-                <span className="text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">Popular</span>
-              </div>
-              <p className="text-xs text-neutral-500 mt-0.5">Bold header · Color accents</p>
-            </div>
-          </Link>
+          ))}
+        </div>
+      </section>
 
-          {/* Classic — elevated */}
-          <Link href="/dashboard" className="group block md:-translate-y-4">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-700 group-hover:border-amber-500/50 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-amber-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-900 to-amber-950/20" />
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-orange-500 opacity-40 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 p-6 flex flex-col gap-3">
-                <div className="flex flex-col gap-1 mb-1">
-                  <div className="h-2 w-28 bg-neutral-300/20 rounded-full" />
-                  <div className="h-1 w-20 bg-neutral-600 rounded-full" />
-                </div>
-                <div className="h-px bg-neutral-700 w-full" />
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="h-1 w-24 bg-amber-400/30 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-4/6 bg-neutral-800 rounded-full" />
-                </div>
-                <div className="h-px bg-neutral-800 w-full mt-2" />
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="h-1 w-20 bg-amber-400/30 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                </div>
-                <div className="h-px bg-neutral-800 w-full mt-2" />
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="h-1 w-16 bg-amber-400/30 rounded-full" />
-                  <div className="h-1 w-3/4 bg-neutral-800 rounded-full" />
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-amber-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg">Use Template →</span>
-              </div>
-            </div>
-            <div className="mt-4 px-1">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-white">Classic</span>
-                <span className="text-xs text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">⭐ Featured</span>
-              </div>
-              <p className="text-xs text-neutral-500 mt-0.5">Traditional · Clean typography</p>
-            </div>
-          </Link>
+      {/* === TEMPLATES === */}
+      <section id="templates" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.04] pt-24">
+        <div className="text-center mb-14">
+          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Templates</p>
+          <h2 className="text-3xl font-bold mb-3">Pick your style.</h2>
+          <p className="text-neutral-500 text-sm max-w-sm mx-auto">ATS-optimized, fully customizable — colors, fonts, and layout all yours.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
 
-          {/* Minimal */}
-          <Link href="/dashboard" className="group block">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 group-hover:border-emerald-500/50 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-emerald-500/10">
-              <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-900 to-emerald-950/20" />
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 flex">
-                <div className="w-[38%] border-r border-neutral-800/60 p-4 flex flex-col gap-2">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 mb-1" />
-                  <div className="h-1 w-14 bg-neutral-600 rounded-full" />
-                  <div className="h-1 w-10 bg-neutral-700 rounded-full" />
-                  <div className="mt-3 flex flex-col gap-1.5">
-                    <div className="h-1 w-12 bg-emerald-500/30 rounded-full" />
-                    {[1,2,3,4].map(i => <div key={i} className="h-1 w-full bg-neutral-800 rounded-full" />)}
+          {[
+            {
+              name: 'Modern', badge: 'Popular', badgeColor: 'indigo', desc: 'Bold header · Color accents',
+              accent: 'indigo', glow: 'indigo',
+              preview: (
+                <div className="flex flex-col gap-2.5 p-5">
+                  <div className="h-8 bg-indigo-600/40 rounded-lg flex items-end px-3 pb-1.5">
+                    <div className="h-1.5 w-16 bg-white/30 rounded" />
+                  </div>
+                  <div className="h-px bg-white/5 w-full" />
+                  {[1,2,3].map(i => <div key={i} className="h-1 w-full bg-neutral-700/60 rounded" />)}
+                  <div className="h-px bg-white/5 w-full mt-1" />
+                  <div className="h-1 w-14 bg-indigo-400/30 rounded" />
+                  {[1,2].map(i => <div key={i} className="h-1 w-full bg-neutral-700/60 rounded" />)}
+                  <div className="flex gap-1 mt-1">
+                    {[28, 22, 30].map((w, i) => <div key={i} className="h-3 bg-indigo-500/20 rounded" style={{width: w}} />)}
                   </div>
                 </div>
-                <div className="flex-1 p-4 flex flex-col gap-2">
-                  <div className="h-1 w-20 bg-emerald-500/30 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-800 rounded-full" />
-                  <div className="h-1 w-5/6 bg-neutral-800 rounded-full" />
-                  <div className="mt-2 h-1 w-16 bg-emerald-500/30 rounded-full" />
-                  {[1,2,3].map(i => <div key={i} className="h-1 w-full bg-neutral-800 rounded-full" />)}
-                  <div className="mt-2 h-1 w-14 bg-emerald-500/30 rounded-full" />
-                  <div className="h-1 w-3/4 bg-neutral-800 rounded-full" />
+              )
+            },
+            {
+              name: 'Classic', badge: '⭐ Featured', badgeColor: 'amber', desc: 'Traditional · Timeless',
+              accent: 'amber', glow: 'amber',
+              preview: (
+                <div className="flex flex-col gap-2.5 p-5">
+                  <div className="text-center pb-2 border-b border-white/10">
+                    <div className="h-2.5 w-20 bg-neutral-300/20 rounded mx-auto mb-1.5" />
+                    <div className="h-1.5 w-16 bg-neutral-600 rounded mx-auto" />
+                  </div>
+                  <div className="h-1 w-16 bg-amber-400/30 rounded" />
+                  {[1,2,3].map(i => <div key={i} className="h-1 w-full bg-neutral-700/60 rounded" />)}
+                  <div className="h-px bg-white/5 w-full mt-1" />
+                  <div className="h-1 w-16 bg-amber-400/30 rounded" />
+                  {[1,2].map(i => <div key={i} className="h-1 w-full bg-neutral-700/60 rounded" />)}
+                </div>
+              )
+            },
+            {
+              name: 'Minimal', badge: 'Sidebar', badgeColor: 'emerald', desc: 'Two-column · Modern',
+              accent: 'emerald', glow: 'emerald',
+              preview: (
+                <div className="flex gap-0 h-full">
+                  <div className="w-[38%] bg-neutral-800/60 p-3 flex flex-col gap-2">
+                    <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/20 mb-0.5" />
+                    <div className="h-1.5 w-12 bg-neutral-500 rounded" />
+                    <div className="h-px bg-white/5 mt-1" />
+                    <div className="h-1 w-10 bg-emerald-400/30 rounded" />
+                    {[1,2,3].map(i => <div key={i} className="h-1 w-full bg-neutral-700/60 rounded" />)}
+                  </div>
+                  <div className="flex-1 p-3 flex flex-col gap-2">
+                    <div className="h-1 w-14 bg-emerald-400/30 rounded" />
+                    {[1,2].map(i => <div key={i} className="h-1 w-full bg-neutral-700/50 rounded" />)}
+                    <div className="h-px bg-white/5 mt-0.5" />
+                    <div className="h-1 w-12 bg-emerald-400/30 rounded" />
+                    {[1,2,3].map(i => <div key={i} className="h-1 w-full bg-neutral-700/50 rounded" />)}
+                  </div>
+                </div>
+              )
+            },
+          ].map(({ name, badge, badgeColor, desc, accent, glow, preview }) => (
+            <Link key={name} href="/dashboard" className="group block">
+              <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-300 group-hover:border-${accent}-500/40 group-hover:shadow-lg group-hover:shadow-${glow}-500/10 group-hover:-translate-y-1.5`}>
+                <div className={`absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950`} />
+                <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-${accent}-500 to-${accent}-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="absolute inset-0">
+                  {preview}
+                </div>
+                <div className="absolute inset-0 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  <span className={`bg-${accent}-600 text-white text-xs font-semibold px-5 py-2 rounded-full shadow-lg`}>Use Template →</span>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-emerald-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="bg-emerald-600 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg">Use Template →</span>
+              <div className="mt-3 flex items-center justify-between px-0.5">
+                <div>
+                  <span className="font-semibold text-white text-sm">{name}</span>
+                  <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
+                </div>
+                <span className={`text-xs text-${badgeColor}-400 bg-${badgeColor}-500/10 border border-${badgeColor}-500/20 px-2 py-0.5 rounded-full`}>{badge}</span>
               </div>
-            </div>
-            <div className="mt-4 px-1">
-              <div className="flex items-center justify-between">
-                <span className="font-semibold text-white">Minimal</span>
-                <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Sidebar</span>
-              </div>
-              <p className="text-xs text-neutral-500 mt-0.5">Two-column · Clean & modern</p>
-            </div>
-          </Link>
+            </Link>
+          ))}
 
         </div>
-
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <Link href="/dashboard">
-            <Button className="bg-white text-neutral-900 hover:bg-neutral-100 font-semibold px-10 h-12 rounded-xl shadow-lg">
+            <Button className="bg-white text-neutral-900 hover:bg-neutral-100 font-semibold px-10 h-11 rounded-xl">
               Start Building Free →
             </Button>
           </Link>
-          <p className="text-neutral-600 text-xs mt-3">No credit card required</p>
+          <p className="text-neutral-700 text-xs mt-2.5">No account required to explore</p>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="container mx-auto px-6 py-20 border-t border-neutral-800 mb-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-neutral-400">Start for free. Upgrade when you need more power.</p>
+      {/* === PRICING === */}
+      <section id="pricing" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.04] pt-24">
+        <div className="text-center mb-14">
+          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Pricing</p>
+          <h2 className="text-3xl font-bold mb-3">Simple. Transparent.</h2>
+          <p className="text-neutral-500 text-sm">Start free. Upgrade when you&apos;re ready.</p>
         </div>
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 className="text-xl font-bold mb-2">Basic Plan</h3>
-            <div className="text-3xl font-extrabold mb-6">$0 <span className="text-sm font-medium text-neutral-500">/ forever</span></div>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center text-neutral-400"><CheckCircle className="w-4 h-4 mr-3 text-emerald-500" /> 1 AI Resume Generation</li>
-              <li className="flex items-center text-neutral-400"><CheckCircle className="w-4 h-4 mr-3 text-emerald-500" /> Standard PDF Export</li>
-              <li className="flex items-center text-neutral-400"><CheckCircle className="w-4 h-4 mr-3 text-emerald-500" /> Shareable URL</li>
+        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Free */}
+          <div className="p-7 rounded-2xl border border-white/[0.06] bg-neutral-900/40">
+            <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-4">Free</div>
+            <div className="text-4xl font-black mb-1">$0</div>
+            <div className="text-neutral-500 text-sm mb-7">Forever. No credit card.</div>
+            <ul className="space-y-3 mb-8">
+              {['3 AI resume generations', 'PDF export', 'ATS score checker', 'Shareable link'].map(f => (
+                <li key={f} className="flex items-center gap-2.5 text-sm text-neutral-400">
+                  <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />{f}
+                </li>
+              ))}
             </ul>
             <Link href="/dashboard" className="block">
-              <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white">Start Free</Button>
+              <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white h-11 rounded-xl">Get Started Free</Button>
             </Link>
           </div>
-          <div className="bg-indigo-900/20 border border-indigo-500/30 rounded-2xl p-8 backdrop-blur-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-indigo-600 text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
-            <h3 className="text-xl font-bold mb-2 text-indigo-100">Pro Plan</h3>
-            <div className="text-3xl font-extrabold mb-6 text-white">$12 <span className="text-sm font-medium text-neutral-400">/ month</span></div>
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center text-indigo-200"><CheckCircle className="w-4 h-4 mr-3 text-indigo-400" /> Unlimited AI Generations</li>
-              <li className="flex items-center text-indigo-200"><CheckCircle className="w-4 h-4 mr-3 text-indigo-400" /> AI Cover Letter Writer</li>
-              <li className="flex items-center text-indigo-200"><CheckCircle className="w-4 h-4 mr-3 text-indigo-400" /> Advanced ATS Keyword Optimizer</li>
-            </ul>
-            <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg">Upgrade to Pro</Button>
+          {/* Pro */}
+          <div className="p-7 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 to-neutral-900/60 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl">POPULAR</div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.08),transparent_60%)]" />
+            <div className="relative">
+              <div className="text-xs text-indigo-400 font-semibold uppercase tracking-wider mb-4">Pro</div>
+              <div className="text-4xl font-black mb-1 text-white">$12<span className="text-lg font-medium text-neutral-500">/mo</span></div>
+              <div className="text-neutral-500 text-sm mb-7">Everything in Free, plus:</div>
+              <ul className="space-y-3 mb-8">
+                {['Unlimited AI generations', 'AI Cover Letter writer', 'Job match optimizer', 'Priority support'].map(f => (
+                  <li key={f} className="flex items-center gap-2.5 text-sm text-indigo-200">
+                    <CheckCircle className="w-4 h-4 text-indigo-400 flex-shrink-0" />{f}
+                  </li>
+                ))}
+              </ul>
+              <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white h-11 rounded-xl shadow-lg shadow-indigo-500/20">Upgrade to Pro</Button>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* === FOOTER CTA === */}
+      <section className="border-t border-white/[0.04] py-20">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to land your dream job?</h2>
+          <p className="text-neutral-500 mb-8 text-sm">Join thousands of job seekers who built winning resumes with ResumeAI.</p>
+          <Link href="/dashboard">
+            <Button size="lg" className="bg-indigo-600 hover:bg-indigo-500 text-white px-10 h-12 rounded-xl shadow-lg shadow-indigo-500/20 font-semibold">
+              Build Your Resume Now <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* === FOOTER === */}
+      <footer className="border-t border-white/[0.04] py-8">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <div className="w-5 h-5 rounded bg-indigo-600 flex items-center justify-center">
+              <Sparkles className="w-3 h-3 text-white" />
+            </div>
+            Resume<span className="text-indigo-400">AI</span>
+          </div>
+          <p className="text-neutral-700 text-xs">© 2025 ResumeAI. All rights reserved.</p>
+        </div>
+      </footer>
+
     </div>
   );
 }
