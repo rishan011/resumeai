@@ -18,29 +18,13 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     let extractedText = "";
 
-    // --- PDF Extraction via pdfjs-dist ---
+    // --- PDF Extraction via unpdf (serverless-safe, no worker required) ---
     if (mimeType === "application/pdf") {
-      const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+      const { extractText, getDocumentProxy } = await import("unpdf");
 
-      // Disable the worker for Node.js server-side usage
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "";
-
-      const uint8Array = new Uint8Array(buffer);
-      const loadingTask = pdfjsLib.getDocument({ data: uint8Array, useWorkerFetch: false, isEvalSupported: false, useSystemFonts: true });
-      const pdf = await loadingTask.promise;
-
-      const pages: string[] = [];
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        const pageText = textContent.items
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((item: any) => item.str)
-          .join(" ");
-        pages.push(pageText);
-      }
-
-      extractedText = pages.join("\n");
+      const pdf = await getDocumentProxy(new Uint8Array(buffer));
+      const { text } = await extractText(pdf, { mergePages: true });
+      extractedText = text;
 
       if (!extractedText.trim()) {
         return NextResponse.json(
