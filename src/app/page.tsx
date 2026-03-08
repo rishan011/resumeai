@@ -721,17 +721,6 @@ export default function Home() {
       </section>
 
 
-      {/* ── INTERACTIVE FEATURES ── */}
-      <section className="max-w-6xl mx-auto px-6 pb-28">
-        <div className="text-center mb-12">
-          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">What you get</p>
-          <h2 className="text-3xl font-bold">Everything to land the job.</h2>
-          <p className="text-neutral-500 text-sm mt-2">Click any feature to see it in action.</p>
-        </div>
-        <FeatureShowcase />
-      </section>
-
-
       {/* ── TEMPLATES ── */}
       <section id="templates" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.03] pt-24">
         <div className="text-center mb-12">
