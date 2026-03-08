@@ -85,7 +85,7 @@ export function AtsScoringDialog({ resumeData }: { resumeData: any }) {
   return (
     <Dialog open={open} onOpenChange={resetState}>
       <DialogTrigger render={<Button variant="outline" className="w-full flex items-center justify-center text-indigo-400 hover:bg-indigo-500/10 border-indigo-500/30 shadow-sm mb-2 group transition-all" />}>
-        <Sparkles className="w-4 h-4 mr-2 group-hover:animate-pulse" /> Match against Job
+        <Sparkles className="w-4 h-4 mr-2 group-hover:animate-pulse" /> Resume Analyser
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-neutral-950 border border-neutral-800 text-white">
