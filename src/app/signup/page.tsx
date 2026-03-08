@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Sparkles, Loader2, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { toast } from "sonner";
 
 export default function SignupPage() {
@@ -44,18 +45,48 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-4">
-      <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter text-white mb-8 hover:opacity-80 transition-opacity">
-        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-white" />
-        </div>
-        Resume<span className="text-indigo-400">Builder.ai</span>
-      </Link>
+    <div className="min-h-screen bg-[#030303] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Ambient Premium Dark Theme Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <motion.div 
+          animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/15 rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ y: [0, 20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/15 rounded-full blur-[120px]" 
+        />
+      </div>
 
-      <Card className="w-full max-w-md bg-neutral-900 border-neutral-800 text-white shadow-2xl">
-        <CardHeader className="space-y-1 text-center pb-6 border-b border-neutral-800">
-          <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
-          <CardDescription className="text-neutral-400">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="z-10"
+      >
+        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter text-white mb-8 hover:opacity-80 transition-opacity">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <Sparkles className="w-5 h-5 text-white" />
+          </div>
+          Resume<span className="text-indigo-400">AI</span>
+        </Link>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+        className="w-full max-w-md z-10"
+      >
+        <Card className="bg-neutral-900/40 backdrop-blur-xl border-white/[0.08] text-white shadow-2xl overflow-hidden relative">
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+          
+          <CardHeader className="space-y-1 text-center pb-6 border-b border-white/[0.04]">
+            <CardTitle className="text-2xl font-black tracking-tight drop-shadow-sm">Create an account</CardTitle>
+            <CardDescription className="text-neutral-400 font-medium">
             Start building your professional resume.
           </CardDescription>
         </CardHeader>
@@ -88,30 +119,35 @@ export default function SignupPage() {
             <Button 
               type="submit" 
               disabled={isLoading} 
-              className="w-full h-11 bg-gradient-to-r from-emerald-400 to-indigo-500 hover:from-emerald-500 hover:to-indigo-600 text-white font-medium text-base mt-2 transition-all border-none"
+              className="relative group w-full h-12 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl text-base mt-4 shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all overflow-hidden"
             >
               {isLoading ? (
-                <>
+                <span className="relative z-10 flex items-center">
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Creating Account...
-                </>
+                </span>
               ) : (
-                "Create Account →"
+                <>
+                  <span className="relative z-10 flex items-center gap-2">Create Account <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                  <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-neutral-400/20 to-transparent transition-transform duration-700 ease-in-out" />
+                </>
               )}
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-center border-t border-neutral-800 pt-6 mt-2 text-sm text-neutral-400">
-          Already have an account?&nbsp;
-          <Link href="/login" className="text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
-            Sign in
-          </Link>
+        <CardFooter className="flex flex-col gap-5 border-t border-white/[0.04] pt-6 mt-2 text-sm bg-black/20">
+          <div className="flex justify-center w-full text-neutral-400">
+            Already have an account?&nbsp;
+            <Link href="/login" className="text-white hover:text-indigo-300 transition-colors font-semibold drop-shadow-md">
+              Sign in
+            </Link>
+          </div>
+          <div className="text-[11px] text-center text-neutral-500 font-medium px-4">
+            By continuing, you agree to our <a href="#" className="underline underline-offset-2 hover:text-neutral-300">Terms of Service</a> and <a href="#" className="underline underline-offset-2 hover:text-neutral-300">Privacy Policy</a>.
+          </div>
         </CardFooter>
-      </Card>
-      
-      {/* Decorative gradient blobs */}
-      <div className="fixed top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
-      <div className="fixed top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
+        </Card>
+      </motion.div>
     </div>
   );
 }
