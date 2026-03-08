@@ -18,17 +18,33 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     let extractedText = "";
 
-    // --- PDF Extraction ---
+    // --- PDF Extraction via pdfjs-dist ---
     if (mimeType === "application/pdf") {
-      // pdf-parse is a CommonJS module; use require to avoid ESM interop issues
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const pdfParse = require("pdf-parse");
-      const data = await pdfParse(buffer);
-      extractedText = data.text;
+      const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
+
+      // Disable the worker for Node.js server-side usage
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "";
+
+      const uint8Array = new Uint8Array(buffer);
+      const loadingTask = pdfjsLib.getDocument({ data: uint8Array, useWorkerFetch: false, isEvalSupported: false, useSystemFonts: true });
+      const pdf = await loadingTask.promise;
+
+      const pages: string[] = [];
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((item: any) => item.str)
+          .join(" ");
+        pages.push(pageText);
+      }
+
+      extractedText = pages.join("\n");
 
       if (!extractedText.trim()) {
         return NextResponse.json(
-          { error: "Could not extract text from PDF. The file may be scanned or image-based. Try uploading it as an image instead." },
+          { error: "Could not extract text from this PDF. It may be a scanned image — try uploading it as a JPG/PNG instead." },
           { status: 422 }
         );
       }
@@ -53,7 +69,7 @@ export async function POST(req: Request) {
             content: [
               {
                 type: "text",
-                text: "This is an image of a resume. Please extract ALL text content from it exactly as it appears, preserving sections, bullet points and structure. Return only the extracted text, nothing else.",
+                text: "This is an image of a resume. Extract ALL text content exactly as it appears, preserving section headings, bullet points and structure. Return only the extracted text, nothing else.",
               },
               {
                 type: "image_url",
@@ -85,7 +101,7 @@ export async function POST(req: Request) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("Error in resume extract route:", message);
     return NextResponse.json(
-      { error: `Failed to extract resume content: ${message}` },
+      { error: `Extraction failed: ${message}` },
       { status: 500 }
     );
   }
