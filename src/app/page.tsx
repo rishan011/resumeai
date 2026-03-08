@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, ArrowRight, CheckCircle, Zap, FileText,
-  Target, BarChart3, Shield, Palette, ChevronRight
+  Target, BarChart3, Shield, Palette, ChevronRight, LayoutTemplate, PenTool, Wand2, LogOut, LayoutDashboard
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useSession, signOut } from "next-auth/react";
 /* ─── Slide data ─────────────────────────────────────────────── */
 const SLIDES = [
   {
@@ -233,7 +234,7 @@ function CoverLetterSlide() {
             </div>
           ))}
         </div>
-        <button className="mt-auto text-sm font-bold text-white bg-gradient-to-r from-cyan-600 to-indigo-600 px-5 py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+        <button className="mt-auto text-sm font-bold text-white bg-gradient-to-r from-cyan-600 to-indigo-600 px-5 py-3.5 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-cyan-500/10 flex items-center justify-center gap-2">
           <Sparkles className="w-4 h-4" /> Generate Letter
         </button>
         <div className="text-[10px] text-neutral-500 text-center font-medium">Generation takes ~5 seconds</div>
@@ -545,6 +546,11 @@ export default function Home() {
 
   const [activeSlide, setActiveSlide] = useState(0);
   const [animating, setAnimating] = useState(false);
+  const { data: session, status } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' });
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -597,13 +603,30 @@ export default function Home() {
             <a href="#templates" className="hover:text-white transition-colors">Templates</a>
             <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/login">
-              <Button variant="ghost" size="sm" className="text-neutral-400 hover:text-white hover:bg-white/5 hidden md:flex">Sign in</Button>
-            </Link>
-            <Link href="/dashboard">
-              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4 h-8 shadow-md shadow-indigo-500/20">Get Started</Button>
-            </Link>
+          <div className="flex items-center gap-3 w-[220px] justify-end">
+            {status === "loading" ? (
+              <div className="w-20 h-8 rounded-lg animate-pulse bg-white/5" />
+            ) : session ? (
+              <>
+                <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-neutral-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 hidden md:flex gap-1.5 transition-colors">
+                  <LogOut className="w-3.5 h-3.5" /> Log Out
+                </Button>
+                <Link href="/dashboard">
+                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4 h-8 shadow-md shadow-indigo-500/20 flex gap-1.5">
+                    <LayoutDashboard className="w-3.5 h-3.5" /> Dashboard
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-neutral-400 hover:text-white hover:bg-white/5 hidden md:flex">Sign in</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4 h-8 shadow-md shadow-indigo-500/20">Get Started</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -645,12 +668,21 @@ export default function Home() {
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
             className="flex flex-col sm:flex-row items-center justify-center gap-5"
           >
-            <Link href="/dashboard">
-              <Button size="lg" className="relative group h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
-                <span className="relative z-10 flex items-center">Build My Resume <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
-                <div className="absolute inset-0 rounded-xl bg-white blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
-              </Button>
-            </Link>
+            {session ? (
+              <Link href="/dashboard">
+                <Button size="lg" className="relative group h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
+                  <span className="relative z-10 flex items-center">Go to Dashboard <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
+                  <div className="absolute inset-0 rounded-xl bg-white blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/signup">
+                <Button size="lg" className="relative group h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
+                  <span className="relative z-10 flex items-center">Build My Resume <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
+                  <div className="absolute inset-0 rounded-xl bg-white blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
+                </Button>
+              </Link>
+            )}
             <a href="#templates">
               <Button size="lg" variant="outline" className="h-14 px-8 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:border-neutral-500 rounded-xl text-base transition-all bg-neutral-900/50 backdrop-blur-sm">
                 See Templates
