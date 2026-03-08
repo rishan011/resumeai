@@ -569,10 +569,18 @@ export default function Home() {
     <div className="h-[100dvh] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-[#030303] text-neutral-50 font-sans antialiased relative selection:bg-indigo-500/30">
 
       {/* Ambient Premium Dark Theme Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/10 rounded-full blur-[120px]" />
+        <motion.div 
+          animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/15 rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ y: [0, 20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/15 rounded-full blur-[120px]" 
+        />
       </div>
 
       {/* ── NAV ── */}
@@ -603,28 +611,44 @@ export default function Home() {
       {/* ── SLIDE 1: HERO ── */}
       <section className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 text-center relative z-10 pt-16 pb-10">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: false, amount: 0.3 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+          }}
           className="max-w-6xl mx-auto w-full"
         >
-          <div className="inline-flex items-center gap-2 text-xs font-medium text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full mb-8 shadow-[0_0_15px_rgba(99,102,241,0.15)] ">
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="inline-flex items-center gap-2 text-xs font-medium text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full mb-8 shadow-[0_0_15px_rgba(99,102,241,0.15)] "
+          >
             <Zap className="w-3.5 h-3.5" /> AI-Powered · ATS-Optimized · Free to Start
-          </div>
-          <h1 className="text-5xl md:text-[76px] font-black tracking-tight leading-[1.05] mb-6 drop-shadow-2xl">
+          </motion.div>
+          <motion.h1 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-5xl md:text-[76px] font-black tracking-tight leading-[1.05] mb-6 drop-shadow-2xl"
+          >
             Your resume,<br />
             <span className="bg-gradient-to-br from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(139,92,246,0.3)]">
               perfected by AI.
             </span>
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-400 max-w-xl mx-auto mb-10 leading-relaxed font-light">
+          </motion.h1>
+          <motion.p 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="text-lg md:text-xl text-neutral-400 max-w-xl mx-auto mb-10 leading-relaxed font-light"
+          >
             Build ATS-beating resumes in minutes. AI writes your bullets, scores your match, and crafts your cover letter — automatically.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+          </motion.p>
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-5"
+          >
             <Link href="/dashboard">
-              <Button size="lg" className="h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
-                Build My Resume <ArrowRight className="ml-2 w-5 h-5" />
+              <Button size="lg" className="relative group h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
+                <span className="relative z-10 flex items-center">Build My Resume <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></span>
+                <div className="absolute inset-0 rounded-xl bg-white blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
               </Button>
             </Link>
             <a href="#templates">
@@ -632,12 +656,15 @@ export default function Home() {
                 See Templates
               </Button>
             </a>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-neutral-500 font-medium">
+          </motion.div>
+          <motion.div 
+            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+            className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-neutral-500 font-medium"
+          >
             {["No credit card", "PDF export", "ATS optimized", "AI-powered"].map(t => (
               <span key={t} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-indigo-400/80" />{t}</span>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -757,23 +784,25 @@ export default function Home() {
               { name: "Classic", badge: "Featured ⭐", badgeClr: "text-amber-400 bg-amber-500/10 border-amber-500/20", desc: "Traditional · Timeless", accent: "amber", preview: <div className="flex flex-col gap-2 p-4"><div className="text-center pb-2 border-b border-white/10"><div className="h-2 w-20 bg-neutral-300/15 rounded mx-auto mb-1.5"/><div className="h-1 w-16 bg-neutral-600 rounded mx-auto"/></div><div className="h-1 w-14 bg-amber-400/25 rounded mt-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div> },
               { name: "Minimal", badge: "Sidebar", badgeClr: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20", desc: "Two-column · Modern", accent: "emerald", preview: <div className="flex gap-0 p-0 h-full overflow-hidden"><div className="w-[36%] bg-neutral-800/50 p-3 flex flex-col gap-1.5"><div className="w-6 h-6 rounded-full bg-emerald-500/20 mb-1"/><div className="h-1 w-12 bg-neutral-600 rounded"/><div className="h-px bg-white/5 my-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div><div className="flex-1 p-3 flex flex-col gap-1.5"><div className="h-1 w-14 bg-emerald-400/25 rounded"/>{[1,2,3,4].map(i=><div key={i} className="h-1 w-full bg-neutral-700/40 rounded"/>)}</div></div> },
             ].map(({ name, badge, badgeClr, desc, accent, preview }) => (
-              <Link key={name} href="/dashboard" className="group block">
-                <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-300 group-hover:border-${accent}-500/40 group-hover:shadow-xl group-hover:shadow-${accent}-500/10 group-hover:-translate-y-2`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950" />
-                  <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-${accent}-500 to-${accent}-400 opacity-0 group-hover:opacity-100 transition-opacity`} />
-                  <div className="absolute inset-0">{preview}</div>
-                  <div className="absolute inset-0 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                    <span className={`bg-${accent}-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-lg`}>Use Template →</span>
+              <motion.div key={name} whileHover={{ y: -8 }} transition={{ duration: 0.3, ease: "easeOut" }}>
+                <Link href="/dashboard" className="group block">
+                  <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-300 group-hover:border-${accent}-500/40 group-hover:shadow-[0_20px_40px_-15px_rgba(var(--${accent}-500),0.2)]`}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950" />
+                    <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-${accent}-500 to-${accent}-400 opacity-0 group-hover:opacity-100 transition-opacity`} />
+                    <div className="absolute inset-0">{preview}</div>
+                    <div className="absolute inset-0 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                      <span className={`bg-${accent}-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300`}>Use Template →</span>
+                    </div>
                   </div>
-                </div>
-                <div className="mt-4 flex items-center justify-between px-1">
-                  <div>
-                    <span className="font-semibold text-white text-sm">{name}</span>
-                    <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
+                  <div className="mt-4 flex items-center justify-between px-1">
+                    <div>
+                      <span className="font-semibold text-white text-sm">{name}</span>
+                      <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
+                    </div>
+                    <span className={`text-[10px] font-medium ${badgeClr} border px-2 py-0.5 rounded-full`}>{badge}</span>
                   </div>
-                  <span className={`text-[10px] font-medium ${badgeClr} border px-2 py-0.5 rounded-full`}>{badge}</span>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
           <div className="mt-12 text-center">
@@ -800,7 +829,11 @@ export default function Home() {
             <p className="text-neutral-500 text-sm">Start free. Upgrade when you're ready.</p>
           </div>
           <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-            <div className="p-8 rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur-sm flex flex-col">
+            <motion.div 
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="p-8 rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur-sm flex flex-col hover:border-white/10 hover:shadow-2xl hover:bg-neutral-900/60 transition-colors"
+            >
               <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-4">Free</div>
               <div className="text-5xl font-black mb-1">$0</div>
               <div className="text-neutral-500 text-sm mb-7">Forever. No credit card.</div>
@@ -812,12 +845,16 @@ export default function Home() {
                 ))}
               </ul>
               <Link href="/dashboard" className="block mt-auto">
-                <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white h-12 rounded-xl text-base font-semibold">Get Started Free</Button>
+                <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white h-12 rounded-xl text-base font-semibold transition-colors">Get Started Free</Button>
               </Link>
-            </div>
-            <div className="p-8 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/60 to-neutral-900/60 relative overflow-hidden backdrop-blur-sm flex flex-col shadow-2xl shadow-indigo-500/5">
-              <div className="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-4 py-2 rounded-bl-xl shadow-md">POPULAR</div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.1),transparent_70%)] pointer-events-none" />
+            </motion.div>
+            <motion.div 
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="p-8 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/80 to-neutral-900/80 relative overflow-hidden backdrop-blur-sm flex flex-col shadow-[0_0_40px_rgba(99,102,241,0.1)] hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] hover:border-indigo-500/50 transition-all"
+            >
+              <div className="absolute top-0 right-0 bg-gradient-to-l from-indigo-500 to-violet-500 text-white text-[10px] font-bold px-4 py-2 rounded-bl-xl shadow-md">POPULAR</div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_70%)] pointer-events-none" />
               <div className="relative flex flex-col h-full">
                 <div className="text-xs text-indigo-400 font-bold uppercase tracking-wider mb-4">Pro</div>
                 <div className="text-5xl font-black mb-1 text-white">$12<span className="text-lg font-medium text-neutral-500">/mo</span></div>
@@ -829,9 +866,12 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Button className="w-full h-12 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold shadow-lg shadow-amber-500/20 border-0 text-base mt-auto">⚡ Upgrade to Pro</Button>
+                <Button className="relative group w-full h-12 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold shadow-lg shadow-amber-500/20 border-0 text-base mt-auto overflow-hidden">
+                  <span className="relative z-10 flex items-center justify-center gap-2">⚡ Upgrade to Pro</span>
+                  <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
+                </Button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </section>
