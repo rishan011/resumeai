@@ -56,41 +56,28 @@ export default function CoverLettersDashboard() {
     <div className="min-h-screen bg-[#030303] text-neutral-100 font-sans relative overflow-hidden">
       {/* Ambient Premium Dark Theme Background */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#030303]">
-        {/* Animated Grid */}
+        {/* Simple Animated Grid */}
         <motion.div 
           animate={{ backgroundPosition: ["0px 0px", "24px 24px"] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" 
         />
-        {/* Animated Orbs */}
+        {/* Simple Pulsing Orbs */}
         <motion.div 
           animate={{ 
-            y: [0, -30, 0], 
-            x: [0, 20, 0],
-            scale: [1, 1.1, 1],
-            opacity: [0.1, 0.15, 0.1]
+            scale: [1, 1.05, 1],
+            opacity: [0.08, 0.12, 0.08]
           }} 
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600 rounded-full blur-[120px]" 
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-600 rounded-full blur-[120px]" 
         />
         <motion.div 
           animate={{ 
-            y: [0, 40, 0], 
-            x: [0, -30, 0],
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.15, 0.1]
+            scale: [1, 1.05, 1],
+            opacity: [0.08, 0.12, 0.08]
           }} 
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-violet-600 rounded-full blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ 
-            y: [0, -20, 0], 
-            scale: [1, 1.1, 1],
-            opacity: [0.05, 0.1, 0.05]
-          }} 
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-          className="absolute top-[20%] right-[20%] w-[30%] h-[30%] bg-cyan-600 rounded-full blur-[100px]" 
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-violet-600 rounded-full blur-[120px]" 
         />
       </div>
 
