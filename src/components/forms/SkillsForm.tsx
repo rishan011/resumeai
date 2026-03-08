@@ -59,9 +59,9 @@ export function SkillsForm({ data, onChange, jobTitle }: SkillsFormProps) {
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="space-y-4 rounded-xl border border-indigo-100 bg-indigo-50/50 p-6">
+      <div className="space-y-4 rounded-xl border border-indigo-500/20 bg-indigo-500/10 p-6">
          <div className="flex items-center justify-between">
-           <div className="flex items-center gap-2 text-indigo-700 font-medium">
+           <div className="flex items-center gap-2 text-indigo-400 font-medium">
              <Sparkles className="w-4 h-4" /> Auto-Suggest Skills
            </div>
            <Button 
@@ -74,7 +74,7 @@ export function SkillsForm({ data, onChange, jobTitle }: SkillsFormProps) {
              {isGenerating ? "Generating..." : "Generate with AI"}
            </Button>
          </div>
-         <p className="text-xs text-indigo-600/70">
+         <p className="text-xs text-indigo-400/70">
            Stuck? We can automatically suggest relevant skills based on your target job title ({jobTitle || 'Not set'}).
          </p>
       </div>
@@ -98,9 +98,9 @@ export function SkillsForm({ data, onChange, jobTitle }: SkillsFormProps) {
          <Label className="mb-3 block">Your Skills ({data.length})</Label>
          <div className="flex flex-wrap gap-2">
            {data.length === 0 && (
-             <div className="text-sm text-neutral-400 italic py-4 w-full text-center border-2 border-dashed border-neutral-200 rounded-lg">
-               No skills added yet. Type above or use AI to generate some!
-             </div>
+             <div className="text-sm text-neutral-500 italic py-4 w-full text-center border-2 border-dashed border-neutral-700 rounded-lg">
+                No skills added yet. Type above or use AI to generate some!
+              </div>
            )}
            {data.map((skill, index) => (
              <div 

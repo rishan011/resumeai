@@ -66,7 +66,7 @@ export function ProjectsForm({ data, onChange }: ProjectsFormProps) {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-8">
-      <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-lg text-sm text-indigo-800">
+      <div className="p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl text-sm text-indigo-400">
          Projects are a great way to show practical application of your skills. Add 2-3 significant projects relevant to your target role.
       </div>
       
@@ -127,7 +127,7 @@ export function ProjectsForm({ data, onChange }: ProjectsFormProps) {
                    size="sm"
                    onClick={() => handleAIOptimize(proj)}
                    disabled={generatingId === proj.id || !proj.description}
-                   className="h-8 text-xs font-medium text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 px-2"
+                   className="h-8 text-xs font-medium text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 px-2"
                 >
                    {generatingId === proj.id ? (
                      <><Loader2 className="w-3 h-3 animate-spin mr-1.5" /> Optimizing...</>

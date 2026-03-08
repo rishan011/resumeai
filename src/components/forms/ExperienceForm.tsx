@@ -170,7 +170,7 @@ export function ExperienceForm({ data, onChange, personalTitle }: ExperienceForm
                    size="sm"
                    onClick={() => handleAIOptimize(exp)}
                    disabled={generatingId === exp.id || !exp.description}
-                   className="h-8 text-xs font-medium text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 px-2"
+                   className="h-8 text-xs font-medium text-indigo-400 hover:text-indigo-300 hover:bg-indigo-500/10 px-2"
                 >
                    {generatingId === exp.id ? (
                      <><Loader2 className="w-3 h-3 animate-spin mr-1.5" /> Optimizing...</>
