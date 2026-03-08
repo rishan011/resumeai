@@ -628,7 +628,7 @@ export default function Home() {
               </Button>
             </Link>
             <a href="#templates">
-              <Button size="lg" variant="outline" className="h-14 px-8 border-neutral-700 text-neutral-300 hover:bg-neutral-900 hover:border-neutral-600 rounded-xl text-base transition-all">
+              <Button size="lg" variant="outline" className="h-14 px-8 border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:border-neutral-500 rounded-xl text-base transition-all bg-neutral-900/50 backdrop-blur-sm">
                 See Templates
               </Button>
             </a>
