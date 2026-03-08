@@ -255,10 +255,283 @@ function CoverLetterSlide() {
   );
 }
 
+
 const SLIDE_COMPONENTS = [BuilderSlide, AtsSlide, CoverLetterSlide];
+
+/* ─── Feature Showcase (interactive split-panel) ─────────────── */
+const FEATURES = [
+  {
+    id: "bullets",
+    icon: Zap,
+    title: "AI Bullet Writer",
+    desc: "Paste a rough idea — AI rewrites it into a punchy, quantified achievement.",
+    color: "indigo",
+    demo: (
+      <div className="space-y-4">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Before → After</div>
+        <div className="flex flex-col gap-3">
+          <div className="p-3 rounded-xl border border-rose-500/20 bg-rose-500/5">
+            <div className="text-[10px] text-rose-400 font-semibold mb-1.5">✗ Weak bullet</div>
+            <div className="text-xs text-neutral-400">&quot;Helped improve the website performance&quot;</div>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-3 py-1.5 rounded-full border border-indigo-500/20">
+              <Sparkles className="w-3 h-3 animate-pulse" />
+              <span className="text-[10px] font-bold">AI Rewriting...</span>
+            </div>
+          </div>
+          <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
+            <div className="text-[10px] text-emerald-400 font-semibold mb-1.5">✓ AI-optimized</div>
+            <div className="text-xs text-neutral-200 leading-relaxed">&quot;Optimized core web vitals, reducing LCP by <span className="text-emerald-400 font-bold">52%</span> and improving Lighthouse score from 64 → <span className="text-emerald-400 font-bold">97</span>, directly boosting SEO ranking.&quot;</div>
+          </div>
+        </div>
+        <button className="w-full mt-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-colors py-2 rounded-lg">
+          Try AI Bullet Writer →
+        </button>
+      </div>
+    ),
+  },
+  {
+    id: "ats",
+    icon: Target,
+    title: "ATS Score Checker",
+    desc: "Instantly see how well your resume matches any job description.",
+    color: "violet",
+    demo: (
+      <div className="space-y-3">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Keyword Match Analysis</div>
+        <div className="flex items-center gap-4 p-3 bg-neutral-800/50 rounded-xl border border-white/[0.06]">
+          <div className="relative w-16 h-16 flex-shrink-0">
+            <svg viewBox="0 0 40 40" className="w-full h-full -rotate-90">
+              <circle cx="20" cy="20" r="15" fill="none" stroke="#1f2937" strokeWidth="4" />
+              <circle cx="20" cy="20" r="15" fill="none" stroke="url(#fg)" strokeWidth="4" strokeLinecap="round" strokeDasharray={`${0.94 * 94.2} 94.2`} />
+              <defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#8b5cf6" /><stop offset="100%" stopColor="#10b981" /></linearGradient></defs>
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center flex-col">
+              <span className="text-sm font-black text-white">94%</span>
+            </div>
+          </div>
+          <div>
+            <div className="text-sm font-bold text-white">Strong Match</div>
+            <div className="text-[10px] text-neutral-400 mt-0.5">12 of 13 keywords found</div>
+          </div>
+        </div>
+        <div className="space-y-1.5">
+          {[
+            { kw: "React", hit: true }, { kw: "TypeScript", hit: true },
+            { kw: "CI/CD", hit: true }, { kw: "Kubernetes", hit: false }, { kw: "Node.js", hit: true },
+          ].map(({ kw, hit }) => (
+            <div key={kw} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs ${hit ? "bg-emerald-500/5 border border-emerald-500/15" : "bg-rose-500/5 border border-rose-500/15"}`}>
+              <span className={`text-[10px] font-bold ${hit ? "text-emerald-400" : "text-rose-400"}`}>{hit ? "✓" : "✗"}</span>
+              <span className={hit ? "text-neutral-300" : "text-rose-300"}>{kw}</span>
+              {!hit && <span className="ml-auto text-[10px] text-neutral-600">Add to resume</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "cover",
+    icon: FileText,
+    title: "Cover Letter AI",
+    desc: "One click for a personalized, role-specific cover letter.",
+    color: "cyan",
+    demo: (
+      <div className="space-y-3">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Generated in 5 seconds</div>
+        <div className="flex gap-2 mb-2">
+          {[{ l: "Company", v: "Google" }, { l: "Role", v: "SWE" }].map(({ l, v }) => (
+            <div key={l} className="flex-1">
+              <div className="text-[9px] text-neutral-600 mb-0.5">{l}</div>
+              <div className="text-xs bg-neutral-800 border border-white/[0.07] rounded-lg px-2 py-1.5 text-neutral-200">{v}</div>
+            </div>
+          ))}
+        </div>
+        <div className="bg-[#13131f] border border-white/[0.08] rounded-xl p-4 text-[10px] leading-[1.8] text-neutral-400 space-y-1.5">
+          <p>Dear <span className="text-cyan-400 font-semibold">Google</span> Hiring Team,</p>
+          <p>I am excited to apply for the <span className="text-cyan-400">Software Engineer</span> role. With <span className="text-emerald-400 font-semibold">6+ years</span> building high-performance applications in <span className="text-indigo-400">React</span> and <span className="text-indigo-400">TypeScript</span>...</p>
+          <p className="text-neutral-600">At TechCorp, I led a migration that improved performance by <span className="text-emerald-400 font-bold">40%</span> and mentored a team of 6...</p>
+          <div className="flex items-center gap-1.5 mt-2">
+            <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+            <span className="text-[9px] text-cyan-400">Writing...</span>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "theme",
+    icon: Palette,
+    title: "Theme Customizer",
+    desc: "8 accent colors, 6 fonts, drag-and-drop section ordering.",
+    color: "rose",
+    demo: (
+      <div className="space-y-4">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Live Preview</div>
+        <div>
+          <div className="text-[10px] text-neutral-500 mb-2">Accent Color</div>
+          <div className="flex gap-2">
+            {[
+              "bg-indigo-500", "bg-violet-500", "bg-rose-500", "bg-emerald-500",
+              "bg-amber-500", "bg-sky-500", "bg-fuchsia-500", "bg-slate-500"
+            ].map((c, i) => (
+              <button key={i} className={`w-6 h-6 rounded-full ${c} ${i === 0 ? "ring-2 ring-white ring-offset-2 ring-offset-neutral-900" : "opacity-60 hover:opacity-100"} transition-all`} />
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] text-neutral-500 mb-2">Font Style</div>
+          <div className="flex flex-wrap gap-1.5">
+            {["Inter", "Georgia", "Merriweather", "Playfair", "Roboto Mono"].map((f, i) => (
+              <button key={f} className={`text-[10px] px-2.5 py-1 rounded-lg border transition-all ${i === 0 ? "bg-indigo-500/20 border-indigo-500/40 text-indigo-300" : "border-white/[0.07] text-neutral-500 hover:border-white/20"}`}>{f}</button>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] text-neutral-500 mb-2">Section Order (drag to reorder)</div>
+          <div className="space-y-1">
+            {["Summary", "Experience", "Skills", "Education"].map((s, i) => (
+              <div key={s} className="flex items-center gap-2 px-3 py-1.5 bg-neutral-800/60 border border-white/[0.05] rounded-lg text-[10px] text-neutral-400 cursor-grab">
+                <span className="text-neutral-600">⠿</span> {i + 1}. {s}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "pdf",
+    icon: Shield,
+    title: "PDF Export",
+    desc: "Pixel-perfect, ATS-safe PDF ready in seconds.",
+    color: "emerald",
+    demo: (
+      <div className="space-y-4">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Export Options</div>
+        <div className="space-y-2">
+          {[
+            { label: "Standard PDF", desc: "ATS-safe, universal", icon: "📄", active: true },
+            { label: "Styled PDF", desc: "Colors & fonts preserved", icon: "🎨", active: false },
+            { label: "DOCX", desc: "Microsoft Word format", icon: "📝", active: false },
+          ].map(({ label, desc, icon, active }) => (
+            <button key={label} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all text-left ${active ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-300" : "border-white/[0.06] text-neutral-500 hover:border-white/10 hover:text-neutral-300"}`}>
+              <span className="text-lg">{icon}</span>
+              <div>
+                <div className="text-xs font-semibold">{label}</div>
+                <div className="text-[9px] opacity-70">{desc}</div>
+              </div>
+              {active && <div className="ml-auto text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">Selected</div>}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-3 p-3 bg-emerald-500/5 border border-emerald-500/15 rounded-xl">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400"><Shield className="w-4 h-4" /></div>
+          <div className="text-[10px] text-neutral-400 leading-relaxed">✓ Tested on Workday, Greenhouse, Lever, and Taleo</div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "analytics",
+    icon: BarChart3,
+    title: "Resume Analytics",
+    desc: "Track your match score across multiple job descriptions.",
+    color: "amber",
+    demo: (
+      <div className="space-y-3">
+        <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-3">Match Score Tracker</div>
+        <div className="space-y-2.5">
+          {[
+            { role: "Frontend Engineer · Stripe", score: 94, color: "emerald" },
+            { role: "SWE · Google", score: 87, color: "indigo" },
+            { role: "Staff Engineer · Airbnb", score: 71, color: "amber" },
+            { role: "React Dev · Shopify", score: 96, color: "emerald" },
+          ].map(({ role, score, color }) => (
+            <div key={role} className="flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="text-[10px] text-neutral-400 truncate mb-1">{role}</div>
+                <div className="h-1.5 w-full bg-neutral-800 rounded-full overflow-hidden">
+                  <div className={`h-full bg-${color}-500 rounded-full transition-all duration-700`} style={{ width: `${score}%` }} />
+                </div>
+              </div>
+              <div className={`text-xs font-bold text-${color}-400 w-8 text-right flex-shrink-0`}>{score}%</div>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2 mt-3">
+          <div className="flex items-center gap-1.5 text-[9px] text-neutral-600"><div className="w-2 h-2 rounded-full bg-emerald-500" />Excellent</div>
+          <div className="flex items-center gap-1.5 text-[9px] text-neutral-600"><div className="w-2 h-2 rounded-full bg-indigo-500" />Good</div>
+          <div className="flex items-center gap-1.5 text-[9px] text-neutral-600"><div className="w-2 h-2 rounded-full bg-amber-500" />Needs Work</div>
+        </div>
+      </div>
+    ),
+  },
+];
+
+function FeatureShowcase() {
+  const [active, setActive] = useState(0);
+  const feat = FEATURES[active];
+  return (
+    <div className="flex gap-5 rounded-2xl border border-white/[0.05] bg-neutral-900/20 overflow-hidden">
+      {/* Left: Feature list */}
+      <div className="w-64 flex-shrink-0 border-r border-white/[0.05] p-4 flex flex-col gap-1">
+        {FEATURES.map((f, idx) => {
+          const Icon = f.icon;
+          const isActive = idx === active;
+          return (
+            <button
+              key={f.id}
+              onClick={() => setActive(idx)}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-200 group ${
+                isActive
+                  ? "bg-indigo-600/15 border border-indigo-500/25 text-white"
+                  : "text-neutral-500 hover:text-neutral-300 hover:bg-white/[0.03] border border-transparent"
+              }`}
+            >
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                isActive ? "bg-indigo-500/20 border border-indigo-500/30" : "bg-neutral-800/60 border border-white/[0.05] group-hover:bg-neutral-800"
+              }`}>
+                <Icon className={`w-4 h-4 ${isActive ? "text-indigo-400" : "text-neutral-500 group-hover:text-neutral-300"}`} />
+              </div>
+              <div>
+                <div className={`text-xs font-semibold ${isActive ? "text-white" : ""}`}>{f.title}</div>
+                <div className="text-[9px] text-neutral-600 mt-0.5 leading-relaxed line-clamp-1">{f.desc}</div>
+              </div>
+              {isActive && <ChevronRight className="w-3.5 h-3.5 text-indigo-400 ml-auto flex-shrink-0" />}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Right: Live demo panel */}
+      <div className="flex-1 p-6 relative">
+        {/* Header */}
+        <div className="flex items-center gap-3 mb-5 pb-4 border-b border-white/[0.05]">
+          <div className="w-9 h-9 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center">
+            <feat.icon className="w-4.5 h-4.5 text-indigo-400" />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-white">{feat.title}</div>
+            <div className="text-xs text-neutral-500">{feat.desc}</div>
+          </div>
+          <Link href="/dashboard" className="ml-auto">
+            <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white h-8 px-3 text-xs rounded-lg">Try it →</Button>
+          </Link>
+        </div>
+        {/* Demo content with fade transition */}
+        <div key={active} className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {feat.demo}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /* ─── Main Page ──────────────────────────────────────────────── */
 export default function Home() {
+
   const [activeSlide, setActiveSlide] = useState(0);
   const [animating, setAnimating] = useState(false);
 
@@ -436,31 +709,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURE GRID ── */}
+
+      {/* ── INTERACTIVE FEATURES ── */}
       <section className="max-w-6xl mx-auto px-6 pb-28">
         <div className="text-center mb-12">
           <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">What you get</p>
           <h2 className="text-3xl font-bold">Everything to land the job.</h2>
+          <p className="text-neutral-500 text-sm mt-2">Click any feature to see it in action.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { icon: Zap, title: "AI Bullet Writer", desc: "Get polished, quantified achievement bullets from rough notes." },
-            { icon: Target, title: "ATS Score Checker", desc: "Instant match score against any job description." },
-            { icon: FileText, title: "Cover Letter AI", desc: "Personalized cover letters ready in under 30 seconds." },
-            { icon: Palette, title: "Theme Customizer", desc: "8 accent colors, 6 font styles, drag-and-drop section order." },
-            { icon: Shield, title: "PDF Export", desc: "Pixel-perfect, ATS-safe PDF that looks great everywhere." },
-            { icon: BarChart3, title: "Resume Analytics", desc: "Compare your resume against multiple job descriptions." },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="p-6 rounded-2xl border border-white/[0.05] bg-neutral-900/30 hover:bg-neutral-900/60 hover:border-white/10 transition-all duration-200 group">
-              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/15 flex items-center justify-center mb-4 group-hover:bg-indigo-500/15 transition-colors">
-                <Icon className="w-4.5 h-4.5 text-indigo-400" />
-              </div>
-              <h3 className="font-semibold text-white mb-1.5">{title}</h3>
-              <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
+        <FeatureShowcase />
       </section>
+
 
       {/* ── TEMPLATES ── */}
       <section id="templates" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.03] pt-24">
