@@ -95,7 +95,7 @@ export default function Dashboard() {
             <div className="absolute inset-x-0 -bottom-5 h-0.5 bg-indigo-500 rounded-full" />
           </Link>
           <Link href="/dashboard/cover-letters" className="hover:text-white transition-colors">Cover Letters</Link>
-          <button onClick={() => toast("Settings coming soon")} className="hover:text-white transition-colors cursor-pointer">Settings</button>
+          <Link href="/dashboard/settings" className="hover:text-white transition-colors text-neutral-400">Settings</Link>
         </nav>
         <div className="flex items-center gap-4">
           <Button className="hidden sm:flex relative group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-[0_0_20px_rgba(245,158,11,0.2)] border-0 overflow-hidden" onClick={() => toast("Pro features unlock soon!")}>
@@ -115,9 +115,11 @@ export default function Dashboard() {
                 <p className="font-medium text-sm truncate">{session?.user?.name || "User"}</p>
                 <p className="text-xs text-neutral-400 truncate">{session?.user?.email || "No email"}</p>
               </div>
-              <DropdownMenuItem className="cursor-pointer text-neutral-200 focus:bg-neutral-800 focus:text-white" onClick={() => toast("Settings coming soon")}>
-                <Settings className="w-4 h-4 mr-2 text-neutral-400" /> Account Settings
-              </DropdownMenuItem>
+              <Link href="/dashboard/settings" className="w-full">
+                <DropdownMenuItem className="cursor-pointer text-neutral-200 focus:bg-neutral-800 focus:text-white">
+                  <Settings className="w-4 h-4 mr-2 text-neutral-400" /> Account Settings
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator className="bg-neutral-800" />
               <DropdownMenuItem className="cursor-pointer text-red-400 focus:text-red-300 focus:bg-red-950/30" onClick={() => signOut({ callbackUrl: "/" })}>
                 Log out
