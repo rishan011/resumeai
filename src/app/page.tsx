@@ -7,7 +7,7 @@ import {
   Target, BarChart3, Shield, Palette, ChevronRight
 } from "lucide-react";
 import Link from "next/link";
-
+import { motion } from "framer-motion";
 /* ─── Slide data ─────────────────────────────────────────────── */
 const SLIDES = [
   {
@@ -566,19 +566,20 @@ export default function Home() {
   const slide = SLIDES[activeSlide];
 
   return (
-    <div className="h-[100dvh] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-[#09090b] text-neutral-50 font-sans antialiased relative">
+    <div className="h-[100dvh] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-[#030303] text-neutral-50 font-sans antialiased relative selection:bg-indigo-500/30">
 
-      {/* Ambient bg - moved to fixed so it stays across scrolls */}
+      {/* Ambient Premium Dark Theme Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-100px] left-1/4 w-[700px] h-[700px] bg-indigo-600/8 rounded-full blur-[130px]" />
-        <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-violet-600/6 rounded-full blur-[110px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/10 rounded-full blur-[120px]" />
       </div>
 
       {/* ── NAV ── */}
-      <nav className="fixed w-full top-0 z-50 border-b border-white/[0.04] bg-[#09090b]/40 backdrop-blur-xl">
+      <nav className="fixed w-full top-0 z-50 border-b border-white/[0.04] bg-[#030303]/40 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-lg">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             Resume<span className="text-indigo-400">AI</span>
@@ -593,7 +594,7 @@ export default function Home() {
               <Button variant="ghost" size="sm" className="text-neutral-400 hover:text-white hover:bg-white/5 hidden md:flex">Sign in</Button>
             </Link>
             <Link href="/dashboard">
-              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4 h-8">Get Started</Button>
+              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-4 h-8 shadow-md shadow-indigo-500/20">Get Started</Button>
             </Link>
           </div>
         </div>
@@ -601,42 +602,54 @@ export default function Home() {
 
       {/* ── SLIDE 1: HERO ── */}
       <section className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 text-center relative z-10 pt-16 pb-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full mb-8">
-            <Zap className="w-3 h-3" /> AI-Powered · ATS-Optimized · Free to Start
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="max-w-6xl mx-auto w-full"
+        >
+          <div className="inline-flex items-center gap-2 text-xs font-medium text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full mb-8 shadow-[0_0_15px_rgba(99,102,241,0.15)] ">
+            <Zap className="w-3.5 h-3.5" /> AI-Powered · ATS-Optimized · Free to Start
           </div>
-          <h1 className="text-5xl md:text-[68px] font-black tracking-tight leading-[1.05] mb-6">
+          <h1 className="text-5xl md:text-[76px] font-black tracking-tight leading-[1.05] mb-6 drop-shadow-2xl">
             Your resume,<br />
-            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-br from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent filter drop-shadow-[0_0_20px_rgba(139,92,246,0.3)]">
               perfected by AI.
             </span>
           </h1>
-          <p className="text-lg text-neutral-500 max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-400 max-w-xl mx-auto mb-10 leading-relaxed font-light">
             Build ATS-beating resumes in minutes. AI writes your bullets, scores your match, and crafts your cover letter — automatically.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <Link href="/dashboard">
-              <Button size="lg" className="h-12 px-8 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 text-base">
-                Build My Resume <ArrowRight className="ml-2 w-4 h-4" />
+              <Button size="lg" className="h-14 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-bold rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.15)] text-base transition-all hover:scale-[1.02]">
+                Build My Resume <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
             <a href="#templates">
-              <Button size="lg" variant="outline" className="h-12 px-8 border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-white rounded-xl text-base">
+              <Button size="lg" variant="outline" className="h-14 px-8 border-neutral-700 text-neutral-300 hover:bg-neutral-900 hover:border-neutral-600 rounded-xl text-base transition-all">
                 See Templates
               </Button>
             </a>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-xs text-neutral-600">
+          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-neutral-500 font-medium">
             {["No credit card", "PDF export", "ATS optimized", "AI-powered"].map(t => (
-              <span key={t} className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-500" />{t}</span>
+              <span key={t} className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-indigo-400/80" />{t}</span>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── SLIDE 2: ANIMATED FEATURE SHOWCASE ── */}
       <section id="features" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
-        <div className="max-w-5xl mx-auto w-full">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="max-w-5xl mx-auto w-full"
+        >
           {/* Slide selector tabs */}
           <div className="flex items-center justify-center gap-2 mb-6">
             {SLIDES.map((s, idx) => {
@@ -711,22 +724,28 @@ export default function Home() {
           {/* Navigation arrows */}
           <div className="flex items-center justify-center gap-3 mt-6">
             <button onClick={() => goToSlide((activeSlide - 1 + SLIDES.length) % SLIDES.length)}
-              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
+              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-800 hover:border-white/20 transition-all shadow-sm">
               <ChevronRight className="w-4 h-4 rotate-180" />
             </button>
-            <span className="text-xs text-neutral-600">{activeSlide + 1} / {SLIDES.length}</span>
+            <span className="text-xs text-neutral-600 font-medium">{activeSlide + 1} / {SLIDES.length}</span>
             <button onClick={() => goToSlide((activeSlide + 1) % SLIDES.length)}
-              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
+              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:bg-neutral-800 hover:border-white/20 transition-all shadow-sm">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
 
       {/* ── SLIDE 3: TEMPLATES ── */}
       <section id="templates" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
-        <div className="max-w-5xl mx-auto w-full">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="max-w-5xl mx-auto w-full"
+        >
           <div className="text-center mb-10">
             <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Templates</p>
             <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pick your style.</h2>
@@ -763,12 +782,18 @@ export default function Home() {
             </Link>
             <p className="text-neutral-700 text-xs mt-3">No account required to explore</p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── SLIDE 4: PRICING ── */}
       <section id="pricing" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
-        <div className="max-w-4xl mx-auto w-full">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+          className="max-w-4xl mx-auto w-full"
+        >
           <div className="text-center mb-10">
             <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Pricing</p>
             <h2 className="text-3xl lg:text-4xl font-bold mb-3">Simple. Transparent.</h2>
@@ -808,12 +833,18 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── SLIDE 5: FOOTER CTA ── */}
       <section className="min-h-screen w-full snap-always snap-center flex flex-col justify-end items-center relative z-10 pt-16 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_70%)]">
-        <div className="max-w-3xl mx-auto px-6 text-center flex-1 flex flex-col justify-center w-full">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.5 }}
+          className="max-w-3xl mx-auto px-6 text-center flex-1 flex flex-col justify-center w-full"
+        >
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-500/20">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
@@ -824,7 +855,7 @@ export default function Home() {
               Build Your Resume Now <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
-        </div>
+        </motion.div>
         
         {/* FOOTER - Pinned to bottom of the 5th slide */}
         <footer className="w-full border-t border-white/[0.04] py-8 mt-auto bg-black/20 backdrop-blur-md">
