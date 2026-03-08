@@ -1,8 +1,16 @@
 import { notFound } from "next/navigation";
-import { ThemeConfig, DEFAULT_SECTIONS, SectionItem } from "@/components/forms/ThemeCustomizer";
+import { ThemeConfig, SectionItem } from "@/components/forms/ThemeCustomizer";
 
 // In a real application, you would fetch this data from your database using `params.id`
 // For the mock MVP, we will demonstrate the capability with static realistic data.
+
+const DEFAULT_SECTION_ORDER = [
+  { id: "summary",    label: "Summary",    visible: true },
+  { id: "experience", label: "Experience", visible: true },
+  { id: "education",  label: "Education",  visible: true },
+  { id: "projects",   label: "Projects",   visible: true },
+  { id: "skills",     label: "Skills",     visible: true },
+];
 
 const mockSharedResume = {
   personalInfo: {
@@ -52,7 +60,7 @@ const mockSharedResume = {
   themeConfig: {
     accentColor: "#4F46E5",
     fontFamily: "Inter, sans-serif",
-    sectionOrder: [...DEFAULT_SECTIONS],
+    sectionOrder: [...DEFAULT_SECTION_ORDER],
   } as ThemeConfig,
   template: "modern" as const
 };
