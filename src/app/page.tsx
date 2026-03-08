@@ -566,16 +566,16 @@ export default function Home() {
   const slide = SLIDES[activeSlide];
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-neutral-50 font-sans antialiased">
+    <div className="h-[100dvh] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-[#09090b] text-neutral-50 font-sans antialiased relative">
 
-      {/* Ambient bg */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
+      {/* Ambient bg - moved to fixed so it stays across scrolls */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-100px] left-1/4 w-[700px] h-[700px] bg-indigo-600/8 rounded-full blur-[130px]" />
-        <div className="absolute bottom-1/3 right-1/5 w-[500px] h-[500px] bg-violet-600/6 rounded-full blur-[110px]" />
+        <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-violet-600/6 rounded-full blur-[110px]" />
       </div>
 
       {/* ── NAV ── */}
-      <nav className="sticky top-0 z-50 border-b border-white/[0.04] bg-[#09090b]/85 backdrop-blur-xl">
+      <nav className="fixed w-full top-0 z-50 border-b border-white/[0.04] bg-[#09090b]/40 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-lg">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
@@ -599,234 +599,249 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* ── HERO ── */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 pb-12 text-center">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full mb-8">
-          <Zap className="w-3 h-3" /> AI-Powered · ATS-Optimized · Free to Start
-        </div>
-        <h1 className="text-5xl md:text-[68px] font-black tracking-tight leading-[1.05] mb-6">
-          Your resume,<br />
-          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
-            perfected by AI.
-          </span>
-        </h1>
-        <p className="text-lg text-neutral-500 max-w-xl mx-auto mb-10 leading-relaxed">
-          Build ATS-beating resumes in minutes. AI writes your bullets, scores your match, and crafts your cover letter — automatically.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/dashboard">
-            <Button size="lg" className="h-12 px-8 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 text-base">
-              Build My Resume <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
-          <a href="#templates">
-            <Button size="lg" variant="outline" className="h-12 px-8 border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-white rounded-xl text-base">
-              See Templates
-            </Button>
-          </a>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-xs text-neutral-600">
-          {["No credit card", "PDF export", "ATS optimized", "AI-powered"].map(t => (
-            <span key={t} className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-500" />{t}</span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── ANIMATED FEATURE SHOWCASE ── */}
-      <section id="features" className="max-w-6xl mx-auto px-6 pb-28">
-
-        {/* Slide selector tabs */}
-        <div className="flex items-center justify-center gap-2 mb-6">
-          {SLIDES.map((s, idx) => {
-            const Icon = s.icon;
-            const isActive = idx === activeSlide;
-            return (
-              <button
-                key={s.id}
-                onClick={() => goToSlide(idx)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border
-                  ${isActive
-                    ? "bg-indigo-600/20 text-indigo-300 border-indigo-500/40 shadow-lg shadow-indigo-500/5"
-                    : "text-neutral-600 border-transparent hover:text-neutral-400 hover:bg-neutral-900"
-                  }`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                {s.tag}
-              </button>
-            );
-          })}
-          {/* Progress dots */}
-          <div className="flex items-center gap-1.5 ml-4">
-            {SLIDES.map((_, idx) => (
-              <div key={idx} className={`rounded-full transition-all duration-300 ${idx === activeSlide ? "w-5 h-1.5 bg-indigo-500" : "w-1.5 h-1.5 bg-neutral-700"}`} />
+      {/* ── SLIDE 1: HERO ── */}
+      <section className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 text-center relative z-10 pt-16 pb-10">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-full mb-8">
+            <Zap className="w-3 h-3" /> AI-Powered · ATS-Optimized · Free to Start
+          </div>
+          <h1 className="text-5xl md:text-[68px] font-black tracking-tight leading-[1.05] mb-6">
+            Your resume,<br />
+            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
+              perfected by AI.
+            </span>
+          </h1>
+          <p className="text-lg text-neutral-500 max-w-xl mx-auto mb-10 leading-relaxed">
+            Build ATS-beating resumes in minutes. AI writes your bullets, scores your match, and crafts your cover letter — automatically.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/dashboard">
+              <Button size="lg" className="h-12 px-8 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 text-base">
+                Build My Resume <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+            <a href="#templates">
+              <Button size="lg" variant="outline" className="h-12 px-8 border-neutral-800 text-neutral-300 hover:bg-neutral-900 hover:text-white rounded-xl text-base">
+                See Templates
+              </Button>
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-xs text-neutral-600">
+            {["No credit card", "PDF export", "ATS optimized", "AI-powered"].map(t => (
+              <span key={t} className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-500" />{t}</span>
             ))}
           </div>
         </div>
-
-        {/* Slide label */}
-        <div className={`text-center mb-4 transition-all duration-300 ${animating ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"}`}>
-          <div className="text-sm text-neutral-400">{slide.description}</div>
-        </div>
-
-        {/* Window frame */}
-        <div className="relative rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur overflow-hidden shadow-2xl"
-          style={{ minHeight: 520 }}>
-          {/* Window chrome */}
-          <div className="flex items-center gap-1.5 px-5 py-3 border-b border-white/[0.05]">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-400/60" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/60" />
-            <div className="ml-4 flex items-center gap-2">
-              <div className="h-5 w-48 bg-neutral-800/80 rounded-md flex items-center px-2 gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/60" />
-                <div className="text-[9px] text-neutral-600">resumeai.app / {slide.id}</div>
-              </div>
-            </div>
-            <div className="ml-auto text-[9px] text-neutral-600 flex items-center gap-1">
-              <ChevronRight className="w-3 h-3" />
-              {slide.tag}
-            </div>
-          </div>
-
-          {/* Slide content */}
-          <div
-            className="transition-all duration-300 ease-in-out"
-            style={{ height: 500, opacity: animating ? 0 : 1, transform: animating ? "translateY(6px)" : "translateY(0)" }}
-          >
-            <SlideScreen />
-          </div>
-
-          {/* Progress bar at bottom */}
-          <div className="absolute bottom-0 left-0 w-full h-0.5 bg-neutral-800">
-            <div
-              key={activeSlide}
-              className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full"
-              style={{ animation: "slideProgress 5s linear forwards" }}
-            />
-          </div>
-        </div>
-
-        {/* Navigation arrows */}
-        <div className="flex items-center justify-center gap-3 mt-5">
-          <button onClick={() => goToSlide((activeSlide - 1 + SLIDES.length) % SLIDES.length)}
-            className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
-            <ChevronRight className="w-4 h-4 rotate-180" />
-          </button>
-          <span className="text-xs text-neutral-600">{activeSlide + 1} / {SLIDES.length}</span>
-          <button onClick={() => goToSlide((activeSlide + 1) % SLIDES.length)}
-            className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
       </section>
 
-
-      {/* ── TEMPLATES ── */}
-      <section id="templates" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.03] pt-24">
-        <div className="text-center mb-12">
-          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Templates</p>
-          <h2 className="text-3xl font-bold mb-3">Pick your style.</h2>
-          <p className="text-neutral-500 text-sm max-w-xs mx-auto">ATS-optimized, fully customizable — colors, fonts, and layout all yours.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
-          {[
-            { name: "Modern", badge: "Popular", badgeClr: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20", desc: "Bold header · Color accents", accent: "indigo", preview: <div className="flex flex-col gap-2 p-4"><div className="h-7 bg-indigo-600/35 rounded-lg" /><div className="h-px bg-white/5" />{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}<div className="flex gap-1 mt-1">{[28,22,30].map((w,i)=><div key={i} className="h-3 bg-indigo-500/20 rounded" style={{width:w}}/>)}</div></div> },
-            { name: "Classic", badge: "Featured ⭐", badgeClr: "text-amber-400 bg-amber-500/10 border-amber-500/20", desc: "Traditional · Timeless", accent: "amber", preview: <div className="flex flex-col gap-2 p-4"><div className="text-center pb-2 border-b border-white/10"><div className="h-2 w-20 bg-neutral-300/15 rounded mx-auto mb-1.5"/><div className="h-1 w-16 bg-neutral-600 rounded mx-auto"/></div><div className="h-1 w-14 bg-amber-400/25 rounded mt-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div> },
-            { name: "Minimal", badge: "Sidebar", badgeClr: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20", desc: "Two-column · Modern", accent: "emerald", preview: <div className="flex gap-0 p-0 h-full overflow-hidden"><div className="w-[36%] bg-neutral-800/50 p-3 flex flex-col gap-1.5"><div className="w-6 h-6 rounded-full bg-emerald-500/20 mb-1"/><div className="h-1 w-12 bg-neutral-600 rounded"/><div className="h-px bg-white/5 my-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div><div className="flex-1 p-3 flex flex-col gap-1.5"><div className="h-1 w-14 bg-emerald-400/25 rounded"/>{[1,2,3,4].map(i=><div key={i} className="h-1 w-full bg-neutral-700/40 rounded"/>)}</div></div> },
-          ].map(({ name, badge, badgeClr, desc, accent, preview }) => (
-            <Link key={name} href="/dashboard" className="group block">
-              <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-300 group-hover:border-${accent}-500/40 group-hover:shadow-lg group-hover:shadow-${accent}-500/10 group-hover:-translate-y-1.5`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950" />
-                <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-${accent}-500 to-${accent}-400 opacity-0 group-hover:opacity-100 transition-opacity`} />
-                <div className="absolute inset-0">{preview}</div>
-                <div className="absolute inset-0 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className={`bg-${accent}-600 text-white text-xs font-semibold px-5 py-2 rounded-full shadow-lg`}>Use Template →</span>
-                </div>
-              </div>
-              <div className="mt-3 flex items-center justify-between px-0.5">
-                <div>
-                  <span className="font-semibold text-white text-sm">{name}</span>
-                  <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
-                </div>
-                <span className={`text-xs ${badgeClr} border px-2 py-0.5 rounded-full`}>{badge}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <Link href="/dashboard">
-            <Button className="bg-white text-neutral-900 hover:bg-neutral-100 font-semibold px-10 h-11 rounded-xl">Start Building Free →</Button>
-          </Link>
-          <p className="text-neutral-700 text-xs mt-2">No account required to explore</p>
-        </div>
-      </section>
-
-      {/* ── PRICING ── */}
-      <section id="pricing" className="max-w-6xl mx-auto px-6 pb-28 border-t border-white/[0.03] pt-24">
-        <div className="text-center mb-12">
-          <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Pricing</p>
-          <h2 className="text-3xl font-bold mb-3">Simple. Transparent.</h2>
-          <p className="text-neutral-500 text-sm">Start free. Upgrade when you&apos;re ready.</p>
-        </div>
-        <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="p-7 rounded-2xl border border-white/[0.06] bg-neutral-900/30">
-            <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-4">Free</div>
-            <div className="text-4xl font-black mb-1">$0</div>
-            <div className="text-neutral-500 text-sm mb-7">Forever. No credit card.</div>
-            <ul className="space-y-3 mb-8">
-              {["3 AI resume generations", "PDF export", "ATS score checker", "Shareable link"].map(f => (
-                <li key={f} className="flex items-center gap-2.5 text-sm text-neutral-400">
-                  <CheckCircle className="w-4 h-4 text-emerald-500 flex-shrink-0" />{f}
-                </li>
+      {/* ── SLIDE 2: ANIMATED FEATURE SHOWCASE ── */}
+      <section id="features" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
+        <div className="max-w-5xl mx-auto w-full">
+          {/* Slide selector tabs */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            {SLIDES.map((s, idx) => {
+              const Icon = s.icon;
+              const isActive = idx === activeSlide;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => goToSlide(idx)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border
+                    ${isActive
+                      ? "bg-indigo-600/20 text-indigo-300 border-indigo-500/40 shadow-lg shadow-indigo-500/5"
+                      : "text-neutral-600 border-transparent hover:text-neutral-400 hover:bg-neutral-900"
+                    }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {s.tag}
+                </button>
+              );
+            })}
+            {/* Progress dots */}
+            <div className="flex items-center gap-1.5 ml-4">
+              {SLIDES.map((_, idx) => (
+                <div key={idx} className={`rounded-full transition-all duration-300 ${idx === activeSlide ? "w-5 h-1.5 bg-indigo-500" : "w-1.5 h-1.5 bg-neutral-700"}`} />
               ))}
-            </ul>
-            <Link href="/dashboard" className="block">
-              <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white h-11 rounded-xl">Get Started Free</Button>
-            </Link>
+            </div>
           </div>
-          <div className="p-7 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 to-neutral-900/60 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl">POPULAR</div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.08),transparent_60%)]" />
-            <div className="relative">
-              <div className="text-xs text-indigo-400 font-semibold uppercase tracking-wider mb-4">Pro</div>
-              <div className="text-4xl font-black mb-1 text-white">$12<span className="text-lg font-medium text-neutral-500">/mo</span></div>
-              <div className="text-neutral-500 text-sm mb-7">Everything in Free, plus:</div>
-              <ul className="space-y-3 mb-8">
-                {["Unlimited AI generations", "AI Cover Letter writer", "Job match optimizer", "Priority support"].map(f => (
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-indigo-200">
-                    <CheckCircle className="w-4 h-4 text-indigo-400 flex-shrink-0" />{f}
+
+          {/* Slide label */}
+          <div className={`text-center mb-6 transition-all duration-300 ${animating ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"}`}>
+            <div className="text-sm text-neutral-400">{slide.description}</div>
+          </div>
+
+          {/* Window frame */}
+          <div className="relative rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur overflow-hidden shadow-2xl"
+            style={{ minHeight: 520 }}>
+            {/* Window chrome */}
+            <div className="flex items-center gap-1.5 px-5 py-3 border-b border-white/[0.05]">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+              <div className="w-2.5 h-2.5 rounded-full bg-amber-400/60" />
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/60" />
+              <div className="ml-4 flex items-center gap-2">
+                <div className="h-5 w-48 bg-neutral-800/80 rounded-md flex items-center px-2 gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/60" />
+                  <div className="text-[9px] text-neutral-600">resumeai.app / {slide.id}</div>
+                </div>
+              </div>
+              <div className="ml-auto text-[9px] text-neutral-600 flex items-center gap-1">
+                <ChevronRight className="w-3 h-3" />
+                {slide.tag}
+              </div>
+            </div>
+
+            {/* Slide content */}
+            <div
+              className="transition-all duration-300 ease-in-out"
+              style={{ height: 500, opacity: animating ? 0 : 1, transform: animating ? "translateY(6px)" : "translateY(0)" }}
+            >
+              <SlideScreen />
+            </div>
+
+            {/* Progress bar at bottom */}
+            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-neutral-800">
+              <div
+                key={activeSlide}
+                className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full"
+                style={{ animation: "slideProgress 5s linear forwards" }}
+              />
+            </div>
+          </div>
+
+          {/* Navigation arrows */}
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <button onClick={() => goToSlide((activeSlide - 1 + SLIDES.length) % SLIDES.length)}
+              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
+              <ChevronRight className="w-4 h-4 rotate-180" />
+            </button>
+            <span className="text-xs text-neutral-600">{activeSlide + 1} / {SLIDES.length}</span>
+            <button onClick={() => goToSlide((activeSlide + 1) % SLIDES.length)}
+              className="w-8 h-8 rounded-full bg-neutral-900 border border-white/[0.07] flex items-center justify-center text-neutral-500 hover:text-white hover:border-white/20 transition-all">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ── SLIDE 3: TEMPLATES ── */}
+      <section id="templates" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
+        <div className="max-w-5xl mx-auto w-full">
+          <div className="text-center mb-10">
+            <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Templates</p>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-3">Pick your style.</h2>
+            <p className="text-neutral-500 text-sm max-w-sm mx-auto">ATS-optimized, fully customizable — colors, fonts, and layout all yours.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto w-full">
+            {[
+              { name: "Modern", badge: "Popular", badgeClr: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20", desc: "Bold header · Color accents", accent: "indigo", preview: <div className="flex flex-col gap-2 p-4"><div className="h-7 bg-indigo-600/35 rounded-lg" /><div className="h-px bg-white/5" />{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}<div className="flex gap-1 mt-1">{[28,22,30].map((w,i)=><div key={i} className="h-3 bg-indigo-500/20 rounded" style={{width:w}}/>)}</div></div> },
+              { name: "Classic", badge: "Featured ⭐", badgeClr: "text-amber-400 bg-amber-500/10 border-amber-500/20", desc: "Traditional · Timeless", accent: "amber", preview: <div className="flex flex-col gap-2 p-4"><div className="text-center pb-2 border-b border-white/10"><div className="h-2 w-20 bg-neutral-300/15 rounded mx-auto mb-1.5"/><div className="h-1 w-16 bg-neutral-600 rounded mx-auto"/></div><div className="h-1 w-14 bg-amber-400/25 rounded mt-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div> },
+              { name: "Minimal", badge: "Sidebar", badgeClr: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20", desc: "Two-column · Modern", accent: "emerald", preview: <div className="flex gap-0 p-0 h-full overflow-hidden"><div className="w-[36%] bg-neutral-800/50 p-3 flex flex-col gap-1.5"><div className="w-6 h-6 rounded-full bg-emerald-500/20 mb-1"/><div className="h-1 w-12 bg-neutral-600 rounded"/><div className="h-px bg-white/5 my-1"/>{[1,2,3].map(i=><div key={i} className="h-1 w-full bg-neutral-700/50 rounded"/>)}</div><div className="flex-1 p-3 flex flex-col gap-1.5"><div className="h-1 w-14 bg-emerald-400/25 rounded"/>{[1,2,3,4].map(i=><div key={i} className="h-1 w-full bg-neutral-700/40 rounded"/>)}</div></div> },
+            ].map(({ name, badge, badgeClr, desc, accent, preview }) => (
+              <Link key={name} href="/dashboard" className="group block">
+                <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden border border-neutral-800 transition-all duration-300 group-hover:border-${accent}-500/40 group-hover:shadow-xl group-hover:shadow-${accent}-500/10 group-hover:-translate-y-2`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 to-neutral-950" />
+                  <div className={`absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-${accent}-500 to-${accent}-400 opacity-0 group-hover:opacity-100 transition-opacity`} />
+                  <div className="absolute inset-0">{preview}</div>
+                  <div className="absolute inset-0 bg-neutral-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+                    <span className={`bg-${accent}-600 text-white text-xs font-semibold px-5 py-2.5 rounded-full shadow-lg`}>Use Template →</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex items-center justify-between px-1">
+                  <div>
+                    <span className="font-semibold text-white text-sm">{name}</span>
+                    <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
+                  </div>
+                  <span className={`text-[10px] font-medium ${badgeClr} border px-2 py-0.5 rounded-full`}>{badge}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link href="/dashboard">
+              <Button className="bg-white text-neutral-900 hover:bg-neutral-100 font-semibold px-10 h-11 rounded-xl">Start Building Free →</Button>
+            </Link>
+            <p className="text-neutral-700 text-xs mt-3">No account required to explore</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SLIDE 4: PRICING ── */}
+      <section id="pricing" className="min-h-screen w-full snap-always snap-center flex flex-col justify-center items-center px-6 relative z-10 pt-16 pb-10">
+        <div className="max-w-4xl mx-auto w-full">
+          <div className="text-center mb-10">
+            <p className="text-indigo-400 text-xs font-semibold uppercase tracking-widest mb-3">Pricing</p>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-3">Simple. Transparent.</h2>
+            <p className="text-neutral-500 text-sm">Start free. Upgrade when you're ready.</p>
+          </div>
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+            <div className="p-8 rounded-2xl border border-white/[0.06] bg-neutral-900/40 backdrop-blur-sm flex flex-col">
+              <div className="text-xs text-neutral-500 font-semibold uppercase tracking-wider mb-4">Free</div>
+              <div className="text-5xl font-black mb-1">$0</div>
+              <div className="text-neutral-500 text-sm mb-7">Forever. No credit card.</div>
+              <ul className="space-y-4 mb-10 flex-1">
+                {["3 AI resume generations", "PDF export", "ATS score checker", "Shareable link"].map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-neutral-400 font-medium">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />{f}
                   </li>
                 ))}
               </ul>
-              <Button className="w-full h-11 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold shadow-lg shadow-amber-500/20 border-0">⚡ Upgrade to Pro</Button>
+              <Link href="/dashboard" className="block mt-auto">
+                <Button className="w-full bg-neutral-800 hover:bg-neutral-700 text-white h-12 rounded-xl text-base font-semibold">Get Started Free</Button>
+              </Link>
+            </div>
+            <div className="p-8 rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-950/60 to-neutral-900/60 relative overflow-hidden backdrop-blur-sm flex flex-col shadow-2xl shadow-indigo-500/5">
+              <div className="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-4 py-2 rounded-bl-xl shadow-md">POPULAR</div>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.1),transparent_70%)] pointer-events-none" />
+              <div className="relative flex flex-col h-full">
+                <div className="text-xs text-indigo-400 font-bold uppercase tracking-wider mb-4">Pro</div>
+                <div className="text-5xl font-black mb-1 text-white">$12<span className="text-lg font-medium text-neutral-500">/mo</span></div>
+                <div className="text-neutral-400 text-sm mb-7">Everything in Free, plus:</div>
+                <ul className="space-y-4 mb-10 flex-1">
+                  {["Unlimited AI generations", "AI Cover Letter writer", "Job match optimizer", "Priority support"].map(f => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-indigo-100 font-medium">
+                      <CheckCircle className="w-5 h-5 text-indigo-400 flex-shrink-0" />{f}
+                    </li>
+                  ))}
+                </ul>
+                <Button className="w-full h-12 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold shadow-lg shadow-amber-500/20 border-0 text-base mt-auto">⚡ Upgrade to Pro</Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER CTA ── */}
-      <section className="border-t border-white/[0.03] py-20 bg-gradient-to-b from-transparent to-indigo-950/10">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to land your dream job?</h2>
-          <p className="text-neutral-500 mb-8 text-sm">Join thousands of job seekers who built winning resumes with ResumeAI.</p>
+      {/* ── SLIDE 5: FOOTER CTA ── */}
+      <section className="min-h-screen w-full snap-always snap-center flex flex-col justify-end items-center relative z-10 pt-16 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_70%)]">
+        <div className="max-w-3xl mx-auto px-6 text-center flex-1 flex flex-col justify-center w-full">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-500/20">
+            <Sparkles className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5">Ready to land your dream job?</h2>
+          <p className="text-neutral-400 mb-10 text-base max-w-lg mx-auto leading-relaxed">Join thousands of job seekers who built winning resumes with ResumeAI. Fast, simple, and incredibly effective.</p>
           <Link href="/dashboard">
-            <Button size="lg" className="bg-indigo-600 hover:bg-indigo-500 text-white px-10 h-12 rounded-xl shadow-lg shadow-indigo-500/20 font-semibold">
-              Build Your Resume Now <ArrowRight className="ml-2 w-4 h-4" />
+            <Button size="lg" className="bg-white hover:bg-neutral-100 text-neutral-900 px-12 h-14 rounded-2xl shadow-xl font-bold text-lg">
+              Build Your Resume Now <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
         </div>
-      </section>
-
-      {/* ── FOOTER ── */}
-      <footer className="border-t border-white/[0.04] py-8">
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm font-semibold">
-            <div className="w-5 h-5 rounded bg-indigo-600 flex items-center justify-center"><Sparkles className="w-3 h-3 text-white" /></div>
-            Resume<span className="text-indigo-400">AI</span>
+        
+        {/* FOOTER - Pinned to bottom of the 5th slide */}
+        <footer className="w-full border-t border-white/[0.04] py-8 mt-auto bg-black/20 backdrop-blur-md">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <div className="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center"><Sparkles className="w-3.5 h-3.5 text-white" /></div>
+              Resume<span className="text-indigo-400">AI</span>
+            </div>
+            <div className="flex gap-6 text-xs text-neutral-500 font-medium">
+              <Link href="#" className="hover:text-neutral-300 transition-colors">Privacy Policy</Link>
+              <Link href="#" className="hover:text-neutral-300 transition-colors">Terms of Service</Link>
+              <Link href="#" className="hover:text-neutral-300 transition-colors">Contact</Link>
+            </div>
+            <p className="text-neutral-600 text-xs">© 2025 ResumeAI · All rights reserved.</p>
           </div>
-          <p className="text-neutral-700 text-xs">© 2025 ResumeAI · All rights reserved.</p>
-        </div>
-      </footer>
+        </footer>
+      </section>
 
       <style>{`
         @keyframes slideProgress {
