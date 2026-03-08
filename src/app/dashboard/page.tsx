@@ -53,12 +53,27 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans">
+    <div className="min-h-screen bg-[#030303] text-neutral-100 font-sans relative overflow-hidden">
+      {/* Ambient Premium Dark Theme Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <motion.div 
+          animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px]" 
+        />
+        <motion.div 
+          animate={{ y: [0, 20, 0], scale: [1, 1.05, 1] }} 
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/10 rounded-full blur-[120px]" 
+        />
+      </div>
+
       {/* Header */}
-      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-md px-6 shadow-sm">
+      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-white/[0.04] bg-[#030303]/40 backdrop-blur-xl px-6 shadow-sm">
         <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter mr-8">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <FileText className="w-5 h-5 text-white" />
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <FileText className="w-4 h-4 text-white" />
           </div>
           <span className="text-white">Resume</span><span className="text-indigo-400">AI</span>
         </Link>
@@ -71,7 +86,10 @@ export default function Dashboard() {
           <button onClick={() => toast("Settings coming soon")} className="hover:text-white transition-colors cursor-pointer">Settings</button>
         </nav>
         <div className="flex items-center gap-4">
-          <Button className="hidden sm:flex bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-md shadow-amber-500/20 border-0" onClick={() => toast("Pro features unlock soon!")}>⚡ Upgrade to Pro</Button>
+          <Button className="hidden sm:flex relative group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-[0_0_20px_rgba(245,158,11,0.2)] border-0 overflow-hidden" onClick={() => toast("Pro features unlock soon!")}>
+            <span className="relative z-10">⚡ Upgrade to Pro</span>
+            <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
+          </Button>
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none rounded-full">
               <Avatar className="h-9 w-9 border border-neutral-700 hover:ring-2 ring-indigo-500 ring-offset-2 ring-offset-neutral-950 transition-all cursor-pointer">
@@ -98,19 +116,24 @@ export default function Dashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-12 max-w-6xl">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <main className="container mx-auto px-6 py-12 max-w-6xl relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
+        >
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-white mb-1">My Resumes</h1>
-            <p className="text-neutral-400">Manage, edit, and export your resumes.</p>
+            <h1 className="text-3xl font-black tracking-tight text-white mb-1 drop-shadow-md">My Resumes</h1>
+            <p className="text-neutral-400 font-medium">Manage, edit, and export your resumes.</p>
           </div>
           <Link href="/builder/new">
-            <Button className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-md border-none">
+            <Button className="bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 border-none transition-all hover:scale-[1.02]">
               <Plus className="w-4 h-4 mr-2" />
               Create New Resume
             </Button>
           </Link>
-        </div>
+        </motion.div>
 
         <motion.div 
           variants={containerVariants} 
@@ -119,13 +142,13 @@ export default function Dashboard() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {/* Create New Card Placeholder */}
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} transition={{ ease: "easeOut", duration: 0.2 }}>
             <Link href="/builder/new">
-              <Card className="h-full min-h-[280px] bg-transparent border-dashed border-2 border-neutral-800 hover:border-indigo-500 hover:bg-neutral-900/50 transition-all cursor-pointer flex flex-col items-center justify-center text-center p-8 group shadow-none">
-                <div className="w-16 h-16 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all duration-300">
-                  <Plus className="w-8 h-8 text-neutral-400 group-hover:text-indigo-400 transition-colors" />
+              <Card className="h-full min-h-[280px] bg-neutral-900/40 backdrop-blur-sm border-dashed border-2 border-white/[0.08] hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all cursor-pointer flex flex-col items-center justify-center text-center p-8 group shadow-none">
+                <div className="w-16 h-16 rounded-full bg-neutral-950/50 border border-white/[0.05] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-indigo-600/20 group-hover:border-indigo-500/30 transition-all duration-300">
+                  <Plus className="w-8 h-8 text-neutral-500 group-hover:text-indigo-400 transition-colors" />
                 </div>
-                <h3 className="font-semibold text-white mb-1">Start from Scratch</h3>
+                <h3 className="font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">Start from Scratch</h3>
                 <p className="text-sm text-neutral-500">Create a brand new resume</p>
               </Card>
             </Link>
@@ -134,11 +157,12 @@ export default function Dashboard() {
           {/* Saved Resumes */}
           <AnimatePresence>
             {resumes.map((resume) => (
-              <motion.div key={resume.id} variants={itemVariants} layout exit="exit">
-                <Card className="flex flex-col h-full hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:-translate-y-1 transition-all duration-300 bg-neutral-900 border-neutral-800 rounded-xl group relative overflow-hidden">
+              <motion.div key={resume.id} variants={itemVariants} layout exit="exit" whileHover={{ y: -8 }} transition={{ duration: 0.3, ease: "easeOut" }}>
+                <Card className="flex flex-col h-full hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.15)] transition-all duration-300 bg-neutral-900/60 backdrop-blur-md border-white/[0.06] hover:border-indigo-500/30 rounded-2xl group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <CardHeader className="flex flex-row items-start justify-between pb-2 relative z-10">
-                    <div className="w-12 h-16 bg-neutral-800 rounded border border-neutral-700 shadow-sm flex items-center justify-center relative overflow-hidden group-hover:border-indigo-500/50 transition-colors">
+                    <div className="w-12 h-16 bg-neutral-950/50 rounded-lg border border-white/[0.08] shadow-inner flex items-center justify-center relative overflow-hidden group-hover:border-indigo-500/40 transition-colors">
                        <div className="absolute top-2 left-2 right-2 h-1 bg-neutral-700 rounded-full group-hover:bg-indigo-500/40 transition-colors" />
                        <div className="absolute top-4 left-2 right-4 h-1 bg-neutral-700 rounded-full group-hover:bg-indigo-500/40 transition-colors" />
                        <div className="absolute top-6 left-2 right-2 h-1 bg-neutral-700 rounded-full group-hover:bg-indigo-500/40 transition-colors" />
@@ -179,9 +203,9 @@ export default function Dashboard() {
                     </div>
                     <p className="text-xs text-neutral-500 font-medium mt-2 text-right">{resume.completion}% complete</p>
                   </CardContent>
-                  <CardFooter className="pt-4 border-t border-neutral-800 mt-auto bg-neutral-900/50 rounded-b-xl border-x-0 border-b-0 overflow-hidden relative z-10">
-                    <Link href={`/builder/${resume.id}`} className="w-full relative group/edit overflow-hidden rounded-md">
-                      <Button className="w-full bg-neutral-800 hover:bg-indigo-600 hover:text-white text-neutral-200 border-none transition-all duration-300 relative z-10">
+                  <CardFooter className="pt-4 border-t border-white/[0.04] mt-auto bg-black/20 rounded-b-2xl border-x-0 border-b-0 overflow-hidden relative z-10">
+                    <Link href={`/builder/${resume.id}`} className="w-full relative group/edit overflow-hidden rounded-xl">
+                      <Button className="w-full bg-white/5 hover:bg-indigo-600 hover:text-white text-neutral-300 border-none transition-all duration-300 relative z-10">
                         <Edit3 className="w-4 h-4 mr-2 transition-transform group-hover/edit:scale-110" /> Resume Editing
                       </Button>
                     </Link>
