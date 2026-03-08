@@ -86,63 +86,103 @@ export default function Home() {
             {/* Sidebar */}
             <div className="w-52 border-r border-white/[0.05] bg-neutral-950/50 p-5 flex flex-col gap-5">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-[10px] font-bold">AJ</div>
                 <div className="flex flex-col gap-1">
-                  <div className="h-2 w-20 bg-neutral-700 rounded" />
-                  <div className="h-1.5 w-14 bg-neutral-800 rounded" />
+                  <div className="text-[11px] text-white font-semibold">Alex Johnson</div>
+                  <div className="text-[9px] text-neutral-500">Senior Engineer</div>
                 </div>
               </div>
-              <div className="space-y-1">
-                {['Personal Info', 'Summary', 'Experience', 'Education', 'Skills'].map((item, i) => (
-                  <div key={item} className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs ${i === 2 ? 'bg-indigo-600/20 text-indigo-400' : 'text-neutral-600'}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full ${i === 2 ? 'bg-indigo-400' : 'bg-neutral-700'}`} />
-                    {item}
+              <div className="space-y-0.5">
+                {[
+                  { label: 'Personal Info', icon: '👤' },
+                  { label: 'Summary', icon: '📝' },
+                  { label: 'Experience', icon: '💼', active: true },
+                  { label: 'Education', icon: '🎓' },
+                  { label: 'Skills', icon: '⚡' },
+                ].map(({ label, icon, active }) => (
+                  <div key={label} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-[11px] font-medium cursor-default ${active ? 'bg-indigo-600/25 text-indigo-300 border border-indigo-500/20' : 'text-neutral-500 hover:text-neutral-400'}`}>
+                    <span className="text-[10px]">{icon}</span>
+                    {label}
+                    {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-indigo-400" />}
                   </div>
                 ))}
               </div>
+              <div className="mt-auto pt-4 border-t border-white/[0.05]">
+                <div className="flex items-center gap-2 px-2">
+                  <div className="w-5 h-5 rounded bg-amber-500/20 flex items-center justify-center">
+                    <span className="text-[8px]">⚡</span>
+                  </div>
+                  <span className="text-[9px] text-amber-400 font-medium">Upgrade to Pro</span>
+                </div>
+              </div>
             </div>
-            {/* Main */}
-            <div className="flex-1 p-8 flex items-center justify-center relative bg-neutral-950/20">
-              {/* Resume card */}
-              <div className="w-[340px] bg-gradient-to-b from-neutral-800/80 to-neutral-900/80 border border-white/[0.08] rounded-xl p-7 shadow-2xl">
-                <div className="flex items-start justify-between mb-5">
+            {/* Main Content */}
+            <div className="flex-1 p-6 flex items-start justify-center relative bg-neutral-950/30 gap-4">
+              {/* Resume Preview Card */}
+              <div className="w-[300px] bg-[#1a1a2e] border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                {/* Resume Header */}
+                <div className="bg-gradient-to-r from-indigo-700/40 to-violet-700/30 border-b border-white/[0.06] px-5 py-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm font-bold text-white">Alex Johnson</div>
+                      <div className="text-[10px] text-indigo-300 mt-0.5">Senior Software Engineer</div>
+                      <div className="text-[9px] text-neutral-400 mt-1">alex@email.com · San Francisco, CA</div>
+                    </div>
+                    <div className="w-9 h-9 rounded-lg bg-indigo-500/20 border border-indigo-400/20 flex items-center justify-center text-sm">AJ</div>
+                  </div>
+                </div>
+                <div className="px-5 py-3 space-y-3">
+                  {/* Experience section */}
                   <div>
-                    <div className="h-3 w-32 bg-neutral-300/30 rounded mb-2" />
-                    <div className="h-2 w-24 bg-indigo-400/40 rounded" />
+                    <div className="text-[8px] font-bold text-indigo-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                      <div className="w-2 h-px bg-indigo-500" /> EXPERIENCE
+                    </div>
+                    <div className="text-[10px] font-semibold text-neutral-200 mb-0.5">Lead Engineer · TechCorp</div>
+                    <div className="text-[8px] text-neutral-500 mb-1">2021 – Present</div>
+                    <div className="space-y-0.5">
+                      <div className="text-[8px] text-neutral-400 flex gap-1"><span className="text-indigo-400">·</span> Led React migration, improved perf by 40%</div>
+                      <div className="text-[8px] text-neutral-400 flex gap-1"><span className="text-indigo-400">·</span> Mentored 6 engineers, reduced bugs by 35%</div>
+                    </div>
                   </div>
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/20" />
-                </div>
-                <div className="space-y-1.5 mb-5">
-                  <div className="h-1.5 w-full bg-neutral-700/60 rounded" />
-                  <div className="h-1.5 w-5/6 bg-neutral-700/60 rounded" />
-                  <div className="h-1.5 w-4/5 bg-neutral-700/60 rounded" />
-                </div>
-                <div className="border-t border-white/[0.06] pt-4 mb-3">
-                  <div className="h-2 w-20 bg-indigo-400/30 rounded mb-2" />
-                  <div className="h-1.5 w-28 bg-neutral-600/60 rounded mb-1" />
-                  <div className="space-y-1">
-                    <div className="h-1.5 w-full bg-neutral-700/50 rounded" />
-                    <div className="h-1.5 w-full bg-neutral-700/50 rounded" />
-                    <div className="h-1.5 w-3/4 bg-neutral-700/50 rounded" />
+                  {/* Skills section */}
+                  <div className="border-t border-white/[0.05] pt-2.5">
+                    <div className="text-[8px] font-bold text-indigo-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                      <div className="w-2 h-px bg-indigo-500" /> SKILLS
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {['React', 'TypeScript', 'Node.js', 'AWS', 'Docker'].map(s => (
+                        <span key={s} className="text-[8px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/20">{s}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-1.5">
-                  {['React', 'TypeScript', 'Node.js'].map(s => (
-                    <span key={s} className="text-[10px] px-2 py-0.5 bg-indigo-500/15 text-indigo-400 border border-indigo-500/20 rounded-full">{s}</span>
-                  ))}
                 </div>
               </div>
-              {/* Floating ATS badge */}
-              <div className="absolute bottom-8 right-8 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl px-4 py-3 shadow-xl flex items-center gap-3 border border-indigo-500/30">
-                <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  <BarChart3 className="w-4 h-4" />
+
+              {/* Right panel — AI suggestions */}
+              <div className="flex flex-col gap-3 w-[170px]">
+                {/* AI suggestion card */}
+                <div className="bg-neutral-900 border border-white/[0.07] rounded-xl p-3.5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-5 h-5 rounded-md bg-violet-500/20 flex items-center justify-center">
+                      <Sparkles className="w-3 h-3 text-violet-400" />
+                    </div>
+                    <span className="text-[9px] font-bold text-violet-300">AI Suggestion</span>
+                  </div>
+                  <div className="text-[8px] text-neutral-400 leading-relaxed">Add a quantified result to your 2nd bullet point to boost ATS score.</div>
+                  <button className="mt-2 text-[8px] font-semibold text-violet-400 hover:text-violet-300">Apply fix →</button>
                 </div>
-                <div>
-                  <div className="text-xs font-bold">ATS Score: 98%</div>
-                  <div className="text-[10px] text-indigo-200">Optimized for role</div>
+                {/* ATS Score card */}
+                <div className="bg-gradient-to-br from-indigo-900/50 to-violet-900/30 border border-indigo-500/25 rounded-xl p-3.5">
+                  <div className="text-[8px] text-neutral-400 mb-1">ATS Match Score</div>
+                  <div className="text-2xl font-black text-white mb-1">98<span className="text-sm text-indigo-400">%</span></div>
+                  <div className="w-full h-1.5 rounded-full bg-neutral-800 overflow-hidden">
+                    <div className="h-full w-[98%] bg-gradient-to-r from-indigo-500 to-emerald-400 rounded-full" />
+                  </div>
+                  <div className="text-[8px] text-emerald-400 mt-1.5 font-medium">✓ Excellent match</div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
