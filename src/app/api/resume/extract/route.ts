@@ -82,9 +82,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ text: extractedText });
   } catch (error) {
-    console.error("Error in resume extract route:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Error in resume extract route:", message);
     return NextResponse.json(
-      { error: "Failed to extract resume content. Please try again." },
+      { error: `Failed to extract resume content: ${message}` },
       { status: 500 }
     );
   }
