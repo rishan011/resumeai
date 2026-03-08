@@ -132,13 +132,18 @@ export function ExperienceForm({ data, onChange, personalTitle }: ExperienceForm
               </div>
               <div className="space-y-2">
                 <Label>End Date</Label>
-                <Input 
-                  placeholder={exp.current ? "Present" : "Dec 2023"} 
-                  value={exp.current ? "" : exp.endDate}
-                  onChange={(e) => handleUpdate(exp.id, "endDate", e.target.value)}
-                  disabled={exp.current}
-                  className="bg-neutral-900 border-neutral-800 text-white focus-visible:ring-indigo-500 disabled:opacity-50 disabled:text-neutral-500"
-                />
+                {exp.current ? (
+                  <div className="flex h-9 w-full items-center rounded-md border border-neutral-700 bg-neutral-800 px-3 text-sm text-neutral-400 italic cursor-not-allowed">
+                    Present
+                  </div>
+                ) : (
+                  <Input
+                    placeholder="Dec 2023"
+                    value={exp.endDate}
+                    onChange={(e) => handleUpdate(exp.id, "endDate", e.target.value)}
+                    className="bg-neutral-900 border-neutral-800 text-white focus-visible:ring-indigo-500"
+                  />
+                )}
               </div>
             </div>
             
