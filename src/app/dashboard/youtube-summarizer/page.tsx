@@ -86,7 +86,7 @@ export default function YouTubeSummarizer() {
           <h1 className="text-4xl font-black tracking-tight text-white mb-4 drop-shadow-md">
             YouTube Video <span className="text-red-500">Summarizer</span>
           </h1>
-          <p className="text-neutral-400 font-medium max-w-2xl mx-auto">
+          <p className="text-neutral-300 font-medium max-w-2xl mx-auto">
             Paste a YouTube URL and get an instant AI-powered summary and key takeaways.
           </p>
         </motion.div>
@@ -123,8 +123,8 @@ export default function YouTubeSummarizer() {
               transition={{ duration: 0.4 }}
               className="space-y-6"
             >
-              <Card className="bg-neutral-900/60 backdrop-blur-md border-white/[0.1] text-white overflow-hidden relative">
-                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+              <Card className="bg-neutral-900/60 backdrop-blur-md border-white/10 hover:border-red-500/30 transition-all duration-300 text-white overflow-hidden relative group hover:shadow-[0_0_30px_rgba(239,68,68,0.1)]">
+                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent group-hover:via-red-500 transition-all" />
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <Sparkles className="w-5 h-5 text-amber-500" />
@@ -132,14 +132,14 @@ export default function YouTubeSummarizer() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-neutral-300 leading-relaxed italic">
+                  <p className="text-neutral-200 leading-relaxed italic text-lg drop-shadow-sm">
                     {result.summary}
                   </p>
                 </CardContent>
               </Card>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="bg-neutral-900/60 backdrop-blur-md border-white/[0.06] text-white">
+                <Card className="bg-neutral-900/60 backdrop-blur-md border-white/10 text-white hover:border-red-500/20 transition-all">
                   <CardHeader>
                     <CardTitle className="text-lg">Key Takeaways</CardTitle>
                   </CardHeader>
@@ -152,19 +152,19 @@ export default function YouTubeSummarizer() {
                         transition={{ delay: i * 0.1 }}
                         className="flex items-start gap-3"
                       >
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                        <span className="text-sm text-neutral-300">{point}</span>
+                        <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                        <span className="text-sm text-neutral-200 font-medium">{point}</span>
                       </motion.div>
                     ))}
                   </CardContent>
                 </Card>
                 
-                <Card className="bg-neutral-900/60 backdrop-blur-md border-white/[0.06] text-white flex flex-col items-center justify-center p-8 text-center border-dashed border-2">
+                <Card className="bg-neutral-900/60 backdrop-blur-md border-white/10 text-white flex flex-col items-center justify-center p-8 text-center border-dashed border-2 hover:bg-neutral-900/80 transition-all">
                    <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
                       <Youtube className="w-6 h-6 text-red-500" />
                    </div>
                    <h4 className="font-bold mb-2">Want to save this?</h4>
-                   <p className="text-xs text-neutral-500 mb-6">Upgrade to Pro to save summaries to your account and export them as PDFs.</p>
+                   <p className="text-xs text-neutral-300 mb-6">Upgrade to Pro to save summaries to your account and export them as PDFs.</p>
                    <Button variant="outline" className="border-white/[0.1] hover:bg-white/5 text-white w-full">Coming Soon</Button>
                 </Card>
               </div>

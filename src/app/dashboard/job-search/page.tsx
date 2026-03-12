@@ -99,7 +99,7 @@ export default function JobSearch() {
           <h1 className="text-4xl font-black tracking-tight text-white mb-4 drop-shadow-md">
             AI Job <span className="text-blue-500">Search</span>
           </h1>
-          <p className="text-neutral-400 font-medium max-w-2xl mx-auto">
+          <p className="text-neutral-300 font-medium max-w-2xl mx-auto">
             Find your next opportunity using Firecrawl powered web search and AI parsing.
           </p>
         </motion.div>
@@ -150,23 +150,23 @@ export default function JobSearch() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <Card className="h-full bg-neutral-900/60 backdrop-blur-md border-white/[0.06] hover:border-blue-500/30 transition-all group overflow-hidden flex flex-col">
+                  <Card className="h-full bg-neutral-900/60 backdrop-blur-md border-white/10 hover:border-blue-500/50 hover:bg-neutral-900/80 transition-all duration-300 group overflow-hidden flex flex-col hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]">
                     <CardHeader className="pb-2">
                        <div className="flex justify-between items-start mb-2 text-blue-500">
                           <Building className="w-5 h-5" />
                           <div className="bg-emerald-500/10 text-emerald-500 text-[10px] font-black px-2 py-0.5 rounded-full uppercase">New Posting</div>
                        </div>
-                       <CardTitle className="text-xl group-hover:text-blue-400 transition-colors">{job.title}</CardTitle>
-                       <CardDescription className="text-neutral-400 font-medium flex items-center gap-1">
-                          {job.company} • <MapPin className="w-3 h-3" /> {job.location}
+                       <CardTitle className="text-xl text-white group-hover:text-blue-400 transition-colors">{job.title}</CardTitle>
+                       <CardDescription className="text-neutral-300 font-medium flex items-center gap-1">
+                          {job.company} • <MapPin className="w-3 h-3 text-blue-400" /> {job.location}
                        </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-1">
-                      <p className="text-sm text-neutral-400 line-clamp-3 mb-4">
+                      <p className="text-sm text-neutral-200 leading-relaxed line-clamp-3 mb-4">
                         {job.description}
                       </p>
-                      <div className="flex items-center gap-4 text-xs font-bold text-neutral-500">
-                         <span className="flex items-center gap-1 text-emerald-400/80">
+                      <div className="flex items-center gap-4 text-xs font-bold">
+                         <span className="flex items-center gap-1 text-emerald-400 font-bold bg-emerald-500/10 px-2 py-1 rounded-md">
                             <DollarSign className="w-3.5 h-3.5" />
                             {job.salary}
                          </span>
