@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { 
   User, FileText, Briefcase, GraduationCap, 
-  Wrench, Layers, ChevronLeft, ChevronRight, Download, Sparkles, Palette 
+  Wrench, Layers, ChevronLeft, ChevronRight, Download, Sparkles, Palette, Youtube
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -37,6 +37,7 @@ const steps = [
   { id: "education", label: "Education", icon: GraduationCap },
   { id: "skills", label: "Skills", icon: Wrench },
   { id: "projects", label: "Projects", icon: Layers },
+  { id: "tools", label: "AI Tools", icon: Sparkles },
   { id: "customize", label: "Customize", icon: Palette },
 ];
 
@@ -172,6 +173,34 @@ export default function BuilderPage() {
       case 5:
         return <ProjectsForm data={resumeData.projects} onChange={handleProjectsChange} />;
       case 6:
+        return (
+          <div className="space-y-8">
+            <div className="p-6 rounded-2xl bg-indigo-500/5 border border-indigo-500/20">
+               <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                     <Sparkles className="w-5 h-5 text-indigo-400" />
+                  </div>
+                  <div>
+                     <h3 className="text-lg font-bold text-white">AI Tools Hub</h3>
+                     <p className="text-xs text-neutral-400">Boost your resume with external data</p>
+                  </div>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <Link href="/dashboard/youtube-summarizer" target="_blank" className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-red-500/30 transition-all group">
+                     <Youtube className="w-6 h-6 text-neutral-500 group-hover:text-red-500 mb-2 transition-colors" />
+                     <div className="text-sm font-bold text-white">YouTube Summarizer</div>
+                     <div className="text-[10px] text-neutral-500 mt-1">Extract results from tech tutorials to add to your experience.</div>
+                  </Link>
+                  <Link href="/dashboard/job-search" target="_blank" className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-blue-500/30 transition-all group">
+                     <Briefcase className="w-6 h-6 text-neutral-500 group-hover:text-blue-500 mb-2 transition-colors" />
+                     <div className="text-sm font-bold text-white">Smart Job Search</div>
+                     <div className="text-[10px] text-neutral-500 mt-1">Find jobs that match this resume using Firecrawl AI.</div>
+                  </Link>
+               </div>
+            </div>
+          </div>
+        );
+      case 7:
         return <ThemeCustomizer config={resumeData.themeConfig} onChange={handleThemeChange} />;
       default:
         // Render placeholders for steps not yet implemented

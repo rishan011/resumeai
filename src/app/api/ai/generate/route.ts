@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-// Initialize OpenAI client
 // Note: Requires OPENAI_API_KEY in environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
-});
 
 export async function POST(req: Request) {
   try {
@@ -21,6 +17,10 @@ export async function POST(req: Request) {
         content: `[MOCK AI RESPONSE] Generated professional bullet points based on: "${prompt}". \n- Orchestrated cross-functional teams to deliver project on time.\n- Improved performance by 40% using modern web technologies.\n- Developed scalable architecture for high-traffic environments.`,
       });
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
+    });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini", // Using gpt-4o-mini for speed and cost efficiency

@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
-});
-
 export async function POST(req: Request) {
   try {
     const { resumeText, jobDescription } = await req.json();
@@ -25,6 +21,10 @@ export async function POST(req: Request) {
         optimizedSummary: "[MOCK] An experienced software engineer with a proven track record of delivering scalable web applications using React and Node.js..."
       });
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
+    });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o", // Using full model for complex analysis

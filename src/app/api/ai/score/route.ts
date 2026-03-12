@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
-});
+
 
 export async function POST(req: Request) {
   try {
@@ -48,6 +46,10 @@ Do not return any text outside of the JSON block.`;
     const userContent = hasJobDescription
       ? `Job Description:\n${jobDescription}\n\nResume Data:\n${typeof resumeData === "string" ? resumeData : resumeData.rawText || JSON.stringify(resumeData)}`
       : `Resume Data (analyze for general ATS compatibility and quality):\n${typeof resumeData === "string" ? resumeData : resumeData.rawText || JSON.stringify(resumeData)}`;
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
+    });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o",

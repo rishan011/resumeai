@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
-});
+
 
 export async function POST(req: Request) {
   try {
@@ -44,6 +42,10 @@ export async function POST(req: Request) {
 
       const base64Image = buffer.toString("base64");
       const dataUrl = `data:${mimeType};base64,${base64Image}`;
+
+      const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
+      });
 
       const response = await openai.chat.completions.create({
         model: "gpt-4o",

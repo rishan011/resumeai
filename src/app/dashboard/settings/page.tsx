@@ -99,6 +99,12 @@ export default function SettingsPage() {
           <Link href="/dashboard/cover-letters" className="px-4 py-2 rounded-md text-neutral-400 hover:text-white transition-colors">
             Cover Letters
           </Link>
+          <Link href="/dashboard/youtube-summarizer" className="px-4 py-2 rounded-md text-neutral-400 hover:text-white transition-colors leading-tight">
+            YouTube Summarizer
+          </Link>
+          <Link href="/dashboard/job-search" className="px-4 py-2 rounded-md text-neutral-400 hover:text-white transition-colors">
+            Job Search
+          </Link>
           <div className="px-4 py-2 rounded-md text-white border-b-2 border-indigo-500 bg-white/5 relative">
             Settings
             <div className="absolute inset-0 bg-indigo-500/10 rounded-md -z-10 blur-sm"></div>

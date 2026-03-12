@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { UpgradeModal } from "@/components/UpgradeModal";
 
 const initialCoverLetters = [
   { id: "1", targetCompany: "Google", role: "Senior Frontend Engineer", updatedAt: "1 day ago" },
@@ -97,13 +98,17 @@ export default function CoverLettersDashboard() {
             Cover Letters
             <div className="absolute inset-x-0 -bottom-5 h-0.5 bg-indigo-500 rounded-full" />
           </Link>
+          <Link href="/dashboard/youtube-summarizer" className="hover:text-white transition-colors leading-tight">YouTube <br className="sm:hidden" /> Summarizer</Link>
+          <Link href="/dashboard/job-search" className="hover:text-white transition-colors">Job Search</Link>
           <Link href="/dashboard/settings" className="hover:text-white transition-colors text-neutral-400">Settings</Link>
         </nav>
         <div className="flex items-center gap-4">
-          <Button className="hidden sm:flex relative group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-[0_0_20px_rgba(245,158,11,0.2)] border-0 overflow-hidden" onClick={() => toast("Pro features unlock soon!")}>
-            <span className="relative z-10">⚡ Upgrade to Pro</span>
-            <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
-          </Button>
+          <UpgradeModal>
+            <Button className="hidden sm:flex relative group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-[0_0_20px_rgba(245,158,11,0.2)] border-0 overflow-hidden">
+              <span className="relative z-10">⚡ Upgrade to Pro</span>
+              <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
+            </Button>
+          </UpgradeModal>
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none rounded-full">
               <Avatar className="h-9 w-9 border border-neutral-700 hover:ring-2 ring-indigo-500 ring-offset-2 ring-offset-neutral-950 transition-all cursor-pointer">

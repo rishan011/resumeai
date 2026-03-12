@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
-});
+
 
 export async function POST(req: Request) {
   try {
@@ -22,6 +20,10 @@ export async function POST(req: Request) {
         coverLetter: `Dear Hiring Manager,\n\nI am writing to express my strong interest in the open position at your company. With my background in ${resumeData.personalInfo?.jobTitle || "my field"}, I am confident in my ability to contribute effectively to your team.\n\nThank you for your time and consideration. I look forward to the possibility of discussing this exciting opportunity with you.\n\nSincerely,\n${resumeData.personalInfo?.fullName || "Applicant"}`
       });
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY || "placeholder-key",
+    });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o",
