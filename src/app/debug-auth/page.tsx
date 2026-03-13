@@ -116,9 +116,20 @@ export default function DebugAuthPage() {
                 <div className="flex items-start gap-3 p-4 bg-amber-500/5 border border-amber-500/10 rounded-xl">
                    <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                    <div>
-                      <p className="text-sm font-bold text-amber-500 uppercase tracking-wider mb-1">Warning: SQLite on Vercel</p>
+                      <p className="text-sm font-bold text-amber-500 uppercase tracking-wider mb-1">Warning: SQLite detected</p>
                       <p className="text-xs text-neutral-400 leading-relaxed">
-                        You are using SQLite. On Vercel, SQLite databases are **read-only** and reset on every deploy. This **will** prevent Google Authentication from saving users.
+                        SQLite is not recommended for production on Vercel as it is read-only.
+                      </p>
+                   </div>
+                </div>
+              )}
+              {data?.dbType === "postgresql" && data?.dbStatus === "success" && (
+                <div className="flex items-start gap-3 p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl">
+                   <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                   <div>
+                      <p className="text-sm font-bold text-emerald-500 uppercase tracking-wider mb-1">Success: PostgreSQL Active</p>
+                      <p className="text-xs text-neutral-400 leading-relaxed">
+                        Your production database is correctly configured and ready for user persistence.
                       </p>
                    </div>
                 </div>

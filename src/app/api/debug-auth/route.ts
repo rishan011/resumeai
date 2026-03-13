@@ -13,7 +13,7 @@ export async function GET() {
     
     // Check provider
     // @ts-ignore
-    dbType = prisma._activeProvider || "sqlite";
+    dbType = prisma._activeProvider || "postgresql";
   } catch (error: any) {
     dbError = error.message;
   }
