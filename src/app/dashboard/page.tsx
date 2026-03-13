@@ -54,105 +54,26 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030303] text-neutral-100 font-sans relative overflow-hidden">
-      {/* Ambient Premium Dark Theme Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#030303]">
-        {/* Simple Animated Grid */}
-        <motion.div 
-          animate={{ backgroundPosition: ["0px 0px", "24px 24px"] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" 
-        />
-        {/* Simple Pulsing Orbs */}
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.05, 1],
-            opacity: [0.08, 0.12, 0.08]
-          }} 
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-indigo-600 rounded-full blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.05, 1],
-            opacity: [0.08, 0.12, 0.08]
-          }} 
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-violet-600 rounded-full blur-[120px]" 
-        />
-      </div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-white/[0.04] bg-[#030303]/40 backdrop-blur-xl px-6 shadow-sm">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tighter mr-8">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <FileText className="w-4 h-4 text-white" />
-          </div>
-          <span className="text-white">Resume</span><span className="text-indigo-400">AI</span>
-        </Link>
-        <nav className="flex items-center gap-6 text-sm font-medium text-neutral-400 flex-1">
-          <Link href="/dashboard" className="text-white relative">
-            My Resumes
-            <div className="absolute inset-x-0 -bottom-5 h-0.5 bg-indigo-500 rounded-full" />
-          </Link>
-          <Link href="/dashboard/cover-letters" className="hover:text-white transition-colors">Cover Letters</Link>
-          <Link href="/dashboard/youtube-summarizer" className="hover:text-white transition-colors leading-tight">YouTube <br className="sm:hidden" /> Summarizer</Link>
-          <Link href="/dashboard/job-search" className="hover:text-white transition-colors">Job Search</Link>
-          <Link href="/dashboard/settings" className="hover:text-white transition-colors text-neutral-400">Settings</Link>
-        </nav>
-        <div className="flex items-center gap-4">
-          <UpgradeModal>
-            <Button className="hidden sm:flex relative group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold shadow-[0_0_20px_rgba(245,158,11,0.2)] border-0 overflow-hidden">
-              <span className="relative z-10">⚡ Upgrade to Pro</span>
-              <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
-            </Button>
-          </UpgradeModal>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="focus:outline-none rounded-full">
-              <Avatar className="h-9 w-9 border border-neutral-700 hover:ring-2 ring-indigo-500 ring-offset-2 ring-offset-neutral-950 transition-all cursor-pointer">
-                <AvatarFallback className="bg-indigo-600/20 text-indigo-300 font-medium">
-                  {session?.user?.name?.charAt(0)?.toUpperCase() || "U"}
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 mt-2 bg-neutral-900 border-neutral-800 shadow-xl rounded-xl">
-              <div className="px-3 py-2 border-b border-neutral-800 mb-1 text-white">
-                <p className="font-medium text-sm truncate">{session?.user?.name || "User"}</p>
-                <p className="text-xs text-neutral-400 truncate">{session?.user?.email || "No email"}</p>
-              </div>
-              <Link href="/dashboard/settings" className="w-full">
-                <DropdownMenuItem className="cursor-pointer text-neutral-200 focus:bg-neutral-800 focus:text-white">
-                  <Settings className="w-4 h-4 mr-2 text-neutral-400" /> Account Settings
-                </DropdownMenuItem>
-              </Link>
-              <DropdownMenuSeparator className="bg-neutral-800" />
-              <DropdownMenuItem className="cursor-pointer text-red-400 focus:text-red-300 focus:bg-red-950/30" onClick={() => signOut({ callbackUrl: "/" })}>
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <main className="container mx-auto px-6 py-12 max-w-6xl relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-6"
+      >
+        <div>
+          <h1 className="text-4xl font-black tracking-tight text-white mb-2 drop-shadow-md">
+            My <span className="text-indigo-500">Resumes</span>
+          </h1>
+          <p className="text-neutral-300 font-medium">Manage, edit, and export your professional resumes.</p>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-12 max-w-6xl relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
-        >
-          <div>
-            <h1 className="text-3xl font-black tracking-tight text-white mb-1 drop-shadow-md">My Resumes</h1>
-            <p className="text-neutral-400 font-medium">Manage, edit, and export your resumes.</p>
-          </div>
-          <Link href="/builder/new">
-            <Button className="bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/20 border-none transition-all hover:scale-[1.02]">
-              <Plus className="w-4 h-4 mr-2" />
-              Create New Resume
-            </Button>
-          </Link>
-        </motion.div>
+        <Link href="/builder/new">
+          <Button className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-12 px-6 rounded-xl transition-all shadow-lg shadow-indigo-500/20 gap-2 hover:scale-[1.02]">
+            <Plus className="w-5 h-5" />
+            Create New Resume
+          </Button>
+        </Link>
+      </motion.div>
 
         <motion.div 
           variants={containerVariants} 
@@ -235,6 +156,5 @@ export default function Dashboard() {
           </AnimatePresence>
         </motion.div>
       </main>
-    </div>
-  );
-}
+    );
+  }

@@ -79,29 +79,29 @@ export default function NewCoverLetter() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans">
-      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-neutral-800 bg-neutral-950/80 backdrop-blur-md px-6 shadow-sm">
-        <Link href="/dashboard/cover-letters" className="text-sm font-medium flex items-center text-neutral-400 hover:text-white transition-colors">
-          <ChevronLeft className="w-4 h-4 mr-1" /> Back to Cover Letters
-        </Link>
-        <div className="flex-1" />
+    <main className="container mx-auto px-6 py-12 max-w-6xl relative z-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-6">
+        <div>
+          <Link href="/dashboard/cover-letters" className="inline-flex items-center text-sm font-bold text-neutral-400 hover:text-indigo-400 transition-colors mb-4 group">
+            <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" /> 
+            Back to Cover Letters
+          </Link>
+          <h1 className="text-4xl font-black tracking-tight text-white mb-2 drop-shadow-md">
+            Generate <span className="text-indigo-500">Cover Letter</span>
+          </h1>
+          <p className="text-neutral-300 font-medium">AI-powered tailoring for your next career move.</p>
+        </div>
         <Button 
           disabled={!generatedText} 
           onClick={() => handlePrint()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm border-none"
+          className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-12 px-6 rounded-xl transition-all shadow-lg shadow-indigo-500/20 gap-2 hover:scale-[1.02]"
         >
-          <Download className="w-4 h-4 mr-2" />
+          <Download className="w-5 h-5" />
           Download PDF
         </Button>
-      </header>
+      </div>
 
-      <main className="container mx-auto px-6 py-12 max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-white mb-1">Generate Cover Letter</h1>
-          <p className="text-neutral-400">Provide the job description and we will tailor a persuasive letter using your resume.</p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column: Input */}
           <div className="space-y-6">
             <Card className="border-neutral-800 bg-neutral-900 shadow-sm">
@@ -206,8 +206,7 @@ export default function NewCoverLetter() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

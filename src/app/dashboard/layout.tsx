@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { DashboardAmbientBg } from "@/components/dashboard/DashboardAmbientBg";
+
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { status } = useSession();
   const router = useRouter();
@@ -17,15 +20,23 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
       </div>
     );
   }
 
   if (status === "unauthenticated") {
-    return null; // Prevents flash of content before redirect completes
+    return null;
   }
 
-  return <>{children}</>;
+  return (
+    <div className="min-h-screen bg-[#030303]">
+      <DashboardAmbientBg />
+      <DashboardHeader />
+      <div className="relative z-10">
+        {children}
+      </div>
+    </div>
+  );
 }
