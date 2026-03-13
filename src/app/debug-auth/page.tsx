@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Loader2, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
 import { DashboardAmbientBg } from "@/components/dashboard/DashboardAmbientBg";
+
+const Badge = ({ children, className, variant }: any) => (
+  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${className}`}>
+    {children}
+  </span>
+);
 
 export default function DebugAuthPage() {
   const [data, setData] = useState<any>(null);
