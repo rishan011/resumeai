@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   description: "AI-Powered Automated Resume Builder",
 };
 
+import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
 export default function RootLayout({
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           {children}
+          <Analytics />
           <Toaster position="bottom-right" className="font-sans" theme="light" />
         </AuthProvider>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
