@@ -45,8 +45,12 @@ export async function GET() {
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
     dbStatus,
     userCount: await prisma.user.count(),
+    accountCount: await prisma.account.count(),
+    sessionCount: await prisma.session.count(),
     dbError,
     dbType,
+    nextVersion: require('next/package.json').version,
+    authVersion: require('next-auth/package.json').version,
     env: process.env.NODE_ENV,
     postgresPrisma: !!process.env.POSTGRES_PRISMA_URL,
     postgresDirect: !!process.env.POSTGRES_URL_NON_POOLING || !!process.env.POSTGRES_DIRECT_URL
