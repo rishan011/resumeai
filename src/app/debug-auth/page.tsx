@@ -70,7 +70,14 @@ export default function DebugAuthPage() {
             <CardContent className="space-y-4 pt-6">
               <div className="flex justify-between items-center py-2 border-b border-white/5">
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_ID</span>
-                <StatusBadge condition={!!data?.googleId} text="ID" />
+                <div className="flex items-center gap-3">
+                  {data?.googleClientIdPrefix && (
+                    <span className="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 lowercase tracking-tight">
+                      {data.googleClientIdPrefix}
+                    </span>
+                  )}
+                  <StatusBadge condition={!!data?.googleId} text="ID" />
+                </div>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/5">
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_SECRET</span>

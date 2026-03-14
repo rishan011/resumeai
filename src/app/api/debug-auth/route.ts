@@ -35,6 +35,7 @@ export async function GET() {
 
   return NextResponse.json({
     googleId: !!process.env.GOOGLE_CLIENT_ID,
+    googleClientIdPrefix: process.env.GOOGLE_CLIENT_ID ? `${process.env.GOOGLE_CLIENT_ID.substring(0, 15)}...` : null,
     googleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
     nextAuthSecret: !!process.env.NEXTAUTH_SECRET,
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
