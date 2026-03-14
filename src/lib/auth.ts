@@ -96,6 +96,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     }
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "needee-premium-auth-secret-2026",
   debug: true,
 };
