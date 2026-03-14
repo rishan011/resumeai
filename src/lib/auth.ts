@@ -12,6 +12,13 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     }),
     CredentialsProvider({
 // ... (rest of credentials code remains unchanged)
@@ -92,4 +99,15 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
+  logger: {
+    error(code, metadata) {
+      console.error("❌ NEXTAUTH_ERROR:", code, metadata);
+    },
+    warn(code) {
+      console.warn("⚠️ NEXTAUTH_WARN:", code);
+    },
+    debug(code, metadata) {
+      console.log("ℹ️ NEXTAUTH_DEBUG:", code, metadata);
+    },
+  },
 };
