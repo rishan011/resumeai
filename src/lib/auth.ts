@@ -12,6 +12,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
       name: "credentials",
@@ -72,23 +73,14 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login',
+    error: '/login',
   },
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
   },
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider === "google") {
-        try {
-          // Check if we can write to the database
-          await prisma.user.count();
-          return true;
-        } catch (error: any) {
-          console.error("❌ GOOGLE_SIGNIN_DB_ERROR:", error.message);
-          // Don't block sign-in, but log the failure
-          return true;
-        }
-      }
       return true;
     },
     async session({ session, token }) {
@@ -97,13 +89,13 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
       }
       return token;
     }
   },
-  secret: process.env.NEXTAUTH_SECRET || "super-secret-key-for-mvp-resume-ai",
+  secret: process.env.NEXTAUTH_SECRET,
   debug: true,
 };
