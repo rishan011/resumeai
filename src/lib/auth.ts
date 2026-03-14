@@ -22,43 +22,51 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Missing email or password");
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
-        });
-
-        if (credentials.action === "register") {
-          if (user) {
-            throw new Error("Email already registered");
-          }
-          const hashedPassword = await bcrypt.hash(credentials.password, 10);
-          const newUser = await prisma.user.create({
-            data: {
-              email: credentials.email,
-              name: credentials.email.split("@")[0],
-              password: hashedPassword,
-            }
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email }
           });
-          return newUser;
+
+          if (credentials.action === "register") {
+            if (user) {
+              throw new Error("Email already registered. Please sign in.");
+            }
+            const hashedPassword = await bcrypt.hash(credentials.password, 10);
+            const newUser = await prisma.user.create({
+              data: {
+                email: credentials.email,
+                name: credentials.email.split("@")[0],
+                password: hashedPassword,
+              }
+            });
+            return newUser;
+          }
+
+          // Otherwise, login logic
+          if (!user || !user.password) {
+            throw new Error("Invalid email or password. Are you sure you've registered?");
+          }
+
+          const isCorrectPassword = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isCorrectPassword) {
+            throw new Error("Invalid password. Please try again.");
+          }
+
+          return user;
+        } catch (error: any) {
+          console.error("❌ AUTH_AUTHORIZE_ERROR:", error.message);
+          if (error.message.includes("Can't reach database")) {
+            throw new Error("CRITICAL: Database connection failed. Please check your Vercel storage settings.");
+          }
+          throw error;
         }
-
-        // Otherwise, login logic
-        if (!user || !user.password) {
-          throw new Error("Invalid email or password");
-        }
-
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isCorrectPassword) {
-          throw new Error("Invalid email or password");
-        }
-
-        return user;
       }
     })
   ],
@@ -73,14 +81,12 @@ export const authOptions: NextAuthOptions = {
       if (account?.provider === "google") {
         try {
           // Check if we can write to the database
-          const test = await prisma.user.findFirst({ where: { email: user.email } });
+          await prisma.user.count();
           return true;
         } catch (error: any) {
-          console.error("❌ DATABASE_WRITE_ERROR:", error.message);
-          if (error.message.includes("read-only") || error.message.includes("readonly")) {
-            throw new Error("Database is in read-only mode (common on Vercel with SQLite). Please use a cloud database.");
-          }
-          return true; // Let them try anyway, but we logged the error
+          console.error("❌ GOOGLE_SIGNIN_DB_ERROR:", error.message);
+          // Don't block sign-in, but log the failure
+          return true;
         }
       }
       return true;
