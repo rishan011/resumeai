@@ -105,5 +105,5 @@ export const authOptions: NextAuthOptions = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET || "super-secret-key-for-mvp-resume-ai",
-  debug: process.env.NODE_ENV === "development",
+  debug: true,
 };
