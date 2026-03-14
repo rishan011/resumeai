@@ -160,6 +160,13 @@ export default function DebugAuthPage() {
                 </Badge>
               </div>
 
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Verified Users</span>
+                <Badge className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20 font-black px-4">
+                  {data?.userCount || 0}
+                </Badge>
+              </div>
+
               {data?.dbError && (
                 <div className="p-4 rounded-2xl bg-red-500/5 border border-red-500/20 overflow-hidden">
                   <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1">Database Error</p>

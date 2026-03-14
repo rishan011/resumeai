@@ -41,6 +41,7 @@ export async function GET() {
     nextAuthSecret: !!process.env.NEXTAUTH_SECRET,
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
     dbStatus,
+    userCount: await prisma.user.count(),
     dbError,
     dbType,
     env: process.env.NODE_ENV,
