@@ -81,7 +81,14 @@ export default function DebugAuthPage() {
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/5">
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_SECRET</span>
-                <StatusBadge condition={!!data?.googleSecret} text="Secret" />
+                <div className="flex items-center gap-3">
+                  {data?.googleClientSecretSuffix && (
+                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 lowercase tracking-tight">
+                      {data.googleClientSecretSuffix}
+                    </span>
+                  )}
+                  <StatusBadge condition={!!data?.googleSecret} text="Secret" />
+                </div>
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/5">
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">NEXTAUTH_SECRET</span>

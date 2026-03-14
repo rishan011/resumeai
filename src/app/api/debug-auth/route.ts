@@ -37,6 +37,7 @@ export async function GET() {
     googleId: !!process.env.GOOGLE_CLIENT_ID,
     googleClientIdPrefix: process.env.GOOGLE_CLIENT_ID ? `${process.env.GOOGLE_CLIENT_ID.substring(0, 15)}...` : null,
     googleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
+    googleClientSecretSuffix: process.env.GOOGLE_CLIENT_SECRET ? `...${process.env.GOOGLE_CLIENT_SECRET.slice(-4)}` : null,
     nextAuthSecret: !!process.env.NEXTAUTH_SECRET,
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
     dbStatus,
