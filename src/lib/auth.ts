@@ -1,13 +1,12 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -15,6 +14,7 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
+// ... (rest of credentials code remains unchanged)
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "hello@example.com" },
@@ -46,7 +46,6 @@ export const authOptions: NextAuthOptions = {
             return newUser;
           }
 
-          // Otherwise, login logic
           if (!user || !user.password) {
             throw new Error("Invalid email or password. Are you sure you've registered?");
           }
@@ -63,9 +62,6 @@ export const authOptions: NextAuthOptions = {
           return user;
         } catch (error: any) {
           console.error("❌ AUTH_AUTHORIZE_ERROR:", error.message);
-          if (error.message.includes("Can't reach database")) {
-            throw new Error("CRITICAL: Database connection failed. Please check your Vercel storage settings.");
-          }
           throw error;
         }
       }
@@ -80,9 +76,6 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60,
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      return true;
-    },
     async session({ session, token }) {
       if (token && session.user) {
         (session.user as any).id = token.id as string;
@@ -96,6 +89,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     }
   },
-  secret: process.env.NEXTAUTH_SECRET || "needee-premium-auth-secret-2026",
+  secret: process.env.NEXTAUTH_SECRET,
   debug: true,
 };
