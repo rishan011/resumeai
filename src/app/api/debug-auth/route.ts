@@ -7,14 +7,29 @@ export async function GET() {
   let dbType = "unknown";
 
   try {
-    // Try a simple query
+    // 1. Connection check
     await prisma.user.count();
-    dbStatus = "success";
+    dbStatus = "connected";
     
+    // 2. Write test (using a dummy diagnostic ID)
+    const testUser = await prisma.user.upsert({
+      where: { email: "diagnostic@test.com" },
+      update: { name: "Diagnostic Test " + new Date().toISOString() },
+      create: { 
+        email: "diagnostic@test.com",
+        name: "Diagnostic Test User"
+      }
+    });
+    
+    if (testUser) {
+      dbStatus = "success (write verified)";
+    }
+
     // Check provider
     // @ts-ignore
     dbType = prisma._activeProvider || "postgresql";
   } catch (error: any) {
+    dbStatus = "failed";
     dbError = error.message;
   }
 
@@ -23,8 +38,6 @@ export async function GET() {
     googleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
     nextAuthSecret: !!process.env.NEXTAUTH_SECRET,
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
-    postgresPrisma: !!process.env.POSTGRES_PRISMA_URL,
-    postgresDirect: !!process.env.POSTGRES_URL_NON_POOLING,
     dbStatus,
     dbError,
     dbType,
