@@ -37,6 +37,7 @@ export async function GET() {
     googleId: !!process.env.GOOGLE_CLIENT_ID,
     googleIdLength: process.env.GOOGLE_CLIENT_ID?.trim().length || 0,
     googleClientIdPrefix: process.env.GOOGLE_CLIENT_ID ? `${process.env.GOOGLE_CLIENT_ID.substring(0, 15)}...` : null,
+    googleClientIdSuffix: process.env.GOOGLE_CLIENT_ID ? `...${process.env.GOOGLE_CLIENT_ID.slice(-15)}` : null,
     googleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
     googleSecretLength: process.env.GOOGLE_CLIENT_SECRET?.trim().length || 0,
     googleClientSecretSuffix: process.env.GOOGLE_CLIENT_SECRET ? `...${process.env.GOOGLE_CLIENT_SECRET.slice(-4)}` : null,

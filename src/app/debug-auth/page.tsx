@@ -72,9 +72,16 @@ export default function DebugAuthPage() {
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_ID</span>
                 <div className="flex items-center gap-3">
                   {data?.googleClientIdPrefix && (
-                    <span className="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 lowercase tracking-tight">
-                      {data.googleClientIdPrefix}
-                    </span>
+                    <div className="flex flex-col gap-1 items-end">
+                      <span className="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 lowercase tracking-tight">
+                        {data.googleClientIdPrefix}
+                      </span>
+                      {data?.googleClientIdSuffix && (
+                        <span className="text-[10px] font-mono text-indigo-300/40 lowercase tracking-tight">
+                          ...{data.googleClientIdSuffix}
+                        </span>
+                      )}
+                    </div>
                   )}
                   {data?.googleIdLength && (
                     <span className="text-[10px] font-mono text-neutral-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-tight">
