@@ -33,7 +33,7 @@ export function UpgradeModal({ children }: UpgradeModalProps) {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_placeholder_key",
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "ResumeAI",
+        name: "NeeDee",
         description: "Upgrade to Professional Tier",
         order_id: orderData.id,
         handler: async function (response: any) {
@@ -92,7 +92,7 @@ export function UpgradeModal({ children }: UpgradeModalProps) {
               Upgrade to <span className="text-orange-500">Pro</span>
             </DialogTitle>
             <DialogDescription className="text-neutral-400 text-sm leading-relaxed">
-              Unlock the full power of ResumeAI and land your dream job faster.
+              Unlock the full power of NeeDee and land your dream job faster.
             </DialogDescription>
           </DialogHeader>
 

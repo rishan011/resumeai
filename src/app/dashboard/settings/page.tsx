@@ -80,8 +80,8 @@ export default function SettingsPage() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="mb-10"
       >
-        <h1 className="text-4xl font-black tracking-tight text-white mb-3 flex items-center gap-3">
-          Account <span className="text-indigo-500 font-extrabold">Settings</span>
+        <h1 className="text-4xl font-black tracking-tight text-white mb-3 flex items-center gap-3 italic uppercase">
+          Account <span className="text-red-500 font-extrabold">Settings</span>
         </h1>
         <p className="text-neutral-400 text-lg font-medium">Manage your profile and application preferences with ease.</p>
       </motion.div>
@@ -91,8 +91,8 @@ export default function SettingsPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
-        <Card className="bg-[#0A0A0B]/60 backdrop-blur-2xl border-white/[0.08] shadow-[0_0_50px_rgba(99,102,241,0.1)] overflow-hidden relative group">
-          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-50" />
+        <Card className="bg-[#050505]/80 backdrop-blur-3xl border-white/[0.08] shadow-[0_30px_100px_rgba(255,0,0,0.05)] overflow-hidden relative group rounded-[2.5rem]">
+          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-red-500/50 to-transparent opacity-50" />
           
           <CardHeader className="border-b border-white/[0.04] pb-8 pt-8 px-8">
             <CardTitle className="text-2xl font-black text-white tracking-tight">Personal Profile</CardTitle>
@@ -134,9 +134,9 @@ export default function SettingsPage() {
                     placeholder="e.g. Alex Rivera" 
                     value={name} 
                     onChange={(e) => setName(e.target.value)}
-                    className="bg-neutral-900 border-white/[0.1] text-white focus-visible:ring-indigo-500 h-12 rounded-xl transition-all group-hover/input:border-indigo-500/30 font-medium text-base"
+                    className="bg-neutral-900 border-white/[0.1] text-white focus-visible:ring-red-500 h-12 rounded-xl transition-all group-hover/input:border-red-500/30 font-medium text-base"
                   />
-                  <div className="absolute inset-0 rounded-xl bg-indigo-500/5 opacity-0 group-focus-within/input:opacity-100 pointer-events-none transition-opacity" />
+                  <div className="absolute inset-0 rounded-xl bg-red-500/5 opacity-0 group-focus-within/input:opacity-100 pointer-events-none transition-opacity" />
                 </div>
               </motion.div>
 
@@ -144,20 +144,20 @@ export default function SettingsPage() {
                 <Button 
                   type="submit" 
                   disabled={isSaving || !name.trim()}
-                  className="relative group h-12 px-10 bg-white hover:bg-neutral-100 text-neutral-900 font-black rounded-xl text-base shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all overflow-hidden gap-2"
+                  className="relative group h-12 px-10 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl text-base shadow-[0_0_30px_rgba(239,68,68,0.3)] transition-all overflow-hidden gap-2"
                 >
                   {isSaving ? (
                     <span className="relative z-10 flex items-center gap-2">
                        <Loader2 className="w-5 h-5 animate-spin" />
-                       Updating...
+                       Updating Protocol...
                     </span>
                   ) : (
                     <>
                       <span className="relative z-10 flex items-center gap-2">
                         <Save className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                        Save Changes
+                        Save Sync Settings
                       </span>
-                      <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-neutral-300/40 to-transparent transition-transform duration-1000 ease-in-out" />
+                      <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out" />
                     </>
                   )}
                 </Button>

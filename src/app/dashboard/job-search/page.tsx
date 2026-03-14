@@ -192,7 +192,12 @@ export default function JobSearch() {
                     <Button 
                       onClick={() => {
                         toast.success(`Tailoring AI for ${job.title}...`);
-                        setTimeout(() => router.push("/dashboard/cover-letters"), 1500);
+                        const params = new URLSearchParams({
+                          title: job.title,
+                          company: job.company,
+                          description: job.description
+                        });
+                        setTimeout(() => router.push(`/dashboard/cover-letters/new?${params.toString()}`), 1000);
                       }}
                       className="relative group w-full bg-white text-neutral-900 hover:bg-neutral-100 font-black rounded-xl h-12 gap-2 overflow-hidden shadow-lg shadow-white/5"
                     >

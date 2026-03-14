@@ -15,6 +15,7 @@ import {
   X,
   ChevronRight
 } from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -48,7 +49,7 @@ export function DashboardHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/[0.04] bg-[#030303]/60 backdrop-blur-xl px-4 sm:px-6 h-16 flex items-center justify-between transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.04] bg-[#050505]/60 backdrop-blur-xl px-4 sm:px-6 h-16 flex items-center justify-between transition-all duration-300">
       <div className="flex items-center gap-4 lg:gap-10">
         {/* Mobile Menu Toggle */}
         <button 
@@ -58,14 +59,8 @@ export function DashboardHeader() {
           {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
 
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
-            <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-white font-black tracking-tighter leading-none text-lg sm:text-xl">Resume<span className="text-indigo-400">AI</span></span>
-            <span className="hidden sm:inline text-[9px] text-neutral-500 font-bold uppercase tracking-widest mt-0.5">Professional</span>
-          </div>
+        <Link href="/" className="shrink-0">
+          <Logo size="md" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -85,17 +80,17 @@ export function DashboardHeader() {
                   isActive ? "text-white" : "text-neutral-400 hover:text-neutral-200"
                 }`}
               >
-                <item.icon className={`w-4 h-4 ${isActive ? "text-indigo-400" : "text-neutral-500"}`} />
+                <item.icon className={`w-4 h-4 ${isActive ? "text-red-500" : "text-neutral-500"}`} />
                 {item.label}
                 
                 {isActive && (
                   <motion.div
                     layoutId="nav-active"
-                    className="absolute inset-0 bg-white/10 rounded-full shadow-[inset_0_0_10px_rgba(255,255,255,0.05),0_0_20px_rgba(99,102,241,0.1)] -z-10"
+                    className="absolute inset-0 bg-white/5 rounded-full shadow-[inset_0_0_20px_rgba(255,0,0,0.05),0_0_30px_rgba(239,68,68,0.1)] -z-10"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   >
-                    <div className="absolute inset-0 rounded-full border border-white/[0.08]" />
-                    <div className="absolute inset-x-4 -bottom-1 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-[1px]" />
+                    <div className="absolute inset-0 rounded-full border border-white/[0.12]" />
+                    <div className="absolute inset-x-4 -bottom-1 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent blur-[1px]" />
                   </motion.div>
                 )}
                 
@@ -119,15 +114,13 @@ export function DashboardHeader() {
         </Button>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" className="relative h-9 w-9 rounded-full border border-white/10 p-0 overflow-hidden hover:bg-white/5 ring-offset-[#030303] focus-visible:ring-indigo-500">
-              <Avatar className="h-full w-full">
-                <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
-                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-violet-600 text-[10px] font-bold text-white">
-                  {session?.user?.name?.charAt(0) || "U"}
-                </AvatarFallback>
-              </Avatar>
-            </Button>
+          <DropdownMenuTrigger className="relative h-9 w-9 rounded-full border border-white/10 p-0 overflow-hidden hover:bg-white/5 ring-offset-[#030303] focus-visible:ring-indigo-500 flex items-center justify-center cursor-pointer">
+            <Avatar className="h-full w-full">
+              <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
+              <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-violet-600 text-[10px] font-bold text-white">
+                {session?.user?.name?.charAt(0) || "U"}
+              </AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 bg-neutral-900 border-neutral-800 text-white shadow-2xl rounded-xl p-1.5" align="end">
             <div className="flex flex-col space-y-1 p-3">
@@ -148,7 +141,7 @@ export function DashboardHeader() {
             <DropdownMenuSeparator className="bg-neutral-800 my-1.5" />
             <DropdownMenuItem 
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="flex items-center gap-2 font-bold text-red-400 focus:bg-red-400/10 focus:text-red-300 rounded-lg cursor-pointer"
+              className="flex items-center gap-2 font-bold text-red-500 focus:bg-red-500/10 focus:text-red-400 rounded-lg cursor-pointer"
             >
               <LogOut className="w-4 h-4" /> Log out
             </DropdownMenuItem>
@@ -174,11 +167,8 @@ export function DashboardHeader() {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className="fixed inset-y-0 left-0 w-[280px] bg-[#030303] border-r border-white/5 z-[52] lg:hidden flex flex-col p-6 shadow-2xl"
             >
-              <div className="flex items-center gap-2.5 mb-10 pb-6 border-b border-white/5">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
-                  <FileText className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-white font-black tracking-tighter text-xl leading-none">Resume<span className="text-indigo-400">AI</span></span>
+              <div className="mb-10 pb-6 border-b border-white/5">
+                <Logo size="md" />
               </div>
 
               <div className="flex flex-col gap-2">
@@ -198,19 +188,19 @@ export function DashboardHeader() {
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <item.icon className={`w-4 h-4 ${isActive ? "text-indigo-400" : "text-neutral-500"}`} />
+                        <item.icon className={`w-4 h-4 ${isActive ? "text-red-500" : "text-neutral-500"}`} />
                         {item.label}
                       </div>
-                      <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? "text-indigo-400 translate-x-1" : "text-neutral-600 opacity-0 group-hover:opacity-100"}`} />
+                      <ChevronRight className={`w-4 h-4 transition-transform ${isActive ? "text-red-500 translate-x-1" : "text-neutral-600 opacity-0 group-hover:opacity-100"}`} />
                     </Link>
                   );
                 })}
               </div>
 
               <div className="mt-auto pt-6 border-t border-white/5">
-                <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold h-12 rounded-xl gap-2 shadow-lg shadow-indigo-600/20 transition-all active:scale-[0.98]">
+                <Button className="w-full bg-red-600 hover:bg-red-500 text-white font-bold h-12 rounded-xl gap-2 shadow-lg shadow-red-600/20 transition-all active:scale-[0.98]">
                   <Crown className="w-4 h-4" />
-                  Upgrade to Pro
+                  Upgrade to Pro intelligence
                 </Button>
               </div>
             </motion.div>

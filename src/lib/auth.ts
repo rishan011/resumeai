@@ -69,6 +69,22 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google") {
+        try {
+          // Check if we can write to the database
+          const test = await prisma.user.findFirst({ where: { email: user.email } });
+          return true;
+        } catch (error: any) {
+          console.error("❌ DATABASE_WRITE_ERROR:", error.message);
+          if (error.message.includes("read-only") || error.message.includes("readonly")) {
+            throw new Error("Database is in read-only mode (common on Vercel with SQLite). Please use a cloud database.");
+          }
+          return true; // Let them try anyway, but we logged the error
+        }
+      }
+      return true;
+    },
     async session({ session, token }) {
       if (token && session.user) {
         (session.user as any).id = token.id as string;
@@ -83,4 +99,5 @@ export const authOptions: NextAuthOptions = {
     }
   },
   secret: process.env.NEXTAUTH_SECRET || "super-secret-key-for-mvp-resume-ai",
+  debug: process.env.NODE_ENV === "development",
 };

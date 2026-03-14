@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
@@ -52,6 +52,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   resumes       Resume[]
+  youtubeSummaries YoutubeSummary[]
 }
 
 model VerificationToken {
@@ -73,4 +74,32 @@ model Resume {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model YoutubeSummary {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  videoId     String
+  videoUrl    String
+  title       String
+  channel     String?
+  thumbnail   String?
+  duration    String?
+  
+  summary     String
+  keyPoints   String   // JSON stringified array
+  chapters    String?  // JSON stringified array
+  quotes      String?  // JSON stringified array
+  viralClips  String?  // JSON stringified array
+  
+  actionableTakeaways String?  // JSON stringified array
+  complexityScore     String?  // Beginner, Intermediate, Expert
+  readingTime         String?  // e.g. "5 min"
+  
+  language    String   @default("en")
+  mode        String   @default("detailed") // quick, detailed, chapters
+  
+  createdAt   DateTime @default(now())
 }

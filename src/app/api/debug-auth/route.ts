@@ -23,6 +23,8 @@ export async function GET() {
     googleSecret: !!process.env.GOOGLE_CLIENT_SECRET,
     nextAuthSecret: !!process.env.NEXTAUTH_SECRET,
     nextAuthUrl: process.env.NEXTAUTH_URL || null,
+    postgresPrisma: !!process.env.POSTGRES_PRISMA_URL,
+    postgresDirect: !!process.env.POSTGRES_URL_NON_POOLING,
     dbStatus,
     dbError,
     dbType,

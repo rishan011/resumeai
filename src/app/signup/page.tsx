@@ -11,7 +11,7 @@ import { Sparkles, Loader2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { DashboardAmbientBg } from "@/components/dashboard/DashboardAmbientBg";
+import { Logo } from "@/components/brand/Logo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -66,8 +66,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-black">
-      <DashboardAmbientBg accentColor="violet" />
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-transparent grain-overlay">
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -75,11 +74,8 @@ export default function SignupPage() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="z-10"
       >
-        <Link href="/" className="flex items-center gap-2 text-2xl font-bold tracking-tighter text-white mb-8 hover:opacity-80 transition-all group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">Resume</span><span className="text-indigo-400">AI</span>
+        <Link href="/" className="hover:opacity-80 transition-all">
+          <Logo size="lg" />
         </Link>
       </motion.div>
 
@@ -89,8 +85,8 @@ export default function SignupPage() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="w-full max-w-md z-10"
       >
-        <Card className="bg-[#0A0A0B]/60 backdrop-blur-2xl border-white/[0.08] text-white shadow-[0_0_50px_rgba(139,92,246,0.1)] overflow-hidden relative group">
-          <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-violet-500/50 to-transparent opacity-50" />
+        <Card className="bg-[#0A0A0B]/40 backdrop-blur-3xl border-white/[0.05] text-white shadow-[0_0_80px_rgba(239,68,68,0.05)] overflow-hidden relative group rounded-[2.5rem]">
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/30 to-transparent opacity-50" />
           
           <CardHeader className="space-y-1 text-center pb-8 border-b border-white/[0.04]">
             <CardTitle className="text-3xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-400">Create Account</CardTitle>
@@ -187,7 +183,7 @@ export default function SignupPage() {
             </motion.form>
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-6 border-t border-white/[0.04] pt-8 pb-8 text-sm bg-violet-500/5">
+          <CardFooter className="flex flex-col gap-6 border-t border-white/[0.04] pt-8 pb-8 text-sm bg-red-500/5">
             <div className="flex justify-center w-full text-neutral-400 font-medium">
               Already have an account?&nbsp;
               <Link href="/login" className="text-white hover:text-violet-400 transition-colors font-bold tracking-wide">
@@ -204,7 +200,7 @@ export default function SignupPage() {
         transition={{ delay: 1, duration: 1 }}
         className="mt-8 text-[11px] text-neutral-600 font-medium tracking-widest uppercase z-10"
       >
-        © 2024 ResumeAI • Secure Cloud Encryption
+        © 2024 NeeDee • Secure Cloud Encryption
       </motion.div>
     </div>
   );

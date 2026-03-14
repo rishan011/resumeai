@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useSession, signOut, signIn } from "next-auth/react";
+import { Logo } from "@/components/brand/Logo";
 /* ─── Slide data ─────────────────────────────────────────────── */
 const SLIDES = [
   {
@@ -686,29 +687,13 @@ export default function Home() {
   return (
     <div className="h-[100dvh] overflow-y-auto snap-y snap-mandatory scroll-smooth bg-[#030303] text-neutral-50 font-sans antialiased relative selection:bg-indigo-500/30">
 
-      {/* Ambient Premium Dark Theme Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <motion.div 
-          animate={{ y: [0, -20, 0], scale: [1, 1.05, 1] }} 
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/15 rounded-full blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ y: [0, 20, 0], scale: [1, 1.05, 1] }} 
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/15 rounded-full blur-[120px]" 
-        />
-      </div>
+      {/* Ambient Premium Dark Theme Layer neutralized - Using Global PremiumBackground */}
 
       {/* ── NAV ── */}
       <nav className="fixed w-full top-0 z-50 border-b border-white/[0.04] bg-[#030303]/40 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-lg">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            Resume<span className="text-indigo-400">AI</span>
+            <Logo size="sm" />
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-500">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
@@ -881,7 +866,7 @@ export default function Home() {
               <div className="ml-4 flex items-center gap-2">
                 <div className="h-5 w-48 bg-neutral-800/80 rounded-md flex items-center px-2 gap-1.5">
                   <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/60" />
-                  <div className="text-[9px] text-neutral-600">resumeai.app / {slide.id}</div>
+                  <div className="text-[9px] text-neutral-600">needee.app / {slide.id}</div>
                 </div>
               </div>
               <div className="ml-auto text-[9px] text-neutral-600 flex items-center gap-1">
@@ -1049,7 +1034,7 @@ export default function Home() {
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-5">Ready to land your dream job?</h2>
-          <p className="text-neutral-400 mb-10 text-base max-w-lg mx-auto leading-relaxed">Join thousands of job seekers who built winning resumes with ResumeAI. Fast, simple, and incredibly effective.</p>
+          <p className="text-neutral-400 mb-10 text-base max-w-lg mx-auto leading-relaxed">Join thousands of job seekers who built winning resumes with NeeDee. Fast, simple, and incredibly effective.</p>
           <Link href="/dashboard">
             <Button size="lg" className="bg-white hover:bg-neutral-100 text-neutral-900 px-12 h-14 rounded-2xl shadow-xl font-bold text-lg">
               Build Your Resume Now <ArrowRight className="ml-2 w-5 h-5" />
@@ -1060,16 +1045,13 @@ export default function Home() {
         {/* FOOTER - Pinned to bottom of the 5th slide */}
         <footer className="w-full border-t border-white/[0.04] py-8 mt-auto bg-black/20 backdrop-blur-md">
           <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-sm font-semibold">
-              <div className="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center"><Sparkles className="w-3.5 h-3.5 text-white" /></div>
-              Resume<span className="text-indigo-400">AI</span>
-            </div>
+            <Logo size="sm" />
             <div className="flex gap-6 text-xs text-neutral-500 font-medium">
               <Link href="#" className="hover:text-neutral-300 transition-colors">Privacy Policy</Link>
               <Link href="#" className="hover:text-neutral-300 transition-colors">Terms of Service</Link>
               <Link href="#" className="hover:text-neutral-300 transition-colors">Contact</Link>
             </div>
-            <p className="text-neutral-600 text-xs">© 2025 ResumeAI · All rights reserved.</p>
+            <p className="text-neutral-600 text-xs">© 2025 NeeDee · All rights reserved.</p>
           </div>
         </footer>
       </section>

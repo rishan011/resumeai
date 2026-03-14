@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import { PremiumBackground } from "@/components/ui/PremiumBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "ResumeAI",
+  title: "NeeDee",
   description: "AI-Powered Automated Resume Builder",
 };
 
@@ -30,12 +36,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased grain-overlay`}
       >
+        <PremiumBackground />
         <AuthProvider>
           {children}
           <Analytics />
-          <Toaster position="bottom-right" className="font-sans" theme="light" />
+          <Toaster position="bottom-right" className="font-sans" theme="dark" />
         </AuthProvider>
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>

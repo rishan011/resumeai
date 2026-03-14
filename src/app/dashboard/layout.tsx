@@ -31,8 +31,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="min-h-screen bg-[#030303]">
-      <DashboardAmbientBg />
+    <div className="min-h-screen bg-transparent">
       <DashboardHeader />
       <div className="relative z-10">
         {children}

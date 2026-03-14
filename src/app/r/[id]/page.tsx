@@ -65,9 +65,17 @@ const mockSharedResume = {
   template: "modern" as const
 };
 
-export default function SharedResumePage({ params }: { params: { id: string } }) {
+export default async function SharedResumePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  
+  // In a real application, you would fetch this data from your database using `id`
+  // For the mock MVP, we will demonstrate the capability with static realistic data.
+  // const resume = await prisma.resume.findUnique({
+  //   where: { id },
+  // });
+
   // If the ID doesn't match our mock, return a 404
-  if (params.id !== "jane-smith-123") {
+  if (id !== "jane-smith-123") { // Assuming the instruction meant to update this line to use the new 'id' variable
     notFound();
   }
 
@@ -154,7 +162,7 @@ export default function SharedResumePage({ params }: { params: { id: string } })
        
        {/* Shareable Link Branding Footer */}
        <div className="mt-8 text-center text-sm text-neutral-500 font-medium">
-         Powered by <span className="text-indigo-600 font-bold">ResumeAI</span>
+         Powered by <span className="text-indigo-600 font-bold">NeeDee</span>
        </div>
     </div>
   );

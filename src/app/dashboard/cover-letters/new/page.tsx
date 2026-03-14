@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { ChevronLeft, Sparkles, Loader2, Save, Copy, Check, FileSignature, Download } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -14,29 +16,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Mock resume data to feed to the AI
-const mockResumeData = {
-  personalInfo: {
-    fullName: "Jane Smith",
-    jobTitle: "Senior Product Designer",
-    email: "jane.smith@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA"
-  },
-  summary: "Results-driven designer with over 8 years of experience building stunning digital experiences.",
-  experience: [
-    {
-      jobTitle: "Senior Product Designer",
-      company: "TechCorp Inc.",
-      description: "Led the redesign of the core SaaS platform, increasing user retention by 22% within Q1."
-    }
-  ],
-  skills: ["UI/UX Design", "Figma", "User Research"]
-};
-
 export default function NewCoverLetter() {
+  const searchParams = useSearchParams();
   const [jobDescription, setJobDescription] = useState("");
-  const [selectedResumeId, setSelectedResumeId] = useState("1");
+  const [resumes, setResumes] = useState<any[]>([]);
+  const [selectedResumeId, setSelectedResumeId] = useState<string>("");
+  const [isLoadingResumes, setIsLoadingResumes] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedText, setGeneratedText] = useState("");
   const [isCopied, setIsCopied] = useState(false);
@@ -48,25 +33,73 @@ export default function NewCoverLetter() {
     documentTitle: "Cover_Letter",
   });
 
+  useEffect(() => {
+    // Auto-fill from URL params
+    const title = searchParams.get("title");
+    const company = searchParams.get("company");
+    const desc = searchParams.get("description");
+
+    if (title || company || desc) {
+      let fullDesc = "";
+      if (title) fullDesc += `Role: ${title}\n`;
+      if (company) fullDesc += `Company: ${company}\n\n`;
+      if (desc) fullDesc += desc;
+      setJobDescription(fullDesc);
+    }
+
+    // Fetch real resumes
+    const fetchResumes = async () => {
+      try {
+        const res = await fetch("/api/resumes");
+        if (res.ok) {
+          const data = await res.json();
+          setResumes(data);
+          if (data.length > 0) {
+            setSelectedResumeId(data[0].id);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch resumes", error);
+        toast.error("Failed to load your resumes");
+      } finally {
+        setIsLoadingResumes(false);
+      }
+    };
+
+    fetchResumes();
+  }, [searchParams]);
+
   const handleGenerate = async () => {
-    if (!jobDescription.trim()) return;
+    if (!jobDescription.trim() || !selectedResumeId) {
+      toast.error("Please provide both a job description and select a resume.");
+      return;
+    }
+
+    const selectedResume = resumes.find(r => r.id === selectedResumeId);
+    if (!selectedResume) return;
 
     setIsGenerating(true);
+    setGeneratedText(""); // Clear previous
+
     try {
       const response = await fetch("/api/ai/cover-letter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Passing mock data since database integration is not complete
-        body: JSON.stringify({ resumeData: mockResumeData, jobDescription }),
+        body: JSON.stringify({ 
+          resumeData: JSON.parse(selectedResume.content), 
+          jobDescription 
+        }),
       });
 
       if (!response.ok) throw new Error("Generation failed");
 
       const data = await response.json();
       setGeneratedText(data.coverLetter || "Failed to parse cover letter.");
+      toast.success("Cover letter generated successfully!");
     } catch (error) {
       console.error(error);
-      setGeneratedText("An error occurred while generating your cover letter. Please check your API keys or try again.");
+      setGeneratedText("An error occurred while generating your cover letter. Please try again.");
+      toast.error("Failed to generate cover letter");
     } finally {
       setIsGenerating(false);
     }
@@ -75,6 +108,7 @@ export default function NewCoverLetter() {
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedText);
     setIsCopied(true);
+    toast.success("Copied to clipboard");
     setTimeout(() => setIsCopied(false), 2000);
   };
 
@@ -106,19 +140,33 @@ export default function NewCoverLetter() {
           <div className="space-y-6">
             <Card className="border-neutral-800 bg-neutral-900 shadow-sm">
               <CardHeader className="pb-4 border-b border-neutral-800">
-                <CardTitle className="text-lg text-white">Select Resume Form</CardTitle>
+                <CardTitle className="text-lg text-white">Select Resume</CardTitle>
                 <CardDescription className="text-neutral-400">Choose the resume to base this cover letter on.</CardDescription>
               </CardHeader>
               <CardContent className="pt-4">
-                <Select value={selectedResumeId} onValueChange={(v) => v && setSelectedResumeId(v)}>
-                  <SelectTrigger className="w-full bg-neutral-950 border-neutral-800 text-white">
-                    <SelectValue placeholder="Select a resume" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
-                    <SelectItem value="1">Frontend Developer Resume</SelectItem>
-                    <SelectItem value="2" className="focus:bg-neutral-800 focus:text-white">Product Manager Draft</SelectItem>
-                  </SelectContent>
-                </Select>
+                {isLoadingResumes ? (
+                  <div className="flex items-center gap-2 text-neutral-500 py-2">
+                    <Loader2 className="w-4 h-4 animate-spin text-indigo-500" /> 
+                    <span className="text-sm font-medium">Fetching resumes...</span>
+                  </div>
+                ) : resumes.length > 0 ? (
+                  <Select value={selectedResumeId} onValueChange={(v) => v && setSelectedResumeId(v)}>
+                    <SelectTrigger className="w-full bg-neutral-950 border-neutral-800 text-white h-12 rounded-xl">
+                      <SelectValue placeholder="Select a resume" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                      {resumes.map(resume => (
+                        <SelectItem key={resume.id} value={resume.id} className="focus:bg-neutral-800 focus:text-white uppercase text-[10px] font-black tracking-widest">
+                          {resume.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <div className="text-sm text-neutral-500 py-2 bg-neutral-950/50 rounded-lg px-4 border border-dashed border-neutral-800">
+                    No resumes found. <Link href="/builder/new" className="text-indigo-500 hover:underline">Create one first.</Link>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -129,7 +177,7 @@ export default function NewCoverLetter() {
               </CardHeader>
               <CardContent className="pt-4 p-0">
                 <textarea
-                  className="w-full min-h-[300px] p-4 text-sm bg-neutral-950 text-white border-0 border-b border-neutral-800 focus:outline-none focus:ring-0 resize-y placeholder:text-neutral-600"
+                  className="w-full min-h-[300px] p-4 text-sm bg-neutral-950 text-white border-0 border-b border-neutral-800 focus:outline-none focus:ring-0 resize-y placeholder:text-neutral-600 font-medium leading-relaxed"
                   placeholder="Paste the job description here..."
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
@@ -138,13 +186,13 @@ export default function NewCoverLetter() {
               <CardFooter className="bg-neutral-900/50 py-4 flex justify-end">
                 <Button 
                   onClick={handleGenerate} 
-                  disabled={!jobDescription.trim() || isGenerating}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-md relative overflow-hidden group border-none"
+                  disabled={!jobDescription.trim() || !selectedResumeId || isGenerating}
+                  className="bg-white hover:bg-neutral-100 text-neutral-900 font-black rounded-xl h-11 px-6 shadow-md relative overflow-hidden group border-none"
                 >
                   {isGenerating ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Generating...
+                      Crafting...
                     </>
                   ) : (
                     <>
@@ -152,6 +200,7 @@ export default function NewCoverLetter() {
                       Generate with AI
                     </>
                   )}
+                  <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] bg-gradient-to-r from-transparent via-neutral-300/40 to-transparent transition-transform duration-1000 ease-in-out" />
                 </Button>
               </CardFooter>
             </Card>
@@ -159,14 +208,14 @@ export default function NewCoverLetter() {
 
           {/* Right Column: Editor */}
           <div className="lg:h-full lg:min-h-[600px] flex flex-col">
-            <Card className="border-neutral-800 bg-neutral-900 shadow-sm flex-1 flex flex-col overflow-hidden">
+            <Card className="border-neutral-800 bg-neutral-900 shadow-sm flex-1 flex flex-col overflow-hidden rounded-2xl">
               <CardHeader className="border-b border-neutral-800 bg-neutral-900/80 backdrop-blur-sm py-4 flex flex-row items-center justify-between sticky top-0 z-10">
                 <div>
                   <CardTitle className="text-lg text-white">Editor</CardTitle>
                   <CardDescription className="text-neutral-400">Review and refine your generated letter.</CardDescription>
                 </div>
                 {generatedText && (
-                  <Button variant="outline" size="sm" onClick={handleCopy} className="h-8 transition-all border-neutral-700 hover:bg-neutral-800 text-white bg-neutral-900">
+                  <Button variant="outline" size="sm" onClick={handleCopy} className="h-8 transition-all border-neutral-700 hover:bg-neutral-800 text-white bg-neutral-900 font-bold rounded-lg px-4">
                     {isCopied ? (
                       <><Check className="w-3.5 h-3.5 mr-1.5 text-emerald-400" /> Copied</>
                     ) : (
@@ -178,25 +227,27 @@ export default function NewCoverLetter() {
               <CardContent className="p-0 flex-1 relative bg-neutral-950">
                 {!generatedText && !isGenerating ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-neutral-500 p-8 text-center bg-neutral-950/50">
-                    <FileSignature className="w-12 h-12 mb-4 text-neutral-700" />
-                    <p className="font-medium text-neutral-300 mb-1">Your letter will appear here</p>
-                    <p className="text-sm">Click &quot;Generate with AI&quot; to create a tailored cover letter.</p>
+                    <div className="w-20 h-20 rounded-full bg-neutral-900 border border-white/[0.05] flex items-center justify-center mb-6">
+                      <FileSignature className="w-8 h-8 text-neutral-700" />
+                    </div>
+                    <p className="font-bold text-white mb-2 tracking-tight text-lg">Your letter will appear here</p>
+                    <p className="text-sm text-neutral-500 max-w-[240px]">Click &quot;Generate with AI&quot; to create a perfectly tailored cover letter using your resume data.</p>
                   </div>
                 ) : isGenerating ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950/80 backdrop-blur-sm z-10 transition-all">
-                    <div className="w-16 h-16 relative flex items-center justify-center">
-                      <div className="absolute inset-0 border-4 border-indigo-900 rounded-full" />
+                    <div className="w-20 h-20 relative flex items-center justify-center">
+                      <div className="absolute inset-0 border-4 border-indigo-950 rounded-full" />
                       <div className="absolute inset-0 border-4 border-indigo-500 rounded-full border-t-transparent animate-spin" />
-                      <Sparkles className="w-5 h-5 text-indigo-400 animate-pulse" />
+                      <Sparkles className="w-6 h-6 text-indigo-400 animate-pulse" />
                     </div>
-                    <p className="mt-6 text-sm font-medium text-indigo-300 animate-pulse">Drafting your perfect letter...</p>
-                    <p className="text-xs text-indigo-400/70 mt-1">Analyzing job requirements</p>
+                    <p className="mt-8 text-base font-black text-white tracking-widest uppercase animate-pulse">Designing Perfection</p>
+                    <p className="text-xs text-indigo-400/70 mt-2 font-bold">Matching skills with expectations...</p>
                   </div>
                 ) : null}
                 
-                <div ref={printRef} className="w-full h-full p-6 bg-neutral-950 overflow-hidden print:m-0 print:p-10">
+                <div ref={printRef} className="w-full h-full p-8 bg-neutral-950 overflow-hidden print:m-0 print:p-10">
                   <textarea
-                    className="w-full h-[600px] lg:h-full text-sm text-neutral-200 bg-transparent border-none focus:outline-none focus:ring-0 resize-none font-serif leading-loose print:text-black print:text-base print:overflow-hidden print:h-auto"
+                    className="w-full h-[600px] lg:h-full text-base text-neutral-200 bg-transparent border-none focus:outline-none focus:ring-0 resize-none font-serif leading-relaxed print:text-black print:text-base print:overflow-hidden print:h-auto"
                     value={generatedText}
                     onChange={(e) => setGeneratedText(e.target.value)}
                     placeholder="Your cover letter text..."

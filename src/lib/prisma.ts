@@ -1,7 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient({});
+  const isVercel = process.env.VERCEL === "1";
+  const url = process.env.DATABASE_URL || "";
+  
+  if (isVercel && url.startsWith("file:")) {
+    console.warn("⚠️ CRITICAL: SQLite detected in Vercel environment. Database is READ-ONLY. Authentication and persistence will fail. Please switch to a PostgreSQL database (e.g., Neon/Supabase).");
+  }
+
+  return new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+  });
 };
 
 declare global {

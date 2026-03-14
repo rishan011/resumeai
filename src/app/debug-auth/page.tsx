@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import { Loader2, CheckCircle2, XCircle, AlertTriangle, Copy } from "lucide-react";
+import { toast } from "sonner";
 import { DashboardAmbientBg } from "@/components/dashboard/DashboardAmbientBg";
 
 const Badge = ({ children, className, variant }: any) => (
@@ -19,7 +20,7 @@ export default function DebugAuthPage() {
     fetch("/api/debug-auth")
       .then((res) => res.json())
       .then((d) => {
-        setData(d);
+        setData({ ...d, currentUrl: window.location.origin });
         setLoading(false);
       })
       .catch(() => {
@@ -30,7 +31,7 @@ export default function DebugAuthPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
       </div>
     );
   }
@@ -42,7 +43,7 @@ export default function DebugAuthPage() {
           <CheckCircle2 className="w-3 h-3" /> {text} set
         </Badge>
       ) : (
-        <Badge variant="destructive" className="bg-red-500/10 text-red-500 border-red-500/20 gap-1">
+        <Badge className="bg-red-500/10 text-red-500 border-red-500/20 gap-1">
           <XCircle className="w-3 h-3" /> {text} missing
         </Badge>
       )}
@@ -50,86 +51,99 @@ export default function DebugAuthPage() {
   );
 
   return (
-    <main className="min-h-screen p-8 lg:p-24 relative overflow-hidden bg-black text-white">
-      <DashboardAmbientBg accentColor="indigo" />
-      
+    <main className="min-h-screen p-8 lg:p-24 relative overflow-hidden bg-transparent text-white grain-overlay">
       <div className="max-w-3xl mx-auto relative z-10">
-        <h1 className="text-4xl font-black mb-8 tracking-tight">
-          Auth <span className="text-indigo-500">Diagnostics</span>
+        <div className="flex items-center gap-3 mb-4">
+            <div className="h-0.5 w-12 bg-red-500 rounded-full" />
+            <span className="text-red-500 font-bold tracking-[0.2em] text-[10px] uppercase">Intelligence Check</span>
+        </div>
+        <h1 className="text-5xl font-black mb-12 tracking-tighter italic uppercase">
+          Auth <span className="text-red-500">Diagnostics</span>
         </h1>
 
-        <div className="grid gap-6">
+        <div className="grid gap-8">
           {/* Environment Section */}
-          <Card className="bg-[#0A0A0B]/60 backdrop-blur-2xl border-white/[0.08] text-white">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold">Environment Variables</CardTitle>
+          <Card className="bg-[#0A0A0B]/40 backdrop-blur-3xl border-white/[0.05] text-white rounded-[2rem] overflow-hidden">
+            <CardHeader className="border-b border-white/5 pb-6">
+              <CardTitle className="text-xl font-black italic uppercase tracking-tight">Environment Sync</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
               <div className="flex justify-between items-center py-2 border-b border-white/5">
-                <span className="text-neutral-400 font-medium">GOOGLE_CLIENT_ID</span>
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_ID</span>
                 <StatusBadge condition={!!data?.googleId} text="ID" />
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/5">
-                <span className="text-neutral-400 font-medium">GOOGLE_CLIENT_SECRET</span>
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">GOOGLE_CLIENT_SECRET</span>
                 <StatusBadge condition={!!data?.googleSecret} text="Secret" />
               </div>
               <div className="flex justify-between items-center py-2 border-b border-white/5">
-                <span className="text-neutral-400 font-medium">NEXTAUTH_SECRET</span>
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">NEXTAUTH_SECRET</span>
                 <StatusBadge condition={!!data?.nextAuthSecret} text="Secret" />
               </div>
-              <div className="flex justify-between items-center py-2">
-                <span className="text-neutral-400 font-medium">NEXTAUTH_URL</span>
-                <div className="text-right">
-                    <StatusBadge condition={!!data?.nextAuthUrl} text="URL" />
-                    {data?.nextAuthUrl && (
-                        <p className="text-[10px] text-neutral-500 mt-1 font-mono">{data.nextAuthUrl}</p>
-                    )}
-                </div>
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">POSTGRES_PRISMA_URL</span>
+                <StatusBadge condition={!!data?.postgresPrisma} text="Pool URL" />
               </div>
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">POSTGRES_DIRECT_URL</span>
+                <StatusBadge condition={!!data?.postgresDirect} text="Direct URL" />
+              </div>
+              <div className="flex justify-between items-center py-2">
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Environment</span>
+                <Badge className="bg-white/5 text-white border-white/10 uppercase font-black px-4">{data?.env}</Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* URL Mismatch Check */}
+          <Card className="bg-[#0A0A0B]/40 backdrop-blur-3xl border-white/[0.05] text-white rounded-[2rem] overflow-hidden">
+            <CardHeader className="border-b border-white/5 pb-6">
+              <CardTitle className="text-xl font-black italic uppercase tracking-tight">Configuration Link</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-6 space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                        <p className="text-[10px] font-black text-neutral-500 uppercase tracking-widest mb-2">NEXTAUTH_URL</p>
+                        <p className="text-xs font-mono text-red-400 break-all">{data?.nextAuthUrl || "NOT SET"}</p>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                        <p className="text-[10px] font-black text-neutral-500 uppercase tracking-widest mb-2">Current Browser URL</p>
+                        <p className="text-xs font-mono text-emerald-400 break-all">{data?.currentUrl}</p>
+                    </div>
+                </div>
+
+                {data?.nextAuthUrl && data?.currentUrl && !data.currentUrl.includes(data.nextAuthUrl.replace('http://', '').replace('https://', '')) && (
+                    <div className="flex items-start gap-4 p-5 bg-red-500/5 border border-red-500/20 rounded-2xl">
+                        <AlertTriangle className="w-6 h-6 text-red-500 shrink-0 mt-1" />
+                        <div>
+                            <p className="text-sm font-black text-red-500 uppercase tracking-wider mb-1 italic">URL Mismatch Detected</p>
+                            <p className="text-xs text-neutral-400 leading-relaxed">
+                                Your <b>NEXTAUTH_URL</b> is set to a different domain than what you are currently visiting. This will cause Google Sign-in to fail. Ensure they match exactly in Vercel.
+                            </p>
+                        </div>
+                    </div>
+                )}
             </CardContent>
           </Card>
 
           {/* Database Section */}
-          <Card className="bg-[#0A0A0B]/60 backdrop-blur-2xl border-white/[0.08] text-white">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold">Database Connectivity</CardTitle>
+          <Card className="bg-[#0A0A0B]/40 backdrop-blur-3xl border-white/[0.05] text-white rounded-[2rem] overflow-hidden">
+            <CardHeader className="border-b border-white/5 pb-6">
+              <CardTitle className="text-xl font-black italic uppercase tracking-tight">Storage Intelligence</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pt-6">
               <div className="flex justify-between items-center">
-                <span className="text-neutral-400 font-medium">Prisma Connection</span>
-                {data?.dbStatus === "success" ? (
-                  <Badge className="bg-emerald-500/10 text-emerald-500 border-emerald-500/20 gap-1">
-                    <CheckCircle2 className="w-3 h-3" /> Connected
-                  </Badge>
-                ) : (
-                  <Badge variant="destructive" className="bg-red-500/10 text-red-500 border-red-500/20 gap-1">
-                    <XCircle className="w-3 h-3" /> Failed
-                  </Badge>
-                )}
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Database Engine</span>
+                <Badge className="bg-red-500/10 text-red-500 border-red-500/20 font-black uppercase px-4">{data?.dbType}</Badge>
               </div>
-              {data?.dbError && (
-                <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl">
-                  <p className="text-xs text-red-400 font-mono break-all">{data.dbError}</p>
-                </div>
-              )}
+
               {data?.dbType === "sqlite" && (
-                <div className="flex items-start gap-3 p-4 bg-amber-500/5 border border-amber-500/10 rounded-xl">
-                   <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div className="flex items-start gap-4 p-5 bg-amber-500/5 border border-amber-500/20 rounded-2xl">
+                   <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-1" />
                    <div>
-                      <p className="text-sm font-bold text-amber-500 uppercase tracking-wider mb-1">Warning: SQLite detected</p>
+                      <p className="text-sm font-black text-amber-500 uppercase tracking-wider mb-1 italic">Production Limitation</p>
                       <p className="text-xs text-neutral-400 leading-relaxed">
-                        SQLite is not recommended for production on Vercel as it is read-only.
-                      </p>
-                   </div>
-                </div>
-              )}
-              {data?.dbType === "postgresql" && data?.dbStatus === "success" && (
-                <div className="flex items-start gap-3 p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl">
-                   <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                   <div>
-                      <p className="text-sm font-bold text-emerald-500 uppercase tracking-wider mb-1">Success: PostgreSQL Active</p>
-                      <p className="text-xs text-neutral-400 leading-relaxed">
-                        Your production database is correctly configured and ready for user persistence.
+                        SQLite is read-only on Vercel. You must switch to a PostgreSQL database (like Neon or Supabase) for user sign-in to work permanently.
                       </p>
                    </div>
                 </div>
@@ -137,17 +151,26 @@ export default function DebugAuthPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-indigo-500/5 border-indigo-500/20 text-white">
-            <CardContent className="pt-6">
-              <h3 className="font-bold mb-2">Recommended Action</h3>
-              <p className="text-sm text-neutral-300 leading-relaxed">
-                If all environment variables are green but you still see `OAuthSignin`, ensure your **Authorized Redirect URI** in Google Cloud Console matches exactly:
+          <div className="p-8 rounded-[2.5rem] bg-gradient-to-br from-red-600/10 to-transparent border border-red-500/20">
+              <h3 className="font-black italic uppercase tracking-tight text-white mb-4">Required Action</h3>
+              <p className="text-sm text-neutral-400 leading-relaxed mb-6">
+                Copy this URI and paste it into your <b>Google Cloud Console</b> under "Authorized Redirect URIs":
               </p>
-              <div className="mt-4 p-3 bg-black/50 rounded-lg font-mono text-xs text-indigo-400 break-all border border-indigo-500/10">
-                https://resumeai-aqf6.vercel.app/api/auth/callback/google
+              <div className="group relative">
+                <div className="p-5 bg-black/40 rounded-2xl font-mono text-xs text-red-400 break-all border border-white/5 group-hover:border-red-500/30 transition-all">
+                    {data?.currentUrl}/api/auth/callback/google
+                </div>
+                <button 
+                    onClick={() => {
+                        navigator.clipboard.writeText(`${data?.currentUrl}/api/auth/callback/google`);
+                        toast.success("Redirect URI copied to clipboard");
+                    }}
+                    className="absolute right-3 top-3 p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white transition-all shadow-xl"
+                >
+                    <Copy className="w-4 h-4" />
+                </button>
               </div>
-            </CardContent>
-          </Card>
+          </div>
         </div>
       </div>
     </main>
