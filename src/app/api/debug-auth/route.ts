@@ -28,9 +28,9 @@ export async function GET() {
     // Check provider
     // @ts-ignore
     dbType = prisma._activeProvider || "postgresql";
-  } catch (error: any) {
+  } catch (error) {
     dbStatus = "failed";
-    dbError = error.message;
+    dbError = error instanceof Error ? error.message : "Unknown database error";
   }
 
   return NextResponse.json({
@@ -41,6 +41,8 @@ export async function GET() {
     dbStatus,
     dbError,
     dbType,
-    env: process.env.NODE_ENV
+    env: process.env.NODE_ENV,
+    postgresPrisma: !!process.env.POSTGRES_PRISMA_URL,
+    postgresDirect: !!process.env.POSTGRES_URL_NON_POOLING || !!process.env.POSTGRES_DIRECT_URL
   });
 }

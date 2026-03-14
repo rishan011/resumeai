@@ -1,6 +1,6 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
@@ -60,8 +60,9 @@ export const authOptions: NextAuthOptions = {
           }
 
           return user;
-        } catch (error: any) {
-          console.error("❌ AUTH_AUTHORIZE_ERROR:", error.message);
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : "Auth authorize error";
+          console.error("❌ AUTH_AUTHORIZE_ERROR:", errorMessage);
           throw error;
         }
       }
@@ -78,11 +79,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (token && session.user) {
-        (session.user as any).id = token.id as string;
+        (session.user as { id: string }).id = token.id as string;
       }
       return session;
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
       }

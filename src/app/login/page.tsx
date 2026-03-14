@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles, Loader2, ArrowRight } from "lucide-react";
+import { Loader2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -34,10 +35,45 @@ const itemVariants = {
 };
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const [errorHeader, setErrorHeader] = useState<string | null>(null);
+  const [errorDescription, setErrorDescription] = useState<string | null>(null);
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error) {
+      if (error === "OAuthCallback") {
+        setErrorHeader("Configuration Mismatch");
+        setErrorDescription("NextAuth and Google redirect URIs don't match. Check Vercel settings.");
+      } else if (error === "OAuthSignin") {
+        setErrorHeader("Signin Timeout");
+        setErrorDescription("Google took too long to respond. Please try again.");
+      } else if (error === "invalid_client") {
+        setErrorHeader("API Link Broken");
+        setErrorDescription("The Google Client ID or Secret in Vercel is invalid.");
+      } else {
+        setErrorHeader("Authentication Error");
+        setErrorDescription(`Error Code: ${error}. Please check the system logs.`);
+      }
+      toast.error(error);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +94,7 @@ export default function LoginPage() {
         router.push("/dashboard");
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       toast.error("An unexpected error occurred");
     } finally {
       setIsLoading(false);
@@ -96,6 +132,22 @@ export default function LoginPage() {
           </CardHeader>
 
           <CardContent className="pt-8">
+            {errorHeader && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="mb-6 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 flex gap-3"
+              >
+                <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                <div>
+                  <p className="text-xs font-black text-red-500 uppercase tracking-wider mb-1 italic">{errorHeader}</p>
+                  <p className="text-[11px] text-neutral-400 leading-relaxed font-medium">
+                    {errorDescription}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
             <motion.form 
               variants={containerVariants}
               initial="hidden"

@@ -132,10 +132,26 @@ export default function DebugAuthPage() {
               <CardTitle className="text-xl font-black italic uppercase tracking-tight">Storage Intelligence</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 pt-6">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
                 <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Database Engine</span>
-                <Badge className="bg-red-500/10 text-red-500 border-red-500/20 font-black uppercase px-4">{data?.dbType}</Badge>
+                <Badge className={`${data?.dbType === 'sqlite' ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'} font-black uppercase px-4`}>
+                  {data?.dbType}
+                </Badge>
               </div>
+
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-neutral-500 font-bold text-xs uppercase tracking-widest">Database Status</span>
+                <Badge className={`${data?.dbStatus?.includes('success') ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'} font-black uppercase px-4`}>
+                  {data?.dbStatus}
+                </Badge>
+              </div>
+
+              {data?.dbError && (
+                <div className="p-4 rounded-2xl bg-red-500/5 border border-red-500/20 overflow-hidden">
+                  <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1">Database Error</p>
+                  <p className="text-xs font-mono text-red-400 break-all">{data.dbError}</p>
+                </div>
+              )}
 
               {data?.dbType === "sqlite" && (
                 <div className="flex items-start gap-4 p-5 bg-amber-500/5 border border-amber-500/20 rounded-2xl">
