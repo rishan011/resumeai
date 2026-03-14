@@ -76,6 +76,11 @@ export default function DebugAuthPage() {
                       {data.googleClientIdPrefix}
                     </span>
                   )}
+                  {data?.googleIdLength && (
+                    <span className="text-[10px] font-mono text-neutral-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-tight">
+                      Length: {data.googleIdLength}
+                    </span>
+                  )}
                   <StatusBadge condition={!!data?.googleId} text="ID" />
                 </div>
               </div>
@@ -85,6 +90,11 @@ export default function DebugAuthPage() {
                   {data?.googleClientSecretSuffix && (
                     <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 lowercase tracking-tight">
                       {data.googleClientSecretSuffix}
+                    </span>
+                  )}
+                  {data?.googleSecretLength && (
+                    <span className="text-[10px] font-mono text-neutral-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-tight">
+                      Length: {data.googleSecretLength}
                     </span>
                   )}
                   <StatusBadge condition={!!data?.googleSecret} text="Secret" />
